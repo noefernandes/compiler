@@ -1,6 +1,18 @@
 programa{
 	inteiro a;
 	real b = 2.73;
+	
+	inteiro c = a ^ b;
+	inteiro d = a % b;
+	inteiro e = a / b;
+
+	string f = "la la la";
+
+	c == d;
+
+	b != a;
+
+	e && f;
 
 	leia(a);
 	
@@ -13,4 +25,6 @@ programa{
 	}
 
 	escreva("o resultado eh: ", a);
+
+	~~
 }

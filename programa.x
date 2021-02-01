@@ -1,12 +1,20 @@
 programa{
-	inteiro a;
-	real b = 2.73;
-	
-	inteiro c = a ^ b;
-	inteiro d = a % b;
-	inteiro e = a / b;
+	inteiro a;	
+	real b;
+	inteiro c;
+	inteiro d;
+	inteiro e;
+	string f;
 
-	string f = "la la la";
+	booleano g;
+
+	
+	b = 2.73;
+	c = a ^ b;
+	d = a % b;
+	e = a / b;
+	f = "la la la";
+	g = verdadeiro;
 
 	c == d;
 

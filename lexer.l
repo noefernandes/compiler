@@ -18,6 +18,7 @@ void report(const char* ttype, int line, int column);
 
 %option yylineno
 %option noyywrap nounput noinput
+%x C_COMMENT
 
 ID          [a-zA-Z][a-zA-Z0-9]*
 INT         [0]|-?[1-9][0-9]*
@@ -95,6 +96,10 @@ BOOL 	    verdadeiro|falso
  /* Ignora comentários e espaços em branco */
 \/\/[^\n]*  {}
 [ \t\r\n]   {}
+"\/*"            { BEGIN(C_COMMENT); }
+<C_COMMENT>"*\/" { BEGIN(INITIAL); }
+<C_COMMENT>\n   { }
+<C_COMMENT>.    { }
 
 <<EOF>>     {printf("(eof %u %u)\n", start_line, start_column); return 0;}
 

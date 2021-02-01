@@ -32,27 +32,27 @@ OP          [-+*/^%=]
    int prev_yylineno = yylineno;
 
  /* Delimitadores. */
-[(]         {printf("(parenteses esquerda %u)\n", start_line, start_column);}
-[)]         {printf("(parenteses direita %u)\n", start_line, start_column);}
-[{]         {printf("(abre chaves esquerda %u)\n", start_line, start_column);}
-[}]         {printf("(abre chaves direita %u)\n", start_line, start_column);}
-[;]         {printf("(ponto-e-vírgula %u)\n", start_line, start_column);}
-[,]         {printf("(vírgula %u)\n", start_line, start_column);}
+[(]         {printf("(parenteses esquerda %u %u)\n", start_line, start_column);}
+[)]         {printf("(parenteses direita %u %u)\n", start_line, start_column);}
+[{]         {printf("(abre chaves esquerda %u %u)\n", start_line, start_column);}
+[}]         {printf("(abre chaves direita %u %u)\n", start_line, start_column);}
+[;]         {printf("(ponto-e-vírgula %u %u)\n", start_line, start_column);}
+[,]         {printf("(vírgula %u %u)\n", start_line, start_column);}
 
 
  /* Tipos primitivos, operadores, palavras reservadas, etc */
-{OP}        {printf("(op \"%s\" %u)\n", yytext, start_line, start_column);}
+{OP}        {printf("(op \"%s\" %u %u)\n", yytext, start_line, start_column);}
 
-"||"|"&&"|"<"|">"|"<="|">="|"=="|"!=" {printf("(op logica\"%s\" %u)\n", yytext, start_line, start_column);}
+"||"|"&&"|"<"|">"|"<="|">="|"=="|"!=" {printf("(op logica\"%s\" %u  %u)\n", yytext, start_line, start_column);}
 
-inteiro|real|caractere|string|se|senao|enquanto|programa|para|leia|escreva|pare|continue|retorne|conjunto {printf("(palavra-chave %s %u)\n",yytext, start_line, start_column);}
+inteiro|real|caractere|string|se|senao|enquanto|programa|para|leia|escreva|pare|continue|retorne|conjunto {printf("(palavra-chave %s %u  %u)\n",yytext, start_line, start_column);}
 
 
-{INT}       {printf("(inteiro %s %u)\n",yytext, start_line, start_column);}
-{REAL}      {printf("(real %s %u)\n",yytext, start_line, start_column);}
-{CARACTERE} {printf("(caractere %s %u)\n",yytext, start_line, start_column);}
-{STRING}    {printf("(string %s %u)\n",yytext, start_line, start_column);}
-{ID}        {printf("(id \"%s\" %u)\n", yytext, start_line, start_column);}
+{INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column);}
+{REAL}      {printf("(real %s %u %u)\n",yytext, start_line, start_column);}
+{CARACTERE} {printf("(caractere %s %u %u)\n",yytext, start_line, start_column);}
+{STRING}    {printf("(string %s %u %u)\n",yytext, start_line, start_column);}
+{ID}        {printf("(id \"%s\" %u %u)\n", yytext, start_line, start_column);}
 
 
  /* Ignora comentários e espaços em branco */

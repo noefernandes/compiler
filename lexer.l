@@ -25,22 +25,26 @@ REAL        -?[0-9]+"."[0-9]*
 CARACTERE   '[ -~]'
 STRING      \"[ -~]*\"
 OP          [-+*/^%=]
-
+BOOL 	    verdadeiro|falso
+ 
 %%
    /* Any indented text before the first rule goes at the top of the lexer.  */
    int start_line, start_column;
    int prev_yylineno = yylineno;
 
  /* Delimitadores. */
-[(]         {printf("(parenteses esquerda %u %u)\n", start_line, start_column);}
-[)]         {printf("(parenteses direita %u %u)\n", start_line, start_column);}
-[{]         {printf("(abre chaves esquerda %u %u)\n", start_line, start_column);}
-[}]         {printf("(abre chaves direita %u %u)\n", start_line, start_column);}
-[;]         {printf("(ponto-e-vírgula %u %u)\n", start_line, start_column);}
-[,]         {printf("(vírgula %u %u)\n", start_line, start_column);}
+"("         {printf("(parenteses esquerda %u %u)\n", start_line, start_column);}
+")"         {printf("(parenteses direita %u %u)\n", start_line, start_column);}
+"["         {printf("(colchetes esquerda %u %u)\n", start_line, start_column);}
+"]"         {printf("(colchetes direita %u %u)\n", start_line, start_column);}
+"{"         {printf("(abre chaves esquerda %u %u)\n", start_line, start_column);}
+"}"         {printf("(abre chaves direita %u %u)\n", start_line, start_column);}
+";"         {printf("(ponto-e-vírgula %u %u)\n", start_line, start_column);}
+","         {printf("(vírgula %u %u)\n", start_line, start_column);}
 
  /* Operadores aritméticos */
 [+]	 {printf("(op_sum %u %u)\n", start_line, start_column);}
+"++"	 {printf("(op_add_one %u %u)\n", start_line, start_column);}
 [-]	 {printf("(op_sub %u %u)\n", start_line, start_column);}
 [*]	 {printf("(op_mult %u %u)\n", start_line, start_column);}
 [//]	 {printf("(op_div %u %u)\n", start_line, start_column);}
@@ -62,29 +66,31 @@ OP          [-+*/^%=]
 	"!="	 {printf("(op_log_diff %u %u)\n", start_line, start_column);}
 
  /* Palavras reservadas */
-	inteiro	 	 {printf("(key_int %u %u)\n", start_line, start_column);}
-	real	 	 {printf("(key_real %u %u)\n", start_line, start_column);}
+	
+	booleano 	 {printf("(key_bool %u %u)\n", start_line, start_column);}
 	caractere	 {printf("(key_caractere %u %u)\n", start_line, start_column);}
-	string	 	 {printf("(key_string %u %u)\n", start_line, start_column);}
-	senao	 	 {printf("(key_else %u %u)\n", start_line, start_column);}
+	conjunto	 {printf("(key_set %u %u)\n", start_line, start_column);}	
+	continue	 {printf("(key_continue %u %u)\n", start_line, start_column);}
 	enquanto	 {printf("(key_while %u %u)\n", start_line, start_column);}
-	programa	 {printf("(key_main %u %u)\n", start_line, start_column);}
-	leia	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
 	escreva	 	 {printf("(key_out %u %u)\n", start_line, start_column);}
-	conjunto	 {printf("(key_set %u %u)\n", start_line, start_column);}
-	se	 	 {printf("(key_if %u %u)\n", start_line, start_column);} 
+	inteiro	 	 {printf("(key_int %u %u)\n", start_line, start_column);}
+	leia	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
 	para	 	 {printf("(key_for %u %u)\n", start_line, start_column);}
 	pare	 	 {printf("(key_break %u %u)\n", start_line, start_column);}
-	continue	 {printf("(key_continue %u %u)\n", start_line, start_column);}
+	palavra		 {printf("(key_string %u %u)\n", start_line, start_column);}
+	programa	 {printf("(key_main %u %u)\n", start_line, start_column);}
+	se	 	 {printf("(key_if %u %u)\n", start_line, start_column);} 
+	senao	 	 {printf("(key_else %u %u)\n", start_line, start_column);}
+	real	 	 {printf("(key_real %u %u)\n", start_line, start_column);}
+	registro	 {printf("(key_register %u %u)\n", start_line, start_column);}
 	retorne		 {printf("(key_return %u %u)\n", start_line, start_column);}
-	
 
+{BOOL}      {printf("(booleano %s %u %u)\n",yytext, start_line, start_column);}
 {INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column);}
 {REAL}      {printf("(real %s %u %u)\n",yytext, start_line, start_column);}
 {CARACTERE} {printf("(caractere %s %u %u)\n",yytext, start_line, start_column);}
 {STRING}    {printf("(string %s %u %u)\n",yytext, start_line, start_column);}
 {ID}        {printf("(id \"%s\" %u %u)\n", yytext, start_line, start_column);}
-
 
  /* Ignora comentários e espaços em branco */
 #[^\n]*     {}
@@ -92,7 +98,7 @@ OP          [-+*/^%=]
 
 <<EOF>>     {printf("(eof %u %u)\n", start_line, start_column); return 0;}
 
-. 	    {printf("(%u %u,ERROR,\"%s\")\n",start_line, start_column,yytext); return 0;}
+. 	    {printf("(ERROR,%s %u %u)\n",yytext, start_line, start_column); return 0;}
 
 %%
 

@@ -1,11 +1,23 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+int yycolumn = 1;
 
+/* Forward declarations */
+void report(const char* ttype, int line, int column);
+
+/* This is executed before every action. */
+#define YY_USER_ACTION                                                   \
+  start_line = prev_yylineno; start_column = yycolumn;                   \
+  if (yylineno == prev_yylineno) yycolumn += yyleng;                     \
+  else {                                                                 \
+    for (yycolumn = 1; yytext[yyleng - yycolumn] != '\n'; ++yycolumn) {} \
+    prev_yylineno = yylineno;                                            \
+  }
 %}
 
 %option yylineno
-%option noyywrap
+%option noyywrap nounput noinput
 
 ID          [a-zA-Z][a-zA-Z0-9]*
 INT         [0]|-?[1-9][0-9]*
@@ -15,73 +27,80 @@ STRING      \"[ -~]*\"
 OP          [-+*/^%=]
 
 %%
+   /* Any indented text before the first rule goes at the top of the lexer.  */
+   int start_line, start_column;
+   int prev_yylineno = yylineno;
 
- /* delimitadores. */
-[(]         {printf("(parenteses esquerda %u)\n", yylineno);}
-[)]         {printf("(parenteses direita %u)\n", yylineno);}
-[{]         {printf("(abre chaves esquerda %u)\n", yylineno);}
-[}]         {printf("(abre chaves direita %u)\n", yylineno);}
-[;]         {printf("(ponto-e-vírgula %u)\n", yylineno);}
-[,]         {printf("(vírgula %u)\n", yylineno);}
+ /* Delimitadores. */
+[(]         {printf("(parenteses esquerda %u %u)\n", start_line, start_column);}
+[)]         {printf("(parenteses direita %u %u)\n", start_line, start_column);}
+[{]         {printf("(abre chaves esquerda %u %u)\n", start_line, start_column);}
+[}]         {printf("(abre chaves direita %u %u)\n", start_line, start_column);}
+[;]         {printf("(ponto-e-vírgula %u %u)\n", start_line, start_column);}
+[,]         {printf("(vírgula %u %u)\n", start_line, start_column);}
 
  /* Operadores aritméticos */
-[+]	 {printf("(op_sum %u)\n", yylineno);}
-[-]	 {printf("(op_sub %u)\n", yylineno);}
-[*]	 {printf("(op_mult %u)\n", yylineno);}
-[//]	 {printf("(op_div %u)\n", yylineno);}
-[/^]	 {printf("(op_exp %u)\n", yylineno);}
-[/%]	 {printf("(op_mod %u)\n", yylineno);}
+[+]	 {printf("(op_sum %u %u)\n", start_line, start_column);}
+[-]	 {printf("(op_sub %u %u)\n", start_line, start_column);}
+[*]	 {printf("(op_mult %u %u)\n", start_line, start_column);}
+[//]	 {printf("(op_div %u %u)\n", start_line, start_column);}
+[/^]	 {printf("(op_exp %u %u)\n", start_line, start_column);}
+[/%]	 {printf("(op_mod %u %u)\n", start_line, start_column);}
 
 
  /* Operadores de atribuição */
-[=]	 {printf("(op_assing %u)\n", yylineno);}
+[=]	 {printf("(op_assing %u %u)\n", start_line, start_column);}
 
  /* Operadores Lógicos */
-	"||"	 {printf("(op_log_or %u)\n", yylineno);}
-	"&&"	 {printf("(op_log_and %u)\n", yylineno);}
-	">"	 {printf("(op_log_gt %u)\n", yylineno);}
-	"<"	 {printf("(op_log_lt %u)\n", yylineno);}
-	"<="	 {printf("(op_log_lte %u)\n", yylineno);}
-	">="	 {printf("(op_log_gte %u)\n", yylineno);}
-	"=="	 {printf("(op_log_equal %u)\n", yylineno);}
-	"!="	 {printf("(op_log_diff %u)\n", yylineno);}
+	"||"	 {printf("(op_log_or %u %u)\n", start_line, start_column);}
+	"&&"	 {printf("(op_log_and %u %u)\n", start_line, start_column);}
+	">"	 {printf("(op_log_gt %u %u)\n", start_line, start_column);}
+	"<"	 {printf("(op_log_lt %u %u)\n", start_line, start_column);}
+	"<="	 {printf("(op_log_lte %u %u)\n", start_line, start_column);}
+	">="	 {printf("(op_log_gte %u %u)\n", start_line, start_column);}
+	"=="	 {printf("(op_log_equal %u %u)\n", start_line, start_column);}
+	"!="	 {printf("(op_log_diff %u %u)\n", start_line, start_column);}
 
  /* Palavras reservadas */
-	inteiro	 	 {printf("(key_int %u)\n", yylineno);}
-	real	 	 {printf("(key_real %u)\n", yylineno);}
-	caractere	 {printf("(key_caractere %u)\n", yylineno);}
-	string	 	 {printf("(key_string %u)\n", yylineno);}
-	senao	 	 {printf("(key_else %u)\n", yylineno);}
-	enquanto	 {printf("(key_while %u)\n", yylineno);}
-	programa	 {printf("(key_main %u)\n", yylineno);}
-	leia	 	 {printf("(key_in %u)\n", yylineno);}
-	escreva	 	 {printf("(key_out %u)\n", yylineno);}
-	conjunto	 {printf("(key_set %u)\n", yylineno);}
-	se	 	 {printf("(key_if %u)\n", yylineno);} 
-	para	 	 {printf("(key_for %u)\n", yylineno);}
-	pare	 	 {printf("(key_break %u)\n", yylineno);}
-	continue	 {printf("(key_continue %u)\n", yylineno);}
-	retorne		 {printf("(key_return %u)\n", yylineno);}
+	inteiro	 	 {printf("(key_int %u %u)\n", start_line, start_column);}
+	real	 	 {printf("(key_real %u %u)\n", start_line, start_column);}
+	caractere	 {printf("(key_caractere %u %u)\n", start_line, start_column);}
+	string	 	 {printf("(key_string %u %u)\n", start_line, start_column);}
+	senao	 	 {printf("(key_else %u %u)\n", start_line, start_column);}
+	enquanto	 {printf("(key_while %u %u)\n", start_line, start_column);}
+	programa	 {printf("(key_main %u %u)\n", start_line, start_column);}
+	leia	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
+	escreva	 	 {printf("(key_out %u %u)\n", start_line, start_column);}
+	conjunto	 {printf("(key_set %u %u)\n", start_line, start_column);}
+	se	 	 {printf("(key_if %u %u)\n", start_line, start_column);} 
+	para	 	 {printf("(key_for %u %u)\n", start_line, start_column);}
+	pare	 	 {printf("(key_break %u %u)\n", start_line, start_column);}
+	continue	 {printf("(key_continue %u %u)\n", start_line, start_column);}
+	retorne		 {printf("(key_return %u %u)\n", start_line, start_column);}
 	
 
-{INT}       {printf("(inteiro %s %u)\n",yytext, yylineno);}
-{REAL}      {printf("(real %s %u)\n",yytext, yylineno);}
-{CARACTERE} {printf("(caractere %s %u)\n",yytext, yylineno);}
-{STRING}    {printf("(string %s %u)\n",yytext, yylineno);}
-{ID}        {printf("(id \"%s\" %u)\n", yytext, yylineno);}
+{INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column);}
+{REAL}      {printf("(real %s %u %u)\n",yytext, start_line, start_column);}
+{CARACTERE} {printf("(caractere %s %u %u)\n",yytext, start_line, start_column);}
+{STRING}    {printf("(string %s %u %u)\n",yytext, start_line, start_column);}
+{ID}        {printf("(id \"%s\" %u %u)\n", yytext, start_line, start_column);}
 
 
  /* Ignora comentários e espaços em branco */
 #[^\n]*     {}
 [ \t\r\n]   {}
 
-<<EOF>>     {printf("(eof %u)\n", yylineno); return 0;}
+<<EOF>>     {printf("(eof %u %u)\n", start_line, start_column); return 0;}
 
-. 	    {printf("(%d,ERROR,\"%s\")\n",yylineno,yytext); return 0;}
+. 	    {printf("(%u %u,ERROR,\"%s\")\n",start_line, start_column,yytext); return 0;}
 
 %%
 
-int main(int argc, char* argv[]) {
-  yylex() ;
-  return EXIT_SUCCESS ;
+void report(const char* t, int l, int c) {
+  printf("Encountered %s \"%.*s\" at %d:%d\n", t, (int)yyleng, yytext, l, c);
+}
+
+int main(int argc, char** argv) {
+  while (yylex() > 0) {}
+  return 0;
 }

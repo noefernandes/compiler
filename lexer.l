@@ -93,7 +93,7 @@ BOOL 	    verdadeiro|falso
 {ID}        {printf("(id \"%s\" %u %u)\n", yytext, start_line, start_column);}
 
  /* Ignora comentários e espaços em branco */
-#[^\n]*     {}
+\/\/[^\n]*  {}
 [ \t\r\n]   {}
 
 <<EOF>>     {printf("(eof %u %u)\n", start_line, start_column); return 0;}

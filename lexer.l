@@ -3,18 +3,22 @@
 #include <stdlib.h>
 int yycolumn = 1;
 
-/*executed before every action*/
-#define YY_USER_ACTION
-	start-line = prev_yylineno; start_column = column;
-	if(yylineno == prev_yylineno) yycolumn += yyleng;
-	else{
-		for(yycolumn = 1; yytext[yyleng - yycolumn] != '\n'; ++yycolumn){}
-		prev_yylineno = yylineno;
-	}
+/* Forward declarations */
+void report(const char* ttype, int line, int column);
+
+/* This is executed before every action. */
+#define YY_USER_ACTION                                                   \
+  start_line = prev_yylineno; start_column = yycolumn;                   \
+  if (yylineno == prev_yylineno) yycolumn += yyleng;                     \
+  else {                                                                 \
+    for (yycolumn = 1; yytext[yyleng - yycolumn] != '\n'; ++yycolumn) {} \
+    prev_yylineno = yylineno;                                            \
+  }
 %}
 
 %option yylineno
 %option noyywrap nounput noinput
+
 ID          [a-zA-Z][a-zA-Z0-9]*
 INT         [0]|-?[1-9][0-9]*
 REAL        -?[0-9]+"."[0-9]*
@@ -23,9 +27,9 @@ STRING      \"[ -~]*\"
 OP          [-+*/^%=]
 
 %%
-
-int start_line, start_column;
-int prev_yylineno = yylineno;
+   /* Any indented text before the first rule goes at the top of the lexer.  */
+   int start_line, start_column;
+   int prev_yylineno = yylineno;
 
  /* Delimitadores. */
 [(]         {printf("(parenteses esquerda %u)\n", start_line, start_column);}
@@ -59,11 +63,11 @@ inteiro|real|caractere|string|se|senao|enquanto|programa|para|leia|escreva|pare|
 
 %%
 
-void report(const char* t, int l, int c){
-	printf("Encountered %s \"%.*s\" at % %d:%d\n", t, (int)yyleng, yytext, l, c);
+void report(const char* t, int l, int c) {
+  printf("Encountered %s \"%.*s\" at %d:%d\n", t, (int)yyleng, yytext, l, c);
 }
 
-int main(int argc, char* argv[]) {
-  yylex() ;
-  return EXIT_SUCCESS ;
+int main(int argc, char** argv) {
+  while (yylex() > 0) {}
+  return 0;
 }

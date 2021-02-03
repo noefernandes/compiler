@@ -45,26 +45,36 @@ BOOL 	    verdadeiro|falso
 
  /* Operadores aritméticos */
 [+]	 {printf("(op_sum %u %u)\n", start_line, start_column);}
-"++"	 {printf("(op_add_one %u %u)\n", start_line, start_column);}
 [-]	 {printf("(op_sub %u %u)\n", start_line, start_column);}
 [*]	 {printf("(op_mult %u %u)\n", start_line, start_column);}
-[//]	 {printf("(op_div %u %u)\n", start_line, start_column);}
+"/"	 {printf("(op_div %u %u)\n", start_line, start_column);}
 [/^]	 {printf("(op_exp %u %u)\n", start_line, start_column);}
 [/%]	 {printf("(op_mod %u %u)\n", start_line, start_column);}
 
 
  /* Operadores de atribuição */
 [=]	 {printf("(op_assing %u %u)\n", start_line, start_column);}
+"+="	 {printf("(op_assing_sum %u %u)\n", start_line, start_column);}
+"-="	 {printf("(op_assing_sub %u %u)\n", start_line, start_column);}
+"*="	 {printf("(op_assing_mult %u %u)\n", start_line, start_column);}
+"/="	 {printf("(op_assing_div %u %u)\n", start_line, start_column);}
+"\/\\="	 {printf("(op_assing_conj_union %u %u)\n", start_line, start_column);}
+"\\\/="	 {printf("(op_assing_conj_intersection %u %u)\n", start_line, start_column);}
 
  /* Operadores Lógicos */
-	"||"	 {printf("(op_log_or %u %u)\n", start_line, start_column);}
-	"&&"	 {printf("(op_log_and %u %u)\n", start_line, start_column);}
-	">"	 {printf("(op_log_gt %u %u)\n", start_line, start_column);}
-	"<"	 {printf("(op_log_lt %u %u)\n", start_line, start_column);}
-	"<="	 {printf("(op_log_lte %u %u)\n", start_line, start_column);}
-	">="	 {printf("(op_log_gte %u %u)\n", start_line, start_column);}
-	"=="	 {printf("(op_log_equal %u %u)\n", start_line, start_column);}
-	"!="	 {printf("(op_log_diff %u %u)\n", start_line, start_column);}
+"||"	 {printf("(op_log_or %u %u)\n", start_line, start_column);}
+"&&"	 {printf("(op_log_and %u %u)\n", start_line, start_column);}
+">"	 {printf("(op_log_gt %u %u)\n", start_line, start_column);}
+"<"	 {printf("(op_log_lt %u %u)\n", start_line, start_column);}
+"<="	 {printf("(op_log_lte %u %u)\n", start_line, start_column);}
+">="	 {printf("(op_log_gte %u %u)\n", start_line, start_column);}
+"=="	 {printf("(op_log_equal %u %u)\n", start_line, start_column);}
+"!="	 {printf("(op_log_diff %u %u)\n", start_line, start_column);}
+
+ /* Operadores de conjuntos */
+
+	"\/\\"   {printf("(op_conj_intersection %u %u)\n", start_line, start_column);}
+	"\\\/"	 {printf("(op_conj_union %u %u)\n", start_line, start_column);}
 
  /* Palavras reservadas */
 	

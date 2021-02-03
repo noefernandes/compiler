@@ -1,5 +1,16 @@
 programa{	
+	
+	/\
+	\/
 
+	+=
+	-=
+	*=
+	/=
+	/\=
+	\/=
+
+	/*
 	booleano g;
 	g = verdadeiro;
 	g = falso;
@@ -7,8 +18,12 @@ programa{
 	inteiro x[];
 
 	conjunto palavra conj;
-
+	
 	+
 	
 	++
+
+	// uhauhauhahuahuauhauha
+
+	++*/ 
 }

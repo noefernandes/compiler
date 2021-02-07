@@ -39,7 +39,7 @@ BOOL 	    verdadeiro|falso
 "["         {printf("(colchetes esquerda %u %u)\n", start_line, start_column);}
 "]"         {printf("(colchetes direita %u %u)\n", start_line, start_column);}
 "{"         {printf("(abre chaves esquerda %u %u)\n", start_line, start_column);}
-"}"         {printf("(abre chaves direita %u %u)\n", start_line, start_column);}
+"}"         {printf("(fecha chaves direita %u %u)\n", start_line, start_column);}
 ";"         {printf("(ponto-e-vírgula %u %u)\n", start_line, start_column);}
 ","         {printf("(vírgula %u %u)\n", start_line, start_column);}
 
@@ -75,6 +75,7 @@ BOOL 	    verdadeiro|falso
 
 	"\/\\"   {printf("(op_conj_intersection %u %u)\n", start_line, start_column);}
 	"\\\/"	 {printf("(op_conj_union %u %u)\n", start_line, start_column);}
+	"\'"     {printf("(op_conj_complement %u %u)\n", start_line, start_column);}
 
  /* Palavras reservadas */
 	
@@ -87,6 +88,7 @@ BOOL 	    verdadeiro|falso
 	inteiro	 	 {printf("(key_int %u %u)\n", start_line, start_column);}
 	leia	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
 	para	 	 {printf("(key_for %u %u)\n", start_line, start_column);}
+	em	 	     {printf("(key_in %u %u)\n", start_line, start_column);}
 	pare	 	 {printf("(key_break %u %u)\n", start_line, start_column);}
 	palavra		 {printf("(key_string %u %u)\n", start_line, start_column);}
 	programa	 {printf("(key_main %u %u)\n", start_line, start_column);}

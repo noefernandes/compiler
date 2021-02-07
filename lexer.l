@@ -88,7 +88,7 @@ BOOL 	    verdadeiro|falso
 	inteiro	 	 {printf("(key_int %u %u)\n", start_line, start_column);}
 	leia	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
 	para	 	 {printf("(key_for %u %u)\n", start_line, start_column);}
-	em	 	     {printf("(key_in %u %u)\n", start_line, start_column);}
+	em	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
 	pare	 	 {printf("(key_break %u %u)\n", start_line, start_column);}
 	palavra		 {printf("(key_string %u %u)\n", start_line, start_column);}
 	programa	 {printf("(key_main %u %u)\n", start_line, start_column);}
@@ -97,6 +97,8 @@ BOOL 	    verdadeiro|falso
 	real	 	 {printf("(key_real %u %u)\n", start_line, start_column);}
 	registro	 {printf("(key_register %u %u)\n", start_line, start_column);}
 	retorne		 {printf("(key_return %u %u)\n", start_line, start_column);}
+	void		 {printf("(key_return_nothing %u %u)\n", start_line, start_column);}
+
 
 {BOOL}      {printf("(booleano %s %u %u)\n",yytext, start_line, start_column);}
 {INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column);}

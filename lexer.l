@@ -3,9 +3,6 @@
 #include <stdlib.h>
 int yycolumn = 1;
 
-/* Forward declarations */
-void report(const char* ttype, int line, int column);
-
 /* This is executed before every action. */
 #define YY_USER_ACTION                                                   \
   start_line = prev_yylineno; start_column = yycolumn;                   \
@@ -120,10 +117,6 @@ BOOL 	    verdadeiro|falso
 . 	    {printf("(ERROR,%s %u %u)\n",yytext, start_line, start_column); return 0;}
 
 %%
-
-void report(const char* t, int l, int c) {
-  printf("Encountered %s \"%.*s\" at %d:%d\n", t, (int)yyleng, yytext, l, c);
-}
 
 int main(int argc, char** argv) {
   while (yylex() > 0) {}

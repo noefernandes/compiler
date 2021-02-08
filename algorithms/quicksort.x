@@ -1,35 +1,3 @@
-void quicksort(inteiro number[],inteiro first,inteiro last){
-   inteiro i, j, pivot, temp;
-
-   se(first<last){
-      pivot=first;
-      j=last;
-
-      para(i = first; i < j; i+=1){
-         para(guard_i = number[i]; guard_i <= number[pivot]&& i < last; i+=1){
-            guard_i = number[i];
-         }
-         para(guard_j = number[j]; guard_j > number[pivot]; j-=1){
-            guard_j = j;
-         }
-         se(i<j){
-            temp = number[i];
-            number[i] = number[j];
-            number[j] = temp;
-         }
-      }
-
-      temp = number[pivot];
-      number[pivot] = number[j];
-      number[j] = temp;
-      current_j_plus = j + 1;
-      current_j_minus j - 1;
-      quicksort(number,first,current_j_minus);
-      quicksort(number,current_j_plus,last);
-
-   }
-}
-
 inteiro programa{
    inteiro i;
    inteiro count = 10;
@@ -43,4 +11,36 @@ inteiro programa{
    }
    
    retorne 0;
+}
+
+void quicksort(inteiro number[],inteiro first,inteiro last){
+   inteiro i, j, pivot, temp;
+
+   se(first<last){
+      pivot=first;
+      j=last;
+
+      para(i = first; i < j; i+=1){
+         para(guardi = number[i]; guardi <= number[pivot]&& i < last; i+=1){
+            guardi = number[i];
+         }
+         para(guardj = number[j]; guardj > number[pivot]; j-=1){
+            guardj = j;
+         }
+         se(i<j){
+            temp = number[i];
+            number[i] = number[j];
+            number[j] = temp;
+         }
+      }
+
+      temp = number[pivot];
+      number[pivot] = number[j];
+      number[j] = temp;
+      currentjplus = j + 1;
+      currentjminus j - 1;
+      quicksort(number,first,currentjminus);
+      quicksort(number,currentjplus,last);
+
+   }
 }

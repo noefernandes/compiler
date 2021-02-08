@@ -1,4 +1,4 @@
-programa{
+inteiro programa(){
     conjunto inteiro a = {1, 2, 3, 4, 5, 6, 7};
 	conjunto inteiro b = {2, 3, 4};
 	conjunto inteiro c;
@@ -17,4 +17,6 @@ programa{
     //Verificando equivalência
     escreva(c);
    	escreva(d);
+
+   	retorne 0;
 }

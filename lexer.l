@@ -50,13 +50,13 @@ BOOL 	    verdadeiro|falso
 
 
  /* Operadores de atribuição */
-[=]	 {printf("(op_assing %u %u)\n", start_line, start_column);}
-"+="	 {printf("(op_assing_sum %u %u)\n", start_line, start_column);}
-"-="	 {printf("(op_assing_sub %u %u)\n", start_line, start_column);}
-"*="	 {printf("(op_assing_mult %u %u)\n", start_line, start_column);}
-"/="	 {printf("(op_assing_div %u %u)\n", start_line, start_column);}
-"\/\\="	 {printf("(op_assing_conj_union %u %u)\n", start_line, start_column);}
-"\\\/="	 {printf("(op_assing_conj_intersection %u %u)\n", start_line, start_column);}
+[=]	 {printf("(op_assign %u %u)\n", start_line, start_column);}
+"+="	 {printf("(op_assign_sum %u %u)\n", start_line, start_column);}
+"-="	 {printf("(op_assign_sub %u %u)\n", start_line, start_column);}
+"*="	 {printf("(op_assign_mult %u %u)\n", start_line, start_column);}
+"/="	 {printf("(op_assign_div %u %u)\n", start_line, start_column);}
+"\/\\="	 {printf("(op_assign_conj_union %u %u)\n", start_line, start_column);}
+"\\\/="	 {printf("(op_assign_conj_intersection %u %u)\n", start_line, start_column);}
 
  /* Operadores Lógicos */
 "||"	 {printf("(op_log_or %u %u)\n", start_line, start_column);}

@@ -1,6 +1,3 @@
-void merge(inteiro a[], inteiro p, inteiro q, inteiro r);
-void mergesort(inteiro a[], inteiro p, inteiro r);
-
 inteiro programa{
     inteiro num[] = {2,5,9,3,6,1,0,7,4,8};
     inteiro aux[10]; 

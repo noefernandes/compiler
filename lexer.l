@@ -31,14 +31,14 @@ BOOL 	    verdadeiro|falso
    int prev_yylineno = yylineno;
 
  /* Delimitadores. */
-"("         {printf("(parenteses esquerda %u %u)\n", start_line, start_column);}
-")"         {printf("(parenteses direita %u %u)\n", start_line, start_column);}
-"["         {printf("(colchetes esquerda %u %u)\n", start_line, start_column);}
-"]"         {printf("(colchetes direita %u %u)\n", start_line, start_column);}
-"{"         {printf("(abre chaves esquerda %u %u)\n", start_line, start_column);}
-"}"         {printf("(fecha chaves direita %u %u)\n", start_line, start_column);}
-";"         {printf("(ponto-e-vírgula %u %u)\n", start_line, start_column);}
-","         {printf("(vírgula %u %u)\n", start_line, start_column);}
+"("         {printf("(parenteses_esquerda %u %u)\n", start_line, start_column);}
+")"         {printf("(parenteses_direita %u %u)\n", start_line, start_column);}
+"["         {printf("(colchetes_esquerda %u %u)\n", start_line, start_column);}
+"]"         {printf("(colchetes_direita %u %u)\n", start_line, start_column);}
+"{"         {printf("(chaves_esquerda %u %u)\n", start_line, start_column);}
+"}"         {printf("(chaves_direita %u %u)\n", start_line, start_column);}
+";"         {printf("(ponto_e_virgula %u %u)\n", start_line, start_column);}
+","         {printf("(virgula %u %u)\n", start_line, start_column);}
 
  /* Operadores aritméticos */
 [+]	 {printf("(op_sum %u %u)\n", start_line, start_column);}
@@ -59,6 +59,7 @@ BOOL 	    verdadeiro|falso
 "\\\/="	 {printf("(op_assign_conj_intersection %u %u)\n", start_line, start_column);}
 
  /* Operadores Lógicos */
+"~"	 {printf("(op_log_not %u %u)\n", start_line, start_column);}
 "||"	 {printf("(op_log_or %u %u)\n", start_line, start_column);}
 "&&"	 {printf("(op_log_and %u %u)\n", start_line, start_column);}
 ">"	 {printf("(op_log_gt %u %u)\n", start_line, start_column);}
@@ -72,7 +73,6 @@ BOOL 	    verdadeiro|falso
 
 	"\/\\"   {printf("(op_conj_intersection %u %u)\n", start_line, start_column);}
 	"\\\/"	 {printf("(op_conj_union %u %u)\n", start_line, start_column);}
-	"\'"     {printf("(op_conj_complement %u %u)\n", start_line, start_column);}
 
  /* Palavras reservadas */
 	
@@ -94,14 +94,14 @@ BOOL 	    verdadeiro|falso
 	real	 	 {printf("(key_real %u %u)\n", start_line, start_column);}
 	registro	 {printf("(key_register %u %u)\n", start_line, start_column);}
 	retorne		 {printf("(key_return %u %u)\n", start_line, start_column);}
-	void		 {printf("(key_return_nothing %u %u)\n", start_line, start_column);}
+	vazio		 {printf("(key_return_nothing %u %u)\n", start_line, start_column);}
 
 
 {BOOL}      {printf("(booleano %s %u %u)\n",yytext, start_line, start_column);}
 {INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column);}
 {REAL}      {printf("(real %s %u %u)\n",yytext, start_line, start_column);}
 {CARACTERE} {printf("(caractere %s %u %u)\n",yytext, start_line, start_column);}
-{STRING}    {printf("(string %s %u %u)\n",yytext, start_line, start_column);}
+{STRING}    {printf("(palavra %s %u %u)\n",yytext, start_line, start_column);}
 {ID}        {printf("(id \"%s\" %u %u)\n", yytext, start_line, start_column);}
 
  /* Ignora comentários e espaços em branco */

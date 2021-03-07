@@ -3,6 +3,34 @@
 #include <stdlib.h>
 int yycolumn = 1;
 
+typedef enum {parenteses_esquerda, parenteses_direita, colchetes_esquerda, colchetes_direita, chaves_esquerda, chaves_direita, ponto_e_virgula, virgula, 
+op_sum, op_sub, op_mult, op_div, op_exp, op_mod, op_assign, op_assign_sum, op_assign_sub, op_assign_mult, op_assign_div, op_assign_conj_union, op_assign_conj_intersection, 
+op_log_not, op_log_or, op_log_and, op_log_gt, op_log_lt, op_log_lte, op_log_gte, op_log_equal, op_log_diff, 
+op_conj_intersection, op_conj_union, 
+key_bool, key_caractere, key_set, key_continue, key_while, key_out, key_int, key_read, key_for, key_in, key_break, key_string, key_main, key_if, key_else, key_real, key_register, key_return, key_return_nothing, 
+booleano, inteiro, real, caractere, palavra, id, null} Token;
+
+/* Queue of tokens */
+struct node {
+    Token data;
+    struct node *link;
+} *front, *back;
+
+void insert(Token i);
+Token pop();
+void display();
+
+/* LL(1) parser */
+Token tok;
+void nextsym() { tok = pop(); }
+void error(const char msg[]) { if (tok != null) printf(msg); }
+void accept(Token s) { if (tok == s) nextsym(); else error("accept: unexpected token\n"); }
+
+/* Nonterminals symbols */
+void expressao();
+void expA();
+void expBase();
+
 /* This is executed before every action. */
 #define YY_USER_ACTION                                                   \
   start_line = prev_yylineno; start_column = yycolumn;                   \
@@ -31,8 +59,8 @@ BOOL 	    verdadeiro|falso
    int prev_yylineno = yylineno;
 
  /* Delimitadores. */
-"("         {printf("(parenteses_esquerda %u %u)\n", start_line, start_column);}
-")"         {printf("(parenteses_direita %u %u)\n", start_line, start_column);}
+"("         {printf("(parenteses_esquerda %u %u)\n", start_line, start_column); insert(parenteses_esquerda);}
+")"         {printf("(parenteses_direita %u %u)\n", start_line, start_column); insert(parenteses_direita);}
 "["         {printf("(colchetes_esquerda %u %u)\n", start_line, start_column);}
 "]"         {printf("(colchetes_direita %u %u)\n", start_line, start_column);}
 "{"         {printf("(chaves_esquerda %u %u)\n", start_line, start_column);}
@@ -41,8 +69,8 @@ BOOL 	    verdadeiro|falso
 ","         {printf("(virgula %u %u)\n", start_line, start_column);}
 
  /* Operadores aritméticos */
-[+]	 {printf("(op_sum %u %u)\n", start_line, start_column);}
-[-]	 {printf("(op_sub %u %u)\n", start_line, start_column);}
+[+]	 {printf("(op_sum %u %u)\n", start_line, start_column); insert(op_sum);}
+[-]	 {printf("(op_sub %u %u)\n", start_line, start_column); insert(op_sub);}
 [*]	 {printf("(op_mult %u %u)\n", start_line, start_column);}
 "/"	 {printf("(op_div %u %u)\n", start_line, start_column);}
 [/^]	 {printf("(op_exp %u %u)\n", start_line, start_column);}
@@ -83,7 +111,7 @@ BOOL 	    verdadeiro|falso
 	enquanto	 {printf("(key_while %u %u)\n", start_line, start_column);}
 	escreva	 	 {printf("(key_out %u %u)\n", start_line, start_column);}
 	inteiro	 	 {printf("(key_int %u %u)\n", start_line, start_column);}
-	leia	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
+	leia	 	 {printf("(key_read %u %u)\n", start_line, start_column);}
 	para	 	 {printf("(key_for %u %u)\n", start_line, start_column);}
 	em	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
 	pare	 	 {printf("(key_break %u %u)\n", start_line, start_column);}
@@ -98,7 +126,7 @@ BOOL 	    verdadeiro|falso
 
 
 {BOOL}      {printf("(booleano %s %u %u)\n",yytext, start_line, start_column);}
-{INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column);}
+{INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column); insert(inteiro);}
 {REAL}      {printf("(real %s %u %u)\n",yytext, start_line, start_column);}
 {CARACTERE} {printf("(caractere %s %u %u)\n",yytext, start_line, start_column);}
 {STRING}    {printf("(palavra %s %u %u)\n",yytext, start_line, start_column);}
@@ -118,7 +146,68 @@ BOOL 	    verdadeiro|falso
 
 %%
 
+void insert(Token i) {
+    struct node *temp;
+    temp = (struct node*) malloc(sizeof(struct node));
+    temp->data = i;
+    temp->link = NULL;
+    if (back == NULL) {
+        front = back = temp;
+    } else {
+        back->link = temp;
+        back = temp;
+    }
+}
+
+Token pop() {
+    struct node *temp;
+    temp = front;
+    if (temp == NULL) {
+        printf("Empty queue!\n");
+        front = back = NULL;
+        return null;
+    } else {
+        Token data = front->data;
+        front = front->link;
+        free(temp);
+        return data;
+    }
+}
+
+void display() {
+    struct node *temp;
+    temp = front;
+    if (front == NULL) printf("Empty queue!\n");
+    else {
+        while (temp) {
+            printf("%d\n", temp->data);
+            temp = temp->link;
+        }
+    }
+}
+
+void expressao() {
+    expBase(); expA();
+}
+
+void expA() {
+    switch(tok) {
+        case op_sum: accept(op_sum); expBase(); expA(); break;
+        case op_sub: accept(op_sub); expBase(); expA(); break;
+    }
+}
+
+void expBase() {
+    switch(tok) {
+        case parenteses_esquerda: accept(parenteses_esquerda); expressao(); accept(parenteses_direita); break;
+        case inteiro: accept(inteiro); break;
+        default: error("expBase: unexpected token\n");
+    }
+}
+
 int main(int argc, char** argv) {
   while (yylex() > 0) {}
+  nextsym();
+  expressao();
   return 0;
 }

@@ -14,9 +14,22 @@ void error(const char msg[]) { printf(msg); }
 void accept(Token s) { if (tok == s) nextsym(); else error("accept: unexpected token\n"); }
 
 /* Nonterminals symbols */
-void expressao();
-void expA();
-void expBase();
+void Expressao();
+void Exp1();
+void TLogico();
+void TLogico1();
+void FLogico();
+void ExpRel();
+void ExpRel2();
+void ExpA();
+void ExpA1();
+void Termo();
+void Termo1();
+void Fator();
+void Fator2();
+void ExpUnaria();
+void ExpBase();
+void ExpId();
 
 /* This is executed before every action. */
 #define YY_USER_ACTION                                                   \
@@ -33,8 +46,8 @@ void expBase();
 %x C_COMMENT
 
 ID          [a-zA-Z][a-zA-Z0-9]*
-INT         [0]|-?[1-9][0-9]*
-REAL        -?[0-9]+"."[0-9]*
+INT         [0]|[1-9][0-9]*
+REAL        [0-9]+"."[0-9]*
 CARACTERE   '[ -~]'
 STRING      \"[ -~]*\"
 OP          [-+*/^%=]
@@ -46,22 +59,22 @@ BOOL 	    verdadeiro|falso
    int prev_yylineno = yylineno;
 
  /* Delimitadores. */
-"("         {printf("(parenteses_esquerda %u %u)\n", start_line, start_column);}
-")"         {printf("(parenteses_direita %u %u)\n", start_line, start_column);}
-"["         {printf("(colchetes_esquerda %u %u)\n", start_line, start_column);}
-"]"         {printf("(colchetes_direita %u %u)\n", start_line, start_column);}
-"{"         {printf("(chaves_esquerda %u %u)\n", start_line, start_column);}
-"}"         {printf("(chaves_direita %u %u)\n", start_line, start_column);}
-";"         {printf("(ponto_e_virgula %u %u)\n", start_line, start_column);}
-","         {printf("(virgula %u %u)\n", start_line, start_column);}
+"("         {return '(';}
+")"         {return ')';}
+"["         {return '[';}
+"]"         {return ']';}
+"{"         {return '{';}
+"}"         {return '}';}
+";"         {return ';';}
+","         {return ',';}
 
  /* Operadores aritméticos */
-[+]	 {printf("(op_sum %u %u)\n", start_line, start_column);}
-[-]	 {printf("(op_sub %u %u)\n", start_line, start_column);}
-[*]	 {printf("(op_mult %u %u)\n", start_line, start_column);}
-"/"	 {printf("(op_div %u %u)\n", start_line, start_column);}
-[/^]	 {printf("(op_exp %u %u)\n", start_line, start_column);}
-[/%]	 {printf("(op_mod %u %u)\n", start_line, start_column);}
+[+]	 {return '+';}
+[-]	 {return '-';}
+[*]	 {return '*';}
+"/"	 {return '/';}
+[/^]	 {return '^';}
+[/%]	 {return '%';}
 
 
  /* Operadores de atribuição */
@@ -86,8 +99,8 @@ BOOL 	    verdadeiro|falso
 
  /* Operadores de conjuntos */
 
-	"\/\\"   {printf("(op_conj_intersection %u %u)\n", start_line, start_column);}
-	"\\\/"	 {printf("(op_conj_union %u %u)\n", start_line, start_column);}
+	"\/\\"   {return op_conj_intersection;}
+	"\\\/"	 {return op_conj_union;}
 
  /* Palavras reservadas */
 	
@@ -113,11 +126,11 @@ BOOL 	    verdadeiro|falso
 
 
 {BOOL}      {printf("(booleano %s %u %u)\n",yytext, start_line, start_column);}
-{INT}       {printf("(inteiro %s %u %u)\n",yytext, start_line, start_column);}
-{REAL}      {printf("(real %s %u %u)\n",yytext, start_line, start_column);}
+{INT}       {return inteiro;}
+{REAL}      {return real;}
 {CARACTERE} {printf("(caractere %s %u %u)\n",yytext, start_line, start_column);}
 {STRING}    {printf("(palavra %s %u %u)\n",yytext, start_line, start_column);}
-{ID}        {printf("(id \"%s\" %u %u)\n", yytext, start_line, start_column);}
+{ID}        {return id;}
 
  /* Ignora comentários e espaços em branco */
 \/\/[^\n]*  {}
@@ -133,28 +146,112 @@ BOOL 	    verdadeiro|falso
 
 %%
 
-void expressao() {
-    expBase(); expA();
+void Expressao() {
+    TLogico(); Exp1();
 }
 
-void expA() {
+void Exp1() {
     switch(tok) {
-        case '+': accept('+'); expBase(); expA(); break;
-        case '-': accept('-'); expBase(); expA(); break;
+        case op_log_or: accept(op_log_or); TLogico(); Exp1(); break;
     }
 }
 
-void expBase() {
+void TLogico() {
+    FLogico(); TLogico1();
+}
+
+void TLogico1() {
     switch(tok) {
-        case '(': accept('('); expressao(); accept(')'); break;
+        case op_log_and: accept(op_log_and); FLogico(); TLogico1(); break;
+    }
+}
+
+void FLogico() {
+    switch(tok) {
+        case '~': accept('~'); ExpRel(); break;
+        default: ExpRel();
+    }
+}
+
+void ExpRel() {
+    ExpA(); ExpRel2();
+}
+
+void ExpRel2() {
+    switch(tok) {
+        case op_log_equal: accept(op_log_equal); ExpA(); break;
+        case op_log_diff: accept(op_log_diff); ExpA(); break;
+        case '<': accept('<'); ExpA(); break;
+        case '>': accept('>'); ExpA(); break;
+        case op_log_lte: accept(op_log_lte); ExpA(); break;
+        case op_log_gte: accept(op_log_gte); ExpA(); break;
+    }
+}
+
+void ExpA() {
+    Termo(); ExpA1();
+}
+
+void ExpA1() {
+    switch(tok) {
+        case '-': accept('-'); Termo(); ExpA1(); break;
+        case '+': accept('+'); Termo(); ExpA1(); break;
+        case op_conj_intersection: accept(op_conj_intersection); Termo(); ExpA1(); break;
+        case op_conj_union: accept(op_conj_union); Termo(); ExpA1(); break;
+    }
+}
+
+void Termo() {
+    Fator(); Termo1();
+}
+
+void Termo1() {
+    switch(tok) {
+        case '*': accept('*'); Fator(); Termo1(); break;
+        case '/': accept('/'); Fator(); Termo1(); break;
+        case '%': accept('%'); Fator(); Termo1(); break;
+    }
+}
+
+void Fator() {
+    ExpUnaria(); Fator2();
+}
+
+void Fator2() {
+    switch(tok) {
+        case '^': accept('^'); Fator(); break;
+    }
+}
+
+void ExpUnaria() {
+    switch(tok) {
+        case '-': accept('-'); ExpBase(); break;
+        case '+': accept('+'); ExpBase(); break;
+        default: ExpBase();
+    }
+}
+
+void ExpBase() {
+    switch(tok) {
+        case '(': accept('('); Expressao(); accept(')'); break;
+        case id: accept(id); ExpId(); break;
         case inteiro: accept(inteiro); break;
-        default: error("esperando '(' ou inteiro\n");
+        case real: accept(real); break;
+        case caractere: accept(caractere); break;
+        case palavra: accept(palavra); break;
+        default: error("esperando '(', id, inteiro, real, caractere ou palavra\n");
+    }
+}
+
+void ExpId() {
+    switch(tok) {
+        case '[': accept('['); Expressao(); accept(']'); break;
+        case '(': accept('('); Expressao(); accept(')'); break;
     }
 }
 
 int main(int argc, char** argv) {
     nextsym();
-    expressao();
+    Expressao();
     return 0;
 }
-

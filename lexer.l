@@ -239,7 +239,7 @@ void ExpBase() {
         case real: accept(real); break;
         case caractere: accept(caractere); break;
         case palavra: accept(palavra); break;
-        default: error("esperando '(' ou inteiro\n");
+        default: error("esperando '(', id, inteiro, real, caractere ou palavra\n");
     }
 }
 

@@ -3,9 +3,48 @@
 #include <stdlib.h>
 int yycolumn = 1;
 
-typedef enum {op_assign, op_assign_sum, op_assign_sub, op_assign_mult, op_assign_div, op_assign_conj_union, op_assign_conj_intersection, op_log_or, op_log_and, op_log_lte, op_log_gte, op_log_equal, op_log_diff, 
-op_conj_intersection, op_conj_union, booleano, inteiro, real, caractere, palavra, id, 
-key_bool, key_caractere, key_set, key_continue, key_while, key_out, key_int, key_read, key_for, key_in, key_break, key_string, key_main, key_if, key_else, key_real, key_register, key_return, key_return_nothing} Token;
+typedef enum {
+    op_assign, 
+    op_assign_sum, 
+    op_assign_sub, 
+    op_assign_mult, 
+    op_assign_div, 
+    op_assign_conj_union, 
+    op_assign_conj_intersection, 
+    op_log_or, 
+    op_log_and, 
+    op_log_lte, 
+    op_log_gte, 
+    op_log_equal, 
+    op_log_diff, 
+    op_conj_intersection, 
+    op_conj_union, 
+    booleano, 
+    inteiro, 
+    real, 
+    caractere, 
+    palavra, 
+    id, 
+    key_bool, 
+    key_caractere, 
+    key_set, 
+    key_continue, 
+    key_while, 
+    key_out, 
+    key_int, 
+    key_read, 
+    key_for, 
+    key_in, 
+    key_break, 
+    key_string, 
+    key_main, 
+    key_if, 
+    key_else, 
+    key_real, 
+    key_register, 
+    key_return, 
+    key_return_nothing
+} Token;
 
 /* LL(1) parser */
 Token tok;
@@ -76,60 +115,58 @@ BOOL 	    verdadeiro|falso
 [/^]	 {return '^';}
 [/%]	 {return '%';}
 
-
  /* Operadores de atribuição */
-[=]	 {printf("(op_assign %u %u)\n", start_line, start_column);}
-"+="	 {printf("(op_assign_sum %u %u)\n", start_line, start_column);}
-"-="	 {printf("(op_assign_sub %u %u)\n", start_line, start_column);}
-"*="	 {printf("(op_assign_mult %u %u)\n", start_line, start_column);}
-"/="	 {printf("(op_assign_div %u %u)\n", start_line, start_column);}
-"\/\\="	 {printf("(op_assign_conj_union %u %u)\n", start_line, start_column);}
-"\\\/="	 {printf("(op_assign_conj_intersection %u %u)\n", start_line, start_column);}
+[=]	     {return '=';}
+"+="	 {return op_assign_sum;}
+"-="	 {return op_assign_sub;}
+"*="	 {return op_assign_mult;}
+"/="	 {return op_assign_div;}
+"\/\\="	 {return op_assign_conj_union;}
+"\\\/="	 {return op_assign_conj_intersection;}
 
  /* Operadores Lógicos */
-"~"	 {printf("(op_log_not %u %u)\n", start_line, start_column);}
-"||"	 {printf("(op_log_or %u %u)\n", start_line, start_column);}
-"&&"	 {printf("(op_log_and %u %u)\n", start_line, start_column);}
-">"	 {printf("(op_log_gt %u %u)\n", start_line, start_column);}
-"<"	 {printf("(op_log_lt %u %u)\n", start_line, start_column);}
-"<="	 {printf("(op_log_lte %u %u)\n", start_line, start_column);}
-">="	 {printf("(op_log_gte %u %u)\n", start_line, start_column);}
-"=="	 {printf("(op_log_equal %u %u)\n", start_line, start_column);}
-"!="	 {printf("(op_log_diff %u %u)\n", start_line, start_column);}
+"~"	 {return '~';}
+"||" {return op_log_or;}
+"&&" {return op_log_and;}
+">"	 {return '>';}
+"<"	 {return '<';}
+"<=" {return op_log_lte;}
+">=" {return op_log_gte;}
+"==" {return op_log_equal;}
+"!=" {return op_log_diff;}
 
  /* Operadores de conjuntos */
 
 	"\/\\"   {return op_conj_intersection;}
 	"\\\/"	 {return op_conj_union;}
 
- /* Palavras reservadas */
-	
-	booleano 	 {printf("(key_bool %u %u)\n", start_line, start_column);}
-	caractere	 {printf("(key_caractere %u %u)\n", start_line, start_column);}
-	conjunto	 {printf("(key_set %u %u)\n", start_line, start_column);}	
-	continue	 {printf("(key_continue %u %u)\n", start_line, start_column);}
-	enquanto	 {printf("(key_while %u %u)\n", start_line, start_column);}
-	escreva	 	 {printf("(key_out %u %u)\n", start_line, start_column);}
-	inteiro	 	 {printf("(key_int %u %u)\n", start_line, start_column);}
-	leia	 	 {printf("(key_read %u %u)\n", start_line, start_column);}
-	para	 	 {printf("(key_for %u %u)\n", start_line, start_column);}
-	em	 	 {printf("(key_in %u %u)\n", start_line, start_column);}
-	pare	 	 {printf("(key_break %u %u)\n", start_line, start_column);}
-	palavra		 {printf("(key_string %u %u)\n", start_line, start_column);}
-	programa	 {printf("(key_main %u %u)\n", start_line, start_column);}
-	se	 	 {printf("(key_if %u %u)\n", start_line, start_column);} 
-	senao	 	 {printf("(key_else %u %u)\n", start_line, start_column);}
-	real	 	 {printf("(key_real %u %u)\n", start_line, start_column);}
-	registro	 {printf("(key_register %u %u)\n", start_line, start_column);}
-	retorne		 {printf("(key_return %u %u)\n", start_line, start_column);}
-	vazio		 {printf("(key_return_nothing %u %u)\n", start_line, start_column);}
+ /* Palavras reservadas */  
 
+	booleano 	 {return key_bool;}
+	caractere	 {return key_caractere;}
+	conjunto	 {return key_set;}
+	continue	 {return key_continue;}
+	enquanto	 {return key_while;}
+	escreva	 	 {return key_out;}
+	inteiro	 	 {return key_int;}
+	leia	 	 {return key_read;}
+	para	 	 {return key_for;}
+	em	 	     {return key_in;}
+	pare	 	 {return key_break;}
+	palavra		 {return key_string;}
+	programa	 {return key_main;}
+	se	 	     {return key_if;}
+	senao	 	 {return key_else;}
+	real	 	 {return key_real;}
+	registro	 {return key_register;}
+	retorne		 {return key_return;}
+	vazio		 {return key_return_nothing;}
 
-{BOOL}      {printf("(booleano %s %u %u)\n",yytext, start_line, start_column);}
+{BOOL}      {return booleano;}
 {INT}       {return inteiro;}
 {REAL}      {return real;}
-{CARACTERE} {printf("(caractere %s %u %u)\n",yytext, start_line, start_column);}
-{STRING}    {printf("(palavra %s %u %u)\n",yytext, start_line, start_column);}
+{CARACTERE} {return caractere;}
+{STRING}    {return palavra;}
 {ID}        {return id;}
 
  /* Ignora comentários e espaços em branco */

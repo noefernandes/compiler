@@ -29,13 +29,14 @@ typedef enum {
     key_caractere, 
     set, 
     continue, 
-    while, 
+    key_while, 
     out, 
     key_int, 
     read, 
-    for, 
+    key_for, 
+    key_for_set,
     in, 
-    break, 
+    key_break, 
     key_string, 
     main, 
     if, 
@@ -53,6 +54,20 @@ void error(const char msg[]) { printf(msg); }
 void accept(Token s) { if (tok == s) nextsym(); else error("accept: unexpected token\n"); }
 
 /* Nonterminals symbols */
+
+void Instrucoes();
+void Instrucoes2();
+
+void Instrucao();
+void InstrucaoRepeticao();
+void InstrucaoIO();
+void InstrucaoSaida();
+void Bloco();
+
+void LacoPara();
+void LacoParaConjunto();
+void LacoEnquanto();
+
 void Expressao();
 void Exp1();
 void TLogico();
@@ -146,13 +161,14 @@ BOOL 	    verdadeiro|falso
 	caractere	 {return key_caractere;}
 	conjunto	 {return set;}
 	continue	 {return continue;}
-	enquanto	 {return while;}
+	enquanto	 {return key_while;}
 	escreva	 	 {return out;}
 	inteiro	 	 {return key_int;}
 	leia	 	 {return read;}
-	para	 	 {return for;}
+	para	 	 {return key_for;}
+    paraconj     {return key_for_set;}
 	em	 	     {return in;}
-	pare	 	 {return break;}
+	pare	 	 {return key_break;}
 	palavra		 {return key_string;}
 	programa	 {return main;}
 	se	 	     {return if;}
@@ -182,6 +198,81 @@ BOOL 	    verdadeiro|falso
 . 	    {printf("(ERROR,%s %u %u)\n",yytext, start_line, start_column); return 0;}
 
 %%
+
+void Instrucoes(){
+    Instrucao(); Instrucoes2();
+}
+void Instrucoes2(){
+    Instrucoes();
+}
+
+void Instrucao(){
+    InstrucaoRepeticao(); InstrucaoIO(); InstrucaoSaida(); Bloco();
+}
+void InstrucaoRepeticao(){
+    LacoPara(); LacoParaConjunto(); LacoEnquanto();
+}
+void InstrucaoIO(){
+    switch(tok) {
+        case read: accept(read); accept('('); accept(id); accept(')'); accept(';'); break;
+        case out: accept(out); accept('('); Expressao(); accept(')'); accept(';'); break;
+    }
+}
+void InstrucaoSaida(){
+    switch(tok) {
+        case return: accept(return); Expressao(); accept(';'); break;
+        case key_break: accept(key_break); accept(';'); break;
+        case continue: accept(continue); accept(';'); break;
+    }
+}
+void Bloco(){
+    switch(tok) {
+        case '{': accept('{'); Instrucoes(); accept('}'); break;
+    }
+}
+
+void LacoPara(){
+    switch(tok) {
+        case key_for: 
+            accept(key_for); 
+            accept('('); 
+            TipoNumerico(); 
+            accept(id); 
+            accept(assign); 
+            Expressao(); 
+            accept(';'); 
+            Expressao(); 
+            accept(';'); 
+            InstrucaoAtribuicao(); 
+            accept(')'); 
+            Instrucao();
+            break;
+    }
+}
+void LacoParaConjunto(){
+    switch(tok) {
+        case key_for_set: 
+            accept(key_for_set); 
+            accept('('); 
+            accept(id); 
+            accept(in); 
+            Expressao(); 
+            accept(')'); 
+            Instrucao();
+            break;
+    }
+}
+void LacoEnquanto(){
+    switch(tok) {
+        case key_while: 
+            accept(key_while); 
+            accept('('); 
+            Expressao(); 
+            accept(')'); 
+            Instrucao();
+            break;
+    }
+}
 
 void Expressao() {
     TLogico(); Exp1();

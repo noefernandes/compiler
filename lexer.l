@@ -4,21 +4,21 @@
 int yycolumn = 1;
 
 typedef enum {
-    op_assign, 
-    op_assign_sum, 
-    op_assign_sub, 
-    op_assign_mult, 
-    op_assign_div, 
-    op_assign_conj_union, 
-    op_assign_conj_intersection, 
-    op_log_or, 
-    op_log_and, 
-    op_log_lte, 
-    op_log_gte, 
-    op_log_equal, 
-    op_log_diff, 
-    op_conj_intersection, 
-    op_conj_union, 
+    assign, 
+    assign_sum, 
+    assign_sub, 
+    assign_mult, 
+    assign_div, 
+    assign_union, 
+    assign_intersec, 
+    or, 
+    and, 
+    lte, 
+    gte, 
+    equal, 
+    diff, 
+    intersec, 
+    union, 
     booleano, 
     inteiro, 
     real, 
@@ -27,23 +27,23 @@ typedef enum {
     id, 
     key_bool, 
     key_caractere, 
-    key_set, 
-    key_continue, 
-    key_while, 
-    key_out, 
+    set, 
+    continue, 
+    while, 
+    out, 
     key_int, 
-    key_read, 
-    key_for, 
-    key_in, 
-    key_break, 
-    key_string, 
-    key_main, 
-    key_if, 
-    key_else, 
-    key_real, 
-    key_register, 
-    key_return, 
-    key_return_nothing
+    read, 
+    for, 
+    in, 
+    break, 
+    string, 
+    main, 
+    if, 
+    else, 
+    real, 
+    register, 
+    return, 
+    return_nothing
 } Token;
 
 /* LL(1) parser */
@@ -117,50 +117,50 @@ BOOL 	    verdadeiro|falso
 
  /* Operadores de atribuição */
 [=]	     {return '=';}
-"+="	 {return op_assign_sum;}
-"-="	 {return op_assign_sub;}
-"*="	 {return op_assign_mult;}
-"/="	 {return op_assign_div;}
-"\/\\="	 {return op_assign_conj_union;}
-"\\\/="	 {return op_assign_conj_intersection;}
+"+="	 {return assign_sum;}
+"-="	 {return assign_sub;}
+"*="	 {return assign_mult;}
+"/="	 {return assign_div;}
+"\/\\="	 {return assign_union;}
+"\\\/="	 {return assign_intersec;}
 
  /* Operadores Lógicos */
 "~"	 {return '~';}
-"||" {return op_log_or;}
-"&&" {return op_log_and;}
+"||" {return or;}
+"&&" {return and;}
 ">"	 {return '>';}
 "<"	 {return '<';}
-"<=" {return op_log_lte;}
-">=" {return op_log_gte;}
-"==" {return op_log_equal;}
-"!=" {return op_log_diff;}
+"<=" {return lte;}
+">=" {return gte;}
+"==" {return equal;}
+"!=" {return diff;}
 
  /* Operadores de conjuntos */
 
-	"\/\\"   {return op_conj_intersection;}
-	"\\\/"	 {return op_conj_union;}
+	"\/\\"   {return intersec;}
+	"\\\/"	 {return union;}
 
  /* Palavras reservadas */  
 
 	booleano 	 {return key_bool;}
 	caractere	 {return key_caractere;}
-	conjunto	 {return key_set;}
-	continue	 {return key_continue;}
-	enquanto	 {return key_while;}
-	escreva	 	 {return key_out;}
+	conjunto	 {return set;}
+	continue	 {return continue;}
+	enquanto	 {return while;}
+	escreva	 	 {return out;}
 	inteiro	 	 {return key_int;}
-	leia	 	 {return key_read;}
-	para	 	 {return key_for;}
-	em	 	     {return key_in;}
-	pare	 	 {return key_break;}
-	palavra		 {return key_string;}
-	programa	 {return key_main;}
-	se	 	     {return key_if;}
-	senao	 	 {return key_else;}
-	real	 	 {return key_real;}
-	registro	 {return key_register;}
-	retorne		 {return key_return;}
-	vazio		 {return key_return_nothing;}
+	leia	 	 {return read;}
+	para	 	 {return for;}
+	em	 	     {return in;}
+	pare	 	 {return break;}
+	palavra		 {return string;}
+	programa	 {return main;}
+	se	 	     {return if;}
+	senao	 	 {return else;}
+	real	 	 {return real;}
+	registro	 {return register;}
+	retorne		 {return return;}
+	vazio		 {return return_nothing;}
 
 {BOOL}      {return booleano;}
 {INT}       {return inteiro;}

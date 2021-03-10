@@ -10,14 +10,14 @@ typedef enum {
     assign_mult, 
     assign_div, 
     assign_union, 
-    assign_intersec, 
+    assign_intersection, 
     or, 
     and, 
     lte, 
     gte, 
     equal, 
     diff, 
-    intersec, 
+    intersection, 
     union, 
     booleano, 
     inteiro, 
@@ -36,11 +36,11 @@ typedef enum {
     for, 
     in, 
     break, 
-    string, 
+    key_string, 
     main, 
     if, 
     else, 
-    real, 
+    key_real, 
     register, 
     return, 
     return_nothing
@@ -122,7 +122,7 @@ BOOL 	    verdadeiro|falso
 "*="	 {return assign_mult;}
 "/="	 {return assign_div;}
 "\/\\="	 {return assign_union;}
-"\\\/="	 {return assign_intersec;}
+"\\\/="	 {return assign_intersection;}
 
  /* Operadores Lógicos */
 "~"	 {return '~';}
@@ -137,7 +137,7 @@ BOOL 	    verdadeiro|falso
 
  /* Operadores de conjuntos */
 
-	"\/\\"   {return intersec;}
+	"\/\\"   {return intersection;}
 	"\\\/"	 {return union;}
 
  /* Palavras reservadas */  
@@ -153,11 +153,11 @@ BOOL 	    verdadeiro|falso
 	para	 	 {return for;}
 	em	 	     {return in;}
 	pare	 	 {return break;}
-	palavra		 {return string;}
+	palavra		 {return key_string;}
 	programa	 {return main;}
 	se	 	     {return if;}
 	senao	 	 {return else;}
-	real	 	 {return real;}
+	real	 	 {return key_real;}
 	registro	 {return register;}
 	retorne		 {return return;}
 	vazio		 {return return_nothing;}
@@ -189,7 +189,7 @@ void Expressao() {
 
 void Exp1() {
     switch(tok) {
-        case op_log_or: accept(op_log_or); TLogico(); Exp1(); break;
+        case or: accept(or); TLogico(); Exp1(); break;
     }
 }
 
@@ -199,7 +199,7 @@ void TLogico() {
 
 void TLogico1() {
     switch(tok) {
-        case op_log_and: accept(op_log_and); FLogico(); TLogico1(); break;
+        case and: accept(and); FLogico(); TLogico1(); break;
     }
 }
 
@@ -216,12 +216,12 @@ void ExpRel() {
 
 void ExpRel2() {
     switch(tok) {
-        case op_log_equal: accept(op_log_equal); ExpA(); break;
-        case op_log_diff: accept(op_log_diff); ExpA(); break;
+        case equal: accept(equal); ExpA(); break;
+        case diff: accept(diff); ExpA(); break;
         case '<': accept('<'); ExpA(); break;
         case '>': accept('>'); ExpA(); break;
-        case op_log_lte: accept(op_log_lte); ExpA(); break;
-        case op_log_gte: accept(op_log_gte); ExpA(); break;
+        case lte: accept(lte); ExpA(); break;
+        case gte: accept(gte); ExpA(); break;
     }
 }
 
@@ -233,8 +233,8 @@ void ExpA1() {
     switch(tok) {
         case '-': accept('-'); Termo(); ExpA1(); break;
         case '+': accept('+'); Termo(); ExpA1(); break;
-        case op_conj_intersection: accept(op_conj_intersection); Termo(); ExpA1(); break;
-        case op_conj_union: accept(op_conj_union); Termo(); ExpA1(); break;
+        case intersection: accept(intersection); Termo(); ExpA1(); break;
+        case union: accept(union); Termo(); ExpA1(); break;
     }
 }
 

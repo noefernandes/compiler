@@ -1,3 +1,6 @@
+#ifndef RECURSIVE_PARSER_H
+#define RECURSIVE_PARSER_H
+
 #include "tokens.h"
 
 void nextsym();
@@ -21,3 +24,5 @@ void Fator2();
 void ExpUnaria();
 void ExpBase();
 void ExpId();
+
+#endif

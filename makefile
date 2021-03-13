@@ -1,3 +1,3 @@
-make-rp: recursiveParser.c lex.yy.c
+make:
 	flex lexer.l
-	gcc -o lexer recursiveParser.c lex.yy.c
+	gcc -o lexer tableParser.c recursiveParser.c lex.yy.c

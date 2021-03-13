@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "tokens.h"
 #include "recursiveParser.h"
+#include "tableParser.h"
 int yycolumn = 1;
 int line, column;
 
@@ -122,8 +123,20 @@ BOOL 	    verdadeiro|falso
 
 %%
 
-int main(int argc, char** argv) {
-    nextsym();
-    Expressao();
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+	printf("Informe o tipo do analisador: r (recursive) ou t (table)\n");
+	return 0;
+    }
+
+    char tipo = *argv[1];
+    if (tipo == 'r') {
+	nextsym();
+	Expressao();
+    } else if (tipo == 't') {
+        initStack();
+        initTable();
+        runTableParser();
+    }
     return 0;
 }

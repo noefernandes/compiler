@@ -259,3 +259,196 @@ void ExpId() {
         default: error("esperando [, ( ou .\n");
     }
 }
+
+
+void Programa() {
+    switch(tok) {
+        case key_def:
+        case key_deftipo:
+        case '(':
+        case id:
+        case key_if:
+        case key_read:
+        case key_out:
+        case key_return:
+        case key_break:
+        case key_continue:
+        case '{':
+        case key_for:
+        case key_for_set:
+        case key_while:
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: Def(); Programa(); break;
+        default: error("esperando def, deftipo, (, id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, enquanto, caractere, palavra, conjunto, registro, vetor, inteiro, real, booleano\n");
+    }
+}
+
+void Def() {
+    switch(tok) {
+        case key_deftipo: accept(key_def); DefinicaoFuncao(); break;
+        case key_deftipo: DefinicaoRegistro(); break;
+        case key_return_nothing:
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: Instrucao(); break;
+        default: error("esperando def, deftipo, (, id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, enquanto, caractere, palavra, conjunto, registro, vetor, inteiro, real, booleano\n");
+    }
+}
+
+void DefinicaoRegistro() {
+    switch(tok) {
+        case key_deftipopo: accept(key_deftipo); accept(key_register); accept(id); accept('{'); ListaAtributos(); accept('}'); break;
+        default: error("esperando deftipo\n");
+    }
+}
+
+void ListaAtributos() {
+    switch(tok) {
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: InstrucaoDeclIni(); ListaAtributos2(); break;
+        default: error("esperando caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n"); 
+    }
+}
+
+void ListaAtributos2() {
+    switch(tok) {
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: ListaAtributos(); break;
+        case '}': break;
+        default: error("esperando caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n"); 
+    }
+} 
+
+
+void DefinicaoFuncao() {
+    switch(tok) {
+        case key_return_nothing:
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: TipoFuncao(); accept(id); accept('('); ListaParamsFunc(); accept(')'); Bloco(); break;
+        default: error("esperando vazio, caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");
+    }
+}
+
+void ListaParamsFunc() {
+    switch(tok) {
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: ParametroFuncao(); ListaParamsFunc2(); break;
+        case ')': break;
+        default: error("esperando caractere, palavra, conjunto, registro, vetor, inteiro, real, booleano ou )\n");   
+    }
+}
+
+void ParametroFuncao() {
+    switch(tok) {
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: Tipo(); accept(id); break;
+        default: error("esperando caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");
+    }
+}
+
+void ListaParamsFunc2() {
+    switch(tok) {
+        case virgula: accept(virgula); ParametroFuncao(); break;
+        case ')': break;
+        default: error("esperando virgula ou )\n");
+    }
+}
+
+void TipoFuncao() {
+    switch(tok) {
+        case key_return_nothing: accept(key_return_nothing); break;
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_int:
+        case key_real:
+        case key_bool: Tipo(); break;
+        default: error("esperando vazio, caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");
+    }
+}
+
+void Tipo() {
+    switch(tok) {
+        case key_caractere:
+        case key_string:
+        case key_int:
+        case key_real:
+        case key_bool: TipoPrimitivo(); break;
+        case key_set:
+        case key_register:
+        case key_vetor: TipoEstruturado(); break;
+        default: error("esperando caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");   
+    }
+}
+
+void TipoPrimitivo() {
+    switch(tok) {
+        case key_int:
+        case key_real:
+        case key_bool: TipoNumerico(); break;
+        case key_caractere: accept(key_caractere); break;
+        case key_string: accept(key_string); break;
+        default: error("esperando inteiro, real, booleano, caractere ou palavra\n");
+    }
+}
+
+void TipoNumerico() {
+    switch(tok) {
+        case key_int: accept(key_int); break;
+        case key_real: accept(key_real); break;
+        case key_bool: accept(key_bool); break;
+        default: error("esperando inteiro, real ou booleano\n");
+    }
+}
+
+void TipoEstruturado() {
+    switch(tok) {
+        case key_set: accept(key_set); Tipo(); break;
+        case key_register: accept(key_register); accept(id); break;
+        case key_vetor: accept(key_vetor); Tipo(); accept('['); accept(']'); break;
+        default: error("esperando conjunto, registro ou vetor\n");
+    }
+}

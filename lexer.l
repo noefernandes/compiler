@@ -99,6 +99,10 @@ BOOL 	    verdadeiro|falso
 	registro	 {printf("(key_register %u %u)\n", start_line, start_column);}
 	retorne		 {printf("(key_return %u %u)\n", start_line, start_column);}
 	vazio		 {printf("(key_return_nothing %u %u)\n", start_line, start_column);}
+	def          {printf("(key_def %u %u)\n", start_line, start_column);}
+	deftipo      {printf("(key_deftipo %u %u)\n", start_line, start_column);}
+	paraconj 	 {printf("(key_for_set %u %u)\n", start_line, start_column);}
+	vetor   	 {printf("(key_vetor %u %u)\n", start_line, start_column);}
 
 
 {BOOL}      {printf("(booleano %s %u %u)\n",yytext, start_line, start_column);}

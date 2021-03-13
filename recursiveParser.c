@@ -18,6 +18,190 @@ void accept(Token s) {
     else error("token inesperado\n");
 }
 
+void Instrucoes(){
+    switch(tok) {
+        case id:
+        case key_if:
+        case key_read:
+        case key_out:
+        case key_return:
+        case key_break:
+        case key_continue:
+        case '{':
+        case key_for:
+        case key_for_set:
+        case key_while:
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_real:
+        case key_int:
+        case key_bool:
+        case parenteses_esquerda: Instrucao(); Instrucoes2(); break;
+        default: error(
+            "esperando id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, caractere, palavra, conjunto, registro, vetor, real, inteiro, booleano \n"
+        );
+    }
+}
+void Instrucoes2(
+    switch(tok) {
+        case id:
+        case key_if:
+        case key_read:
+        case key_out:
+        case key_return:
+        case key_break:
+        case key_continue:
+        case '{':
+        case key_for:
+        case key_for_set:
+        case key_while:
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_real:
+        case key_int:
+        case key_bool:
+        case parenteses_esquerda: Instrucao(); break;
+        case '}': break;        
+        default: error("esperando } \n");
+    }   
+);
+
+void Instrucao(
+    switch(tok) {
+        case id:
+        case key_if:
+        case key_read:
+        case key_out:
+        case key_return:
+        case key_break:
+        case key_continue:
+        case '{':
+        case key_for:
+        case key_for_set:
+        case key_while:
+        case key_caractere:
+        case key_string:
+        case key_set:
+        case key_register:
+        case key_vetor:
+        case key_real:
+        case key_int:
+        case key_bool:
+        case parenteses_esquerda: InstrucaoRepeticao(); InstrucaoIO(); InstrucaoSaida(); Bloco(); break;
+        default: error(
+            "esperando id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, caractere, palavra, conjunto, registro, vetor, real, inteiro, booleano\n"
+        );
+    }
+);
+
+void InstrucaoRepeticao(
+    switch(tok) {
+        case key_for_set:
+        case key_while:
+        case key_for: LacoPara(); LacoParaConjunto(); LacoEnquanto(); break;
+        default: error(
+            "esperando para, paraconj, enquanto \n"
+        );
+    }
+);
+void InstrucaoIO(
+    switch(tok) {
+        case key_out: 
+            accept(key_out); 
+            accept('('); 
+            Expressao(); 
+            accept(')'); 
+            accept(';'); 
+            break;
+        case key_read: 
+            accept(key_read); 
+            accept(parenteses_esquerda); 
+            accept(id); 
+            accept(parenteses_direita); 
+            accept(';'); 
+            break;
+        default: error(
+            "esperando leia, escreva\n"
+        );
+    }
+);
+void InstrucaoSaida(
+    switch(tok) {
+        case key_return: accept(key_return); Expressao(); accept(';'); break;
+        case key_break: accept(key_break); accept(';'); break;
+        case key_continue: accept(key_continue); accept(';'); break;
+        default: error(
+            "esperando retorne, pare, continue \n"
+        );
+    }
+);
+void Bloco(
+    switch(tok) {
+        case '{': accept('{'); Instrucoes(); accept('}'); break;
+        default: error(
+            "esperando { \n"
+        );
+    }
+);
+
+void LacoPara(
+    switch(tok) {
+        case key_for: 
+            accept(key_for); 
+            accept(parenteses_esquerda); 
+            TipoNumerico(); 
+            accept(id); 
+            accept(op_assign); 
+            Expressao(); 
+            accept(';'); 
+            Expressao(); 
+            accept(';'); 
+            InstrucaoAtribuicao(); 
+            accept(parenteses_direita); 
+            Instrucao();
+            break;
+        default: error(
+            "esperando para \n"
+        );
+    }
+);
+void LacoParaConjunto(
+    switch(tok) {
+       case key_for_set: 
+            accept(key_for_set); 
+            accept(parenteses_esquerda); 
+            accept(id); 
+            accept(key_in); 
+            Expressao(); 
+            accept(parenteses_direita); 
+            Instrucao();
+            break;
+        default: error(
+            "esperando paraconj \n"
+        );
+    }
+);
+void LacoEnquanto(
+    switch(tok) {
+        case key_while: 
+            accept(key_while); 
+            accept(parenteses_esquerda); 
+            Expressao(); 
+            accept(parenteses_direita); 
+            Instrucao();
+            break;
+        default: error(
+            "esperando enquanto \n"
+        );
+    }
+);
+
 void Expressao() {
     switch(tok) {
         case id:

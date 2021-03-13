@@ -265,7 +265,7 @@ void Programa() {
     switch(tok) {
         case key_def:
         case key_deftipo:
-        case '(':
+        case parenteses_esquerda:
         case id:
         case key_if:
         case key_read:
@@ -291,7 +291,7 @@ void Programa() {
 
 void Def() {
     switch(tok) {
-        case key_deftipo: accept(key_def); DefinicaoFuncao(); break;
+        case key_def: accept(key_def); DefinicaoFuncao(); break;
         case key_deftipo: DefinicaoRegistro(); break;
         case key_return_nothing:
         case key_caractere:
@@ -308,7 +308,7 @@ void Def() {
 
 void DefinicaoRegistro() {
     switch(tok) {
-        case key_deftipopo: accept(key_deftipo); accept(key_register); accept(id); accept('{'); ListaAtributos(); accept('}'); break;
+        case key_deftipo: accept(key_deftipo); accept(key_register); accept(id); accept('{'); ListaAtributos(); accept('}'); break;
         default: error("esperando deftipo\n");
     }
 }
@@ -367,13 +367,13 @@ void ListaParamsFunc() {
         case key_vetor:
         case key_int:
         case key_real:
-        case key_bool: ParametroFuncao(); ListaParamsFunc2(); break;
-        case ')': break;
+        case key_bool: ParamFunc(); ListaParamsFunc2(); break;
+        case parenteses_direita: break;
         default: error("esperando caractere, palavra, conjunto, registro, vetor, inteiro, real, booleano ou )\n");   
     }
 }
 
-void ParametroFuncao() {
+void ParamFunc() {
     switch(tok) {
         case key_caractere:
         case key_string:
@@ -389,8 +389,8 @@ void ParametroFuncao() {
 
 void ListaParamsFunc2() {
     switch(tok) {
-        case virgula: accept(virgula); ParametroFuncao(); break;
-        case ')': break;
+        case virgula: accept(virgula); ParamFunc(); break;
+        case parenteses_direita: break;
         default: error("esperando virgula ou )\n");
     }
 }

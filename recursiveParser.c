@@ -302,7 +302,7 @@ void Def() {
         case key_int:
         case key_real:
         case key_bool: Instrucao(); break;
-        default: error("esperando def, deftipo, (, id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, enquanto, caractere, palavra, conjunto, registro, vetor, inteiro, real, booleano\n");
+        default: error("esperando def, deftipo, vazio, caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");
     }
 }
 
@@ -353,7 +353,7 @@ void DefinicaoFuncao() {
         case key_vetor:
         case key_int:
         case key_real:
-        case key_bool: TipoFuncao(); accept(id); accept('('); ListaParamsFunc(); accept(')'); Bloco(); break;
+        case key_bool: TipoFuncao(); accept(id); accept(parenteses_esquerda); ListaParamsFunc(); accept(parenteses_direita); Bloco(); break;
         default: error("esperando vazio, caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");
     }
 }
@@ -452,3 +452,7 @@ void TipoEstruturado() {
         default: error("esperando conjunto, registro ou vetor\n");
     }
 }
+
+void Bloco(){}
+void InstrucaoDeclIni(){}
+void Instrucao(){}

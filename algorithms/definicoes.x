@@ -1,4 +1,1 @@
-deftipo Pessoa{
-	palavra nome;
-	inteiro idade;
-}
+def inteiro soma ( inteiro a, inteiro b) 

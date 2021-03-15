@@ -446,6 +446,7 @@ void ExpId() {
 
 void Programa() {
     switch(tok) {
+	case eof: break;
         case key_def:
         case key_deftipo:
         case parenteses_esquerda:

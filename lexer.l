@@ -55,28 +55,28 @@ BOOL 	    verdadeiro|falso
 
 
 /* Operadores de atribuição */
-[=]			{return op_assign;}
-"+="		{return op_assign_sum;}
-"-="		{return op_assign_sub;}
-"*="		{return op_assign_mult;}
-"/="		{return op_assign_div;}
-"\/\\="	{return op_assign_conj_union;}
-"\\\/="	{return op_assign_conj_intersection;}
+[=]			{return assign;}
+"+="		{return assign_sum;}
+"-="		{return assign_sub;}
+"*="		{return assign_mult;}
+"/="		{return assign_div;}
+"\/\\="	{return assign_set_union;}
+"\\\/="	{return assign_set_intersection;}
 
 /* Operadores Lógicos */
-"~"	 	 {return op_log_not;}
-"||"	 {return op_log_or;}
-"&&"	 {return op_log_and;}
-">"	 	 {return op_log_gt;}
-"<"	 	 {return op_log_lt;}
-"<="	 {return op_log_lte;}
-">="	 {return op_log_gte;}
-"=="	 {return op_log_equal;}
-"!="	 {return op_log_diff;}
+"~"	 	 {return op_not;}
+"||"	 {return op_or;}
+"&&"	 {return op_and;}
+">"	 	 {return op_gt;}
+"<"	 	 {return op_lt;}
+"<="	 {return op_lte;}
+">="	 {return op_gte;}
+"=="	 {return op_equal;}
+"!="	 {return op_diff;}
 
 /* Operadores de conjuntos */
-"\/\\"   {return op_conj_intersection;}
-"\\\/"	 {return op_conj_union;}
+"\/\\"   {return set_intersection;}
+"\\\/"	 {return set_union;}
 
 /* Palavras reservadas */
 booleano		{return key_bool;}

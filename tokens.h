@@ -52,8 +52,6 @@ typedef enum {
 	key_return_nothing, 
 	key_def, 
 	key_deftipo, 
-	key_for_set, 
-	key_vetor,
 
 	booleano, 
 	inteiro, 

@@ -56,7 +56,11 @@ typedef enum {
 	eof,
 	TExpressao, 
 	TExpA, 
-	TExpA1
+	TExpA1,
+	key_def, 
+	key_deftipo, 
+	key_for_set, 
+	key_vetor
 } Token;
 
 #endif

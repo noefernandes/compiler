@@ -39,4 +39,21 @@ void ExpUnaria();
 void ExpBase();
 void ExpId();
 
+void Programa();
+void Def();
+void DefinicaoFuncao();
+void DefinicaoRegistro();
+void ListaAtributos();
+void ListaAtributos2();
+void InstrucaoDeclIni();
+void TipoFuncao();
+void ListaParamsFunc();
+void ParamFunc();
+void ListaParamsFunc2();
+void Tipo();
+void TipoPrimitivo();
+void TipoEstruturado();
+void TipoNumerico();
+
+
 #endif

@@ -9,7 +9,7 @@ typedef enum {
 	op_assign_div, 
 	op_assign_conj_union, 
 	op_assign_conj_intersection, 
-	op_log_or, 
+	op_log_or,
 	op_log_and, 
 	op_log_lte, 
 	op_log_gte, 
@@ -53,14 +53,16 @@ typedef enum {
 	key_register, 
 	key_return, 
 	key_return_nothing, 
-	eof,
-	TExpressao, 
-	TExpA, 
-	TExpA1,
 	key_def, 
 	key_deftipo, 
 	key_for_set, 
-	key_vetor
+	key_vetor,
+
+		TExpressao, 
+	TExpA, 
+	TExpA1,
+
+	eof
 } Token;
 
 #endif

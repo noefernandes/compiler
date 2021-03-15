@@ -45,7 +45,7 @@ void Instrucoes(){
         );
     }
 }
-void Instrucoes2(
+void Instrucoes2(){
     switch(tok) {
         case id:
         case key_if:
@@ -69,10 +69,10 @@ void Instrucoes2(
         case parenteses_esquerda: Instrucao(); break;
         case '}': break;        
         default: error("esperando } \n");
-    }   
-);
+    }
+};
 
-void Instrucao(
+void Instrucao(){
     switch(tok) {
         case id:
         case key_if:
@@ -98,9 +98,9 @@ void Instrucao(
             "esperando id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, caractere, palavra, conjunto, registro, vetor, real, inteiro, booleano\n"
         );
     }
-);
+};
 
-void InstrucaoRepeticao(
+void InstrucaoRepeticao(){
     switch(tok) {
         case key_for_set:
         case key_while:
@@ -109,8 +109,8 @@ void InstrucaoRepeticao(
             "esperando para, paraconj, enquanto \n"
         );
     }
-);
-void InstrucaoIO(
+};
+void InstrucaoIO(){
     switch(tok) {
         case key_out: 
             accept(key_out); 
@@ -130,8 +130,8 @@ void InstrucaoIO(
             "esperando leia, escreva\n"
         );
     }
-);
-void InstrucaoSaida(
+};
+void InstrucaoSaida(){
     switch(tok) {
         case key_return: accept(key_return); Expressao(); accept(';'); break;
         case key_break: accept(key_break); accept(';'); break;
@@ -140,17 +140,17 @@ void InstrucaoSaida(
             "esperando retorne, pare, continue \n"
         );
     }
-);
-void Bloco(
+};
+void Bloco(){
     switch(tok) {
         case '{': accept('{'); Instrucoes(); accept('}'); break;
         default: error(
             "esperando { \n"
         );
     }
-);
+};
 
-void LacoPara(
+void LacoPara(){
     switch(tok) {
         case key_for: 
             accept(key_for); 
@@ -170,8 +170,8 @@ void LacoPara(
             "esperando para \n"
         );
     }
-);
-void LacoParaConjunto(
+};
+void LacoParaConjunto(){
     switch(tok) {
        case key_for_set: 
             accept(key_for_set); 
@@ -186,8 +186,8 @@ void LacoParaConjunto(
             "esperando paraconj \n"
         );
     }
-);
-void LacoEnquanto(
+};
+void LacoEnquanto(){
     switch(tok) {
         case key_while: 
             accept(key_while); 
@@ -200,7 +200,7 @@ void LacoEnquanto(
             "esperando enquanto \n"
         );
     }
-);
+};
 
 void Expressao() {
     switch(tok) {

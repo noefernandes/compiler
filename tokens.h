@@ -60,11 +60,11 @@ typedef enum {
 	palavra, 
 	id, 
 
+	eof,
+
 	TExpressao, 
 	TExpA, 
-	TExpA1,
-
-	eof
+	TExpA1
 } Token;
 
 #endif

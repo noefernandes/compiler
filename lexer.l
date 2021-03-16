@@ -46,7 +46,7 @@ BOOL 	    verdadeiro|falso
 "."		{return ponto;}
 
 /* Operadores aritméticos */
-[+]	 	{return op_sum;}
+[+]		{return op_sum;}
 [-]	 	{return op_sub;}
 [*]	 	{return op_mult;}
 "/"	 	{return op_div;}
@@ -129,7 +129,7 @@ int main(int argc, char *argv[]) {
     char tipo = *argv[1];
     if (tipo == 'r') {
 	nextsym();
-	Expressao();
+	Programa();
     } else if (tipo == 't') {
         initStack();
         initTable();

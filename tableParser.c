@@ -75,7 +75,7 @@ void runTableParser() {
     tokStack = top->data;
     tokInput = yylex();
     do {
-	if (tokStack < TERMINAL_BEGIN_INDEX) {
+	if (tokStack < NONTERMINAL_BEGIN_INDEX) {
 	    if (tokStack == tokInput) {
 		pop();
 		tokInput = yylex();

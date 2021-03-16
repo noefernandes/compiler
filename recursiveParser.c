@@ -391,7 +391,7 @@ void Expressao() {
         case palavra:
         case op_sub:
         case op_sum:
-        case '~': TLogico(); Exp1(); break;
+        case op_not: TLogico(); Exp1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
     }
 }
@@ -416,7 +416,7 @@ void TLogico() {
         case palavra:
         case op_sub:
         case op_sum:
-        case '~': FLogico(); TLogico1(); break;
+        case op_not: FLogico(); TLogico1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
     }
 }
@@ -442,7 +442,7 @@ void FLogico() {
         case palavra:
         case op_sub:
         case op_sum: ExpRel(); break;
-        case '~': accept('~'); ExpRel(); break;
+        case op_not: accept(op_not); ExpRel(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
     }
 }
@@ -464,8 +464,8 @@ void ExpRel2() {
     switch(tok) {
         case op_equal: accept(op_equal); ExpA(); break;
         case op_diff: accept(op_diff); ExpA(); break;
-        case '<': accept('<'); ExpA(); break;
-        case '>': accept('>'); ExpA(); break;
+        case op_lt: accept(op_lt); ExpA(); break;
+        case op_gt: accept(op_gt); ExpA(); break;
         case op_lte: accept(op_lte); ExpA(); break;
         case op_gte: accept(op_gte); ExpA(); break;
         case parenteses_direita: break;
@@ -501,8 +501,8 @@ void ExpA1() {
         case ']': break;
         case op_gte: break;
         case op_lte: break;
-        case '<': break;
-        case '>': break;
+        case op_lt: break;
+        case op_gt: break;
         case op_diff: break;
         case op_equal: break;
         case op_and: break;
@@ -539,8 +539,8 @@ void Termo1() {
         case set_union: break;
         case op_gte: break;
         case op_lte: break;
-        case '<': break;
-        case '>': break;
+        case op_lt: break;
+        case op_gt: break;
         case op_diff: break;
         case op_equal: break;
         case op_and: break;
@@ -578,8 +578,8 @@ void Fator2() {
         case set_union: break;
         case op_gte: break;
         case op_lte: break;
-        case '<': break;
-        case '>': break;
+        case op_lt: break;
+        case op_gt: break;
         case op_diff: break;
         case op_equal: break;
         case op_and: break;

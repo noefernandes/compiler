@@ -143,18 +143,11 @@ void InstrucaoSaida(){
 };
 
 void InstrucaoDeclaracaoInicializacao(){
+    Tipo();
     switch(tok) {
-        case inteiro:
-        case real:
-        case caractere:
-        case palavra:
-        case booleano:
-        case key_for:
-        case key_vetor:
-        case key_register:
         case id: accept(id); InstrucaoDeclaracaoInicializacao2(); break;
         default: error(
-            "esperando InstruçãoDeclaracaoInicializacao\n"
+            "esperando id\n"
         );
     }
 }
@@ -342,7 +335,7 @@ void LacoPara(){
             accept(';'); 
             Expressao(); 
             accept(';'); 
-            InstrucaoAtribuicao(); 
+            InstrucaoAtribuicaoCasting(); 
             accept(parenteses_direita); 
             Instrucao();
             break;
@@ -686,7 +679,7 @@ void ListaAtributos() {
         case key_vetor:
         case key_int:
         case key_real:
-        case key_bool: InstrucaoDeclIni(); ListaAtributos2(); break;
+        case key_bool: InstrucaoDeclaracaoInicializacao(); ListaAtributos2(); break;
         default: error("esperando caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n"); 
     }
 }

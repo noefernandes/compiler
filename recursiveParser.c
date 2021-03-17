@@ -70,26 +70,26 @@ void Instrucoes2(){
 
 void Instrucao(){
     switch(tok) {
-        case id:
-        case key_if:
-        case key_read:
-        case key_out:
-        case key_return:
-        case key_break:
-        case key_continue:
-        case '{':
-        case key_for:
-        case key_for_set:
-        case key_while:
-        case key_caractere:
-        case key_string:
-        case key_set:
-        case key_register:
-        case key_vetor:
-        case key_real:
-        case key_int:
-        case key_bool:
-        case parenteses_esquerda: InstrucaoDeclaracaoInicializacao(); InstrucaoAtribuicaoCasting(); InstrucaoChamadaId(); InstrucaoCondicional(); InstrucaoRepeticao(); InstrucaoIO(); InstrucaoSaida(); Bloco(); break;
+        case id: InstrucaoChamadaId(); break;
+        case key_if: InstrucaoCondicional(); break;
+        case key_read: InstrucaoIO(); break;
+        case key_out: InstrucaoIO(); break;
+        case key_return: InstrucaoSaida(); break;
+        case key_break: InstrucaoSaida(); break;
+        case key_continue: InstrucaoSaida();break;
+        case '{': Bloco(); break;
+        case key_for: InstrucaoRepeticao(); break;
+        case key_for_set: InstrucaoRepeticao(); break;
+        case key_while: InstrucaoRepeticao(); break;
+        case key_caractere: InstrucaoDeclaracaoInicializacao(); break;
+        case key_string: InstrucaoDeclaracaoInicializacao(); break;
+        case key_set: InstrucaoDeclaracaoInicializacao(); break;
+        case key_register: InstrucaoDeclaracaoInicializacao(); break;
+        case key_vetor: InstrucaoDeclaracaoInicializacao(); break;
+        case key_real: InstrucaoDeclaracaoInicializacao(); break;
+        case key_int: InstrucaoDeclaracaoInicializacao(); break;
+        case key_bool: InstrucaoDeclaracaoInicializacao(); break;
+        case parenteses_esquerda:  InstrucaoAtribuicaoCasting();  break;
         default: error(
             "esperando id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, caractere, palavra, conjunto, registro, vetor, real, inteiro, booleano\n"
         );
@@ -98,9 +98,9 @@ void Instrucao(){
 
 void InstrucaoRepeticao(){
     switch(tok) {
-        case key_for_set:
-        case key_while:
-        case key_for: LacoPara(); LacoParaConjunto(); LacoEnquanto(); break;
+        case key_for_set:LacoParaConjunto(); break;
+        case key_while: LacoEnquanto(); break;
+        case key_for: LacoPara(); break;
         default: error(
             "esperando para, paraconj, enquanto \n"
         );

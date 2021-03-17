@@ -1,6 +1,8 @@
 #ifndef TOKENS_H
 #define TOKENS_H
 
+void error(const char msg[]);
+
 typedef enum {
 	assign, 
 	assign_sum, 

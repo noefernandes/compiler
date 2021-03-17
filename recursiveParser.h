@@ -4,7 +4,6 @@
 #include "tokens.h"
 
 void nextsym();
-void error(const char msg[]);
 void accept(Token s);
 
 /* Nonterminals symbols */

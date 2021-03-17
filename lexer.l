@@ -45,7 +45,7 @@ BOOL 	    verdadeiro|falso
 ","		{return virgula;}
 "."		{return ponto;}
 
-/* Operadores aritméticos */
+ /* Operadores aritméticos */
 [+]		{return op_sum;}
 [-]	 	{return op_sub;}
 [*]	 	{return op_mult;}
@@ -54,7 +54,7 @@ BOOL 	    verdadeiro|falso
 [/%] 	{return op_mod;}
 
 
-/* Operadores de atribuição */
+ /* Operadores de atribuição */
 [=]			{return assign;}
 "+="		{return assign_sum;}
 "-="		{return assign_sub;}
@@ -63,7 +63,7 @@ BOOL 	    verdadeiro|falso
 "\/\\="	{return assign_set_union;}
 "\\\/="	{return assign_set_intersection;}
 
-/* Operadores Lógicos */
+ /* Operadores Lógicos */
 "~"	 	 {return op_not;}
 "||"	 {return op_or;}
 "&&"	 {return op_and;}
@@ -74,11 +74,11 @@ BOOL 	    verdadeiro|falso
 "=="	 {return op_equal;}
 "!="	 {return op_diff;}
 
-/* Operadores de conjuntos */
+ /* Operadores de conjuntos */
 "\/\\"   {return set_intersection;}
 "\\\/"	 {return set_union;}
 
-/* Palavras reservadas */
+ /* Palavras reservadas */
 booleano		{return key_bool;}
 caractere		{return key_caractere;}
 conjunto		{return key_set;}	
@@ -119,6 +119,10 @@ vazio		 		{return key_return_nothing;}
 . 	    {printf("(ERROR,%s %u %u)\n",yytext, start_line, start_column); return 0;}
 
 %%
+
+void error(const char msg[]) {
+    printf("%s na linha %d coluna %d \n", msg, line, column);
+}
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {

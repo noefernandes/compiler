@@ -9,10 +9,6 @@ void nextsym() {
     tok = yylex();
 }
 
-void error(const char msg[]) {
-    printf("%s", msg);
-}
-
 void accept(Token s) {
     if (tok == s) nextsym();
     else error("token inesperado\n");

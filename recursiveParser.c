@@ -89,7 +89,7 @@ void Instrucao(){
         case key_real:
         case key_int:
         case key_bool:
-        case parenteses_esquerda: InstrucaoRepeticao(); InstrucaoIO(); InstrucaoSaida(); Bloco(); break;
+        case parenteses_esquerda: InstrucaoDeclaracaoInicializacao(); InstrucaoAtribuicaoCasting(); InstrucaoChamadaId(); InstrucaoCondicional(); InstrucaoRepeticao(); InstrucaoIO(); InstrucaoSaida(); Bloco(); break;
         default: error(
             "esperando id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, caractere, palavra, conjunto, registro, vetor, real, inteiro, booleano\n"
         );

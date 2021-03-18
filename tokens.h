@@ -44,8 +44,7 @@ typedef enum {
 	key_for_set,
 	key_in, 
 	key_break, 
-	key_string, 
-	key_main, 
+	key_string,  
 	key_if, 
 	key_else, 
 	key_real, 
@@ -63,10 +62,24 @@ typedef enum {
 	id, 
 
 	eof,
+	empty,
 
 	TExpressao, 
-	TExpA, 
-	TExpA1
+	TExp1,
+	TTLogico,
+	TTLogico1,
+	TFLogico,
+	TExpRel,
+	TExpRel2,
+	TExpA,
+	TExpA1,
+	TTermo,
+	TTermo1,
+	TFator,
+	TFator2,
+	TExpUnaria,
+	TExpBase,
+	TExpId
 } Token;
 
 #endif

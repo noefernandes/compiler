@@ -91,13 +91,14 @@ para	 	 		{return key_for;}
 em	 	 			{return key_in;}
 pare	 	 		{return key_break;}
 palavra		 	{return key_string;}
-programa	 	{return key_main;}
 se	 	 			{return key_if;} 
 senao	 	 		{return key_else;}
 real	 	 		{return key_real;}
 registro	 	{return key_register;}
 retorne		 	{return key_return;}
 vazio		 		{return key_return_nothing;}
+def			{return key_def;}
+tipodef			{return key_deftipo;}
 
 {BOOL}      {return booleano;}
 {INT}       {return inteiro;}

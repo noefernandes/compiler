@@ -36,11 +36,167 @@ void initTable() {
         }
     }
 
-    tabela[TExpressao][op_sum] = list(2, TExpA1, TExpA);
-    tabela[TExpressao][inteiro] = list(2, TExpA1, TExpA);
-    tabela[TExpA1][op_sum] = list(3, TExpA1, TExpA, op_sum);
-    tabela[TExpA1][eof] = list(1, eof);
-    tabela[TExpA][inteiro] = list(1, inteiro);
+    tabela[TExpressao][id] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][inteiro] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][real] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][caractere] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][palavra] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][op_sub] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][op_sum] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][op_sum] = list(2, TExp1, TTLogico);
+    tabela[TExpressao][op_not] = list(2, TExp1, TTLogico);
+
+    tabela[TExp1][op_or] = list(3, TExp1, TTLogico, op_or);
+    tabela[TExp1][parenteses_direita] = list(1, empty);
+    tabela[TExp1][']'] = list(1, empty);
+    tabela[TExp1][';'] = list(1, empty);
+    tabela[TExp1][virgula] = list(1, empty);
+
+    tabela[TTLogico][id] = list(2, TTLogico1, TFLogico);
+    tabela[TTLogico][inteiro] = list(2, TTLogico1, TFLogico);
+    tabela[TTLogico][real] = list(2, TTLogico1, TFLogico);
+    tabela[TTLogico][caractere] = list(2, TTLogico1, TFLogico);
+    tabela[TTLogico][palavra] = list(2, TTLogico1, TFLogico);
+    tabela[TTLogico][op_sub] = list(2, TTLogico1, TFLogico);
+    tabela[TTLogico][op_sum] = list(2, TTLogico1, TFLogico);
+    tabela[TTLogico][op_not] = list(2, TTLogico1, TFLogico);
+
+    tabela[TTLogico1][op_and] = list(3, TTLogico1, TFLogico, op_and);
+    tabela[TTLogico1][parenteses_direita] = list(1, empty);
+    tabela[TTLogico1][']'] = list(1, empty);
+    tabela[TTLogico1][op_or] = list(1, empty);
+    tabela[TTLogico1][';'] = list(1, empty);
+    tabela[TTLogico1][virgula] = list(1, empty);
+
+    tabela[TFLogico][id] = list(1, TExpRel);
+    tabela[TFLogico][inteiro] = list(1, TExpRel);
+    tabela[TFLogico][real] = list(1, TExpRel);
+    tabela[TFLogico][caractere] = list(1, TExpRel);
+    tabela[TFLogico][palavra] = list(1, TExpRel);
+    tabela[TFLogico][op_sub] = list(1, TExpRel);
+    tabela[TFLogico][op_sum] = list(1, TExpRel);
+    tabela[TFLogico][op_not] = list(2, TExpRel, op_not);
+
+    tabela[TExpRel][id] = list(2, TExpRel2, TExpA);
+    tabela[TExpRel][inteiro] = list(2, TExpRel2, TExpA);
+    tabela[TExpRel][real] = list(2, TExpRel2, TExpA);
+    tabela[TExpRel][caractere] = list(2, TExpRel2, TExpA);
+    tabela[TExpRel][palavra] = list(2, TExpRel2, TExpA);
+    tabela[TExpRel][op_sub] = list(2, TExpRel2, TExpA);
+    tabela[TExpRel][op_sum] = list(2, TExpRel2, TExpA);
+
+    tabela[TExpRel2][op_equal] = list(2, TExpA, op_equal);
+    tabela[TExpRel2][op_diff] = list(2, TExpA, op_diff);
+    tabela[TExpRel2][op_lt] = list(2, TExpA, op_lt);
+    tabela[TExpRel2][op_gt] = list(2, TExpA, op_gt);
+    tabela[TExpRel2][op_lte] = list(2, TExpA, op_lte);
+    tabela[TExpRel2][op_gte] = list(2, TExpA, op_gte);
+    tabela[TExpRel2][parenteses_direita] = list(1, empty);
+    tabela[TExpRel2][']'] = list(1, empty);
+    tabela[TExpRel2][op_and] = list(1, empty);
+    tabela[TExpRel2][op_or] = list(1, empty);
+    tabela[TExpRel2][';'] = list(1, empty);
+    tabela[TExpRel2][virgula] = list(1, empty);
+
+    tabela[TExpA][id] = list(2, TExpA1, TTermo);
+    tabela[TExpA][inteiro] = list(2, TExpA1, TTermo);
+    tabela[TExpA][real] = list(2, TExpA1, TTermo);
+    tabela[TExpA][caractere] = list(2, TExpA1, TTermo);
+    tabela[TExpA][palavra] = list(2, TExpA1, TTermo);
+    tabela[TExpA][op_sub] = list(2, TExpA1, TTermo);
+    tabela[TExpA][op_sum] = list(2, TExpA1, TTermo);
+
+    tabela[TExpA1][op_sub] = list(3, TExpA1, TTermo, op_sub);
+    tabela[TExpA1][op_sum] = list(3, TExpA1, TTermo, op_sum);
+    tabela[TExpA1][set_intersection] = list(3, TExpA1, TTermo, set_intersection);
+    tabela[TExpA1][set_union] = list(3, TExpA1, TTermo, set_union);
+    tabela[TExpA1][parenteses_direita] = list(1, empty);
+    tabela[TExpA1][']'] = list(1, empty);
+    tabela[TExpA1][op_and] = list(1, empty);
+    tabela[TExpA1][op_or] = list(1, empty);
+    tabela[TExpA1][';'] = list(1, empty);
+    tabela[TExpA1][virgula] = list(1, empty);
+    tabela[TExpA1][op_gte] = list(1, empty);
+    tabela[TExpA1][op_lte] = list(1, empty);
+    tabela[TExpA1][op_lt] = list(1, empty);
+    tabela[TExpA1][op_gt] = list(1, empty);
+    tabela[TExpA1][op_diff] = list(1, empty);
+    tabela[TExpA1][op_equal] = list(1, empty);
+
+    tabela[TTermo][id] = list(2, TTermo1, TFator);
+    tabela[TTermo][inteiro] = list(2, TTermo1, TFator);
+    tabela[TTermo][real] = list(2, TTermo1, TFator);
+    tabela[TTermo][caractere] = list(2, TTermo1, TFator);
+    tabela[TTermo][palavra] = list(2, TTermo1, TFator);
+    tabela[TTermo][op_sub] = list(2, TTermo1, TFator);
+    tabela[TTermo][op_sum] = list(2, TTermo1, TFator);
+
+    tabela[TTermo1][op_mult] = list(3, TTermo1, TFator, op_mult);
+    tabela[TTermo1][op_div] = list(3, TTermo1, TFator, op_div);
+    tabela[TTermo1][op_mod] = list(3, TTermo1, TFator, op_mod);
+    tabela[TTermo1][']'] = list(1, empty);
+    tabela[TTermo1][op_and] = list(1, empty);
+    tabela[TTermo1][op_or] = list(1, empty);
+    tabela[TTermo1][';'] = list(1, empty);
+    tabela[TTermo1][virgula] = list(1, empty);
+    tabela[TTermo1][op_gte] = list(1, empty);
+    tabela[TTermo1][op_lte] = list(1, empty);
+    tabela[TTermo1][op_lt] = list(1, empty);
+    tabela[TTermo1][op_gt] = list(1, empty);
+    tabela[TTermo1][op_diff] = list(1, empty);
+    tabela[TTermo1][op_equal] = list(1, empty);
+    tabela[TTermo1][op_sum] = list(1, empty);
+    tabela[TTermo1][op_sub] = list(1, empty);
+    tabela[TTermo1][set_intersection] = list(1, empty);
+    tabela[TTermo1][set_union] = list(1, empty);
+
+    tabela[TFator][id] = list(2, TFator2, TExpUnaria);
+    tabela[TFator][inteiro] = list(2, TFator2, TExpUnaria);
+    tabela[TFator][real] = list(2, TFator2, TExpUnaria);
+    tabela[TFator][caractere] = list(2, TFator2, TExpUnaria);
+    tabela[TFator][palavra] = list(2, TFator2, TExpUnaria);
+    tabela[TFator][op_sub] = list(2, TFator2, TExpUnaria);
+    tabela[TFator][op_sum] = list(2, TFator2, TExpUnaria);
+
+    tabela[TFator2]['^'] = list(2, TFator, '^');
+    tabela[TFator2][op_mult] = list(1, empty);
+    tabela[TFator2][op_div] = list(1, empty);
+    tabela[TFator2][op_mod] = list(1, empty);
+    tabela[TFator2][parenteses_direita] = list(1, empty);
+    tabela[TFator2][']'] = list(1, empty);
+    tabela[TFator2][op_and] = list(1, empty);
+    tabela[TFator2][op_or] = list(1, empty);
+    tabela[TFator2][';'] = list(1, empty);
+    tabela[TFator2][virgula] = list(1, empty);
+    tabela[TFator2][op_gte] = list(1, empty);
+    tabela[TFator2][op_lte] = list(1, empty);
+    tabela[TFator2][op_lt] = list(1, empty);
+    tabela[TFator2][op_gt] = list(1, empty);
+    tabela[TFator2][op_diff] = list(1, empty);
+    tabela[TFator2][op_equal] = list(1, empty);
+    tabela[TFator2][op_sum] = list(1, empty);
+    tabela[TFator2][op_sub] = list(1, empty);
+    tabela[TFator2][set_intersection] = list(1, empty);
+    tabela[TFator2][set_union] = list(1, empty);
+
+    tabela[TExpUnaria][id] = list(1, TExpBase);
+    tabela[TExpUnaria][inteiro] = list(1, TExpBase);
+    tabela[TExpUnaria][real] = list(1, TExpBase);
+    tabela[TExpUnaria][caractere] = list(1, TExpBase);
+    tabela[TExpUnaria][palavra] = list(1, TExpBase);
+    tabela[TExpUnaria][op_sub] = list(2, TExpBase, op_sub);
+    tabela[TExpUnaria][op_sum] = list(2, TExpBase, op_sum);
+
+    tabela[TExpBase][id] = list(2, TExpId, id);
+    tabela[TExpBase][inteiro] = list(1, inteiro);
+    tabela[TExpBase][real] = list(1, real);
+    tabela[TExpBase][caractere] = list(1, caractere);
+    tabela[TExpBase][palavra] = list(1, palavra);
+    tabela[TExpBase][parenteses_esquerda] = list(3, parenteses_direita, TExpressao, parenteses_esquerda);
+
+    tabela[TExpId]['['] = list(3, ']', TExpressao, '[');
+    tabela[TExpId][parenteses_esquerda] = list(3, parenteses_direita, TExpressao, parenteses_esquerda);
+    tabela[TExpId][ponto] = list(2, id, ponto);
 }
 
 struct item* list(int arg_count, ...) {
@@ -75,12 +231,15 @@ void runTableParser() {
     tokStack = top->data;
     tokInput = yylex();
     do {
-	if (tokStack < NONTERMINAL_BEGIN_INDEX) {
+	if (tokStack == empty) {
+	    pop();
+	} else if (tokStack < NONTERMINAL_BEGIN_INDEX) {
 	    if (tokStack == tokInput) {
 		pop();
 		tokInput = yylex();
 	    } else {
-		printf("error\n");
+		printf("%d %d ", tokStack, tokInput);
+		error("erro na aceitação de terminal \n");
 		break;
 	    }
 	} else {
@@ -93,7 +252,8 @@ void runTableParser() {
 		    tmp = tmp->next;
 		}
 	    } else {
-		printf("error\n");
+		printf("%d %d ", tokStack, tokInput);
+		error("erro na regra da tabela \n");
 		break;
 	    }
 	}

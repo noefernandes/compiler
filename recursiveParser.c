@@ -110,9 +110,9 @@ void InstrucaoIO(){
     switch(tok) {
         case key_out: 
             accept(key_out); 
-            accept('('); 
+            accept(parenteses_esquerda); 
             Expressao(); 
-            accept(')'); 
+            accept(parenteses_direita); 
             accept(';'); 
             break;
         case key_read: 

@@ -2,7 +2,7 @@
 #define TABLEPARSER_H
 
 #include "tokens.h"
-#define TOKENS_COUNT 60
+#define TOKENS_COUNT 73
 #define NONTERMINAL_BEGIN_INDEX 57
 
 struct item {

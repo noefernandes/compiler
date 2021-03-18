@@ -1,38 +1,16 @@
-programa{
-	inteiro a;	
-	real b;
-	inteiro c;
-	inteiro d;
-	inteiro e;
-	string f;
+tipodef registro ponto {
+    real x;
+    real y;
+}
 
-	booleano g;
+def conjunto registro ponto uniao(conjunto registro ponto a, conjunto registro ponto b) {
+    retorne a.x \/ b.y;
+}
 
-	
-	b = 2.73;
-	c = a ^ b;
-	d = a % b;
-	e = a / b;
-	f = "la la la";
-	g = verdadeiro;
-
-	c == d;
-
-	b != a;
-
-	e && f;
-
-	leia(a);
-	
-	inteiro i = 0;
-	enquanto(i < 5){
-		se(a > 30){
-			pare;
-		}
-		a = a + b;
-	}
-
-	escreva("o resultado eh: ", a);
-
-	~~
+def inteiro programa() {
+    caractere c = 'c';
+    palavra texto = "texto";
+    vetor inteiro[] numeros = [1, 2, 3, 4];
+    conjunto registro ponto p;
+    retorne 0;
 }

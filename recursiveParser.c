@@ -98,7 +98,7 @@ void Instrucao(){
 
 void InstrucaoRepeticao(){
     switch(tok) {
-        case key_for_set:LacoParaConjunto(); break;
+        case key_for_set: LacoParaConjunto(); break;
         case key_while: LacoEnquanto(); break;
         case key_for: LacoPara(); break;
         default: error(
@@ -150,33 +150,36 @@ void InstrucaoDeclaracaoInicializacao(){
 
 void InstrucaoDeclaracaoInicializacao2(){
     switch(tok){
-            case virgula: accept(virgula);  ListaIdentificadores(); break;
-            case assign: accept(assign); InstrucaoDeclaracaoInicializacao3(); break;            
-            case assign_sum: accept(assign_sum); InstrucaoDeclaracaoInicializacao3(); break;
-            case assign_sub: accept(assign_sub); InstrucaoDeclaracaoInicializacao3(); break;
-            case assign_mult: accept(assign_mult); InstrucaoDeclaracaoInicializacao3(); break;
-            case assign_div: accept(assign_div); InstrucaoDeclaracaoInicializacao3(); break;
-            case assign_set_intersection: accept(assign_set_intersection); InstrucaoDeclaracaoInicializacao3(); break;
-            case assign_set_union: accept(assign_set_union); InstrucaoDeclaracaoInicializacao3(); break;
-            default: error(
-                "esperando InstruçãoDeclaracaoInicializacao2\n"
-            );
-        }
+        case virgula: accept(virgula);  ListaIdentificadores(); accept(';'); break;
+        case assign:          
+        case assign_sum: 
+        case assign_sub: 
+        case assign_mult: 
+        case assign_div:
+        case assign_set_intersection: 
+        case assign_set_union: OperadoresAtribuicao(); InstrucaoDeclaracaoInicializacao3(); break;
+        case ';': accept(';');
+        default: error(
+            "esperando ',', =, +=, -=, *=, /=, /\\=, \\/=, ;\n"
+        );
+    }
 }
 
 void InstrucaoDeclaracaoInicializacao3(){
     switch(tok){
-        case op_not: accept(op_not); accept('['); ListaExpressoes(); accept(']'); break;
-        case op_sub: accept(op_sub); accept('['); ListaExpressoes(); accept(']'); break;
-        case op_sum: accept(op_sum); accept('['); ListaExpressoes(); accept(']'); break;
-        case parenteses_esquerda: accept(parenteses_esquerda); accept('['); ListaExpressoes(); accept(']'); break;
-        case id: accept(id); accept('['); ListaExpressoes(); accept(']'); break;
-        case inteiro: accept(inteiro); accept('['); ListaExpressoes(); accept(']'); break;
-        case real: accept(real); accept('['); ListaExpressoes(); accept(']'); break;
-        case caractere: accept(caractere); accept('['); ListaExpressoes(); accept(']'); break;
-        case palavra: accept(palavra); accept('['); ListaExpressoes(); accept(']'); break;
+        case op_not: 
+        case op_sub: 
+        case op_sum: 
+        case id: 
+        case inteiro: 
+        case real: 
+        case caractere: 
+        case palavra: 
+        case parenteses_esquerda: Expressao(); accept(';'); break;
+        
+        case '[': accept('['); ListaExpressoes(); accept(']'); accept(';'); break;
         default: error(
-            "esperando InstruçãoDeclaracaoInicializacao3\n"
+            "esperando [, ~, -, +, id, inteiro, real, caractere, palavra, (\n"
         );
     }
 }
@@ -185,7 +188,7 @@ void  ListaIdentificadores(){
     switch(tok){
         case id: accept(id); ListaIdentificadores2(); break;
         default: error(
-            "esperando ListaIdentificadores\n"
+            "esperando id\n"
         );
     }
 }
@@ -194,24 +197,24 @@ void ListaIdentificadores2(){
     switch(tok){
         case virgula: accept(virgula);  ListaIdentificadores(); break;
         default: error(
-            "esperando ListaIdentificadores2\n"
+            "esperando ,\n"
         );
     }
 }
 
-void  ListaExpressoes(){
+void ListaExpressoes(){
     switch(tok){
-        case op_not: accept(op_not); ListaExpressoes2(); break;
-        case op_sub: accept(op_sub); ListaExpressoes2(); break;
-        case op_sum: accept(op_sum); ListaExpressoes2(); break;
-        case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes2(); break;
-        case id: accept(id); ListaExpressoes2(); break;
-        case inteiro: accept(inteiro); ListaExpressoes2(); break;
-        case real: accept(real); ListaExpressoes2(); break;
-        case caractere: accept(caractere); ListaExpressoes2(); break;
-        case palavra: accept(palavra); ListaExpressoes2(); break;
+        case op_not: 
+        case op_sub: 
+        case op_sum: 
+        case id: 
+        case inteiro: 
+        case real: 
+        case caractere: 
+        case palavra: 
+        case parenteses_esquerda: Expressao(); ListaExpressoes2(); break;
         default: error(
-            "esperando ListaExpressoes\n"
+            "esperando [, ~, -, +, id, inteiro, real, caractere, palavra, (\n"
         );
     }
 }
@@ -220,7 +223,7 @@ void ListaExpressoes2(){
     switch(tok){
         case virgula: accept(virgula);  ListaExpressoes(); break;
         default: error(
-            "esperando ListaExpressoes2\n"
+            "esperando ,\n"
         );
     }
 }
@@ -236,22 +239,22 @@ void InstrucaoAtribuicaoCasting(){
             OperadoresAtribuicao();
             Expressao();
         default: error(
-            "esperando InstrucaoAtribuicaoCasting\n"
+            "esperando (\n"
         );
     }
 }
 
 void OperadoresAtribuicao(){
     switch(tok){
-        case assign: accept(assign); InstrucaoDeclaracaoInicializacao3(); break;            
-        case assign_sum: accept(assign_sum); InstrucaoDeclaracaoInicializacao3(); break;
-        case assign_sub: accept(assign_sub); InstrucaoDeclaracaoInicializacao3(); break;
-        case assign_mult: accept(assign_mult); InstrucaoDeclaracaoInicializacao3(); break;
-        case assign_div: accept(assign_div); InstrucaoDeclaracaoInicializacao3(); break;
-        case assign_set_intersection: accept(assign_set_intersection); InstrucaoDeclaracaoInicializacao3(); break;
-        case assign_set_union: accept(assign_set_union); InstrucaoDeclaracaoInicializacao3(); break;
+        case assign: accept(assign); break;            
+        case assign_sum: accept(assign_sum); break;
+        case assign_sub: accept(assign_sub); break;
+        case assign_mult: accept(assign_mult); break;
+        case assign_div: accept(assign_div); break;
+        case assign_set_intersection: accept(assign_set_intersection); break;
+        case assign_set_union: accept(assign_set_union); break;
         default: error(
-            "esperando OperadoresAtribuicao\n"
+            "esperando =, +=, -=, *=, /=, /\\=, \\/=, ;\n"
         );
     }
 }
@@ -261,7 +264,7 @@ void LvalueId(){
         case '[': accept('['); Expressao(); accept(']'); break;
         case ponto: accept(ponto); accept(id); break;
         default: error(
-            "esperando LvalueId\n"
+            "esperando [, .\n"
         );
     }
 }
@@ -270,17 +273,17 @@ void InstrucaoChamadaId(){
         switch(tok){
         case id: accept(id); ChamadaFuncaoOuAtribuicao(); break;
         default: error(
-            "esperando InstrucaoChamadaId\n"
+            "esperando id\n"
         );
     }
 }
 
 void ChamadaFuncaoOuAtribuicao(){
     switch(tok){
-        case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes; accept(parenteses_direita); break;
-        case '[': LvalueId(); OperadoresAtribuicao(); Expressao(); break; 
+        case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes(); accept(parenteses_direita); accept(';') break;
+        case '[': LvalueId(); OperadoresAtribuicao(); Expressao(); accept(';'); break; 
         default: error(
-            "esperando ChamadaFuncaoOuAtribuicao\n"
+            "esperando (, [\n"
         );
     }
 }
@@ -296,7 +299,7 @@ void InstrucaoCondicional(){
             InstrucaoCondicional2();
             break;
         default: error(
-            "esperando InstrucaoCondicional\n"
+            "esperando se\n"
         );
     }
  }
@@ -305,7 +308,7 @@ void InstrucaoCondicional(){
     switch(tok){
         case key_else: accept(key_else); Instrucao(); break;
         default: error(
-            "esperando InstrucaoCondicional2\n"
+            "esperando senao\n"
         );
     }
  }
@@ -380,8 +383,9 @@ void Expressao() {
         case palavra:
         case op_sub:
         case op_sum:
+        case parenteses_esquerda:
         case op_not: TLogico(); Exp1(); break;
-        default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
+        default: error("esperando id, inteiro, real, caractere, palavra, -, +, ( ou ~\n");
     }
 }
 

@@ -186,7 +186,7 @@ void InstrucaoDeclaracaoInicializacao3(){
 
 void  ListaIdentificadores(){
     switch(tok){
-        case id: accept(id); ListaIdentificadores2(); break;
+        case id: ListaIdentificadores2(); break;
         default: error(
             "esperando id\n"
         );
@@ -195,7 +195,7 @@ void  ListaIdentificadores(){
 
 void ListaIdentificadores2(){
     switch(tok){
-        case virgula: accept(virgula);  ListaIdentificadores(); break;
+        case virgula: ListaIdentificadores(); break;
         default: error(
             "esperando ,\n"
         );

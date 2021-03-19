@@ -186,18 +186,20 @@ void InstrucaoDeclaracaoInicializacao3(){
 
 void  ListaIdentificadores(){
     switch(tok){
-        case id: ListaIdentificadores2(); break;
+        case id: accept(id); ListaIdentificadores2(); break;
+	case ';': break;
         default: error(
-            "esperando id\n"
+            "esperando id ou ;\n"
         );
     }
 }
 
 void ListaIdentificadores2(){
     switch(tok){
-        case virgula: ListaIdentificadores(); break;
+        case virgula: accept(virgula); ListaIdentificadores(); break;
+	case ';': break;
         default: error(
-            "esperando ,\n"
+            "esperando , ou ;\n"
         );
     }
 }
@@ -222,6 +224,8 @@ void ListaExpressoes(){
 void ListaExpressoes2(){
     switch(tok){
         case virgula: accept(virgula);  ListaExpressoes(); break;
+	case ']':
+	case parenteses_direita: break;
         default: error(
             "esperando ,\n"
         );
@@ -385,6 +389,7 @@ void Expressao() {
         case op_sub:
         case op_sum:
         case parenteses_esquerda:
+	case booleano: 
         case op_not: TLogico(); Exp1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, +, ( ou ~\n");
     }
@@ -410,6 +415,8 @@ void TLogico() {
         case palavra:
         case op_sub:
         case op_sum:
+	case parenteses_esquerda:
+	case booleano: 	
         case op_not: FLogico(); TLogico1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
     }
@@ -435,6 +442,8 @@ void FLogico() {
         case caractere:
         case palavra:
         case op_sub:
+	case parenteses_esquerda: 
+	case booleano: 
         case op_sum: ExpRel(); break;
         case op_not: accept(op_not); ExpRel(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
@@ -449,6 +458,8 @@ void ExpRel() {
         case caractere:
         case palavra:
         case op_sub:
+	case parenteses_esquerda: 
+	case booleano: 
         case op_sum: ExpA(); ExpRel2(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -480,6 +491,8 @@ void ExpA() {
         case caractere:
         case palavra:
         case op_sub:
+	case parenteses_esquerda: 
+	case booleano: 
         case op_sum: Termo(); ExpA1(); break;
         default: error("esperando (id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -515,6 +528,8 @@ void Termo() {
         case caractere:
         case palavra:
         case op_sub:
+	case parenteses_esquerda: 
+	case booleano: 
         case op_sum: Fator(); Termo1(); break;
         default: error("esperando (id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -553,6 +568,8 @@ void Fator() {
         case caractere:
         case palavra:
         case op_sub:
+	case parenteses_esquerda: 
+	case booleano: 
         case op_sum: ExpUnaria(); Fator2(); break;
         default: error("esperando (id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -592,6 +609,8 @@ void ExpUnaria() {
         case inteiro:
         case real:
         case caractere:
+	case parenteses_esquerda: 
+	case booleano: 
         case palavra: ExpBase(); break;
         default: error("esperando -, +, id, inteiro, real, caractere ou palavra\n");
     }
@@ -605,7 +624,27 @@ void ExpBase() {
         case real: accept(real); break;
         case caractere: accept(caractere); break;
         case palavra: accept(palavra); break;
-        default: error("esperando (, id, inteiro, real, caractere ou palavra\n");
+	case booleano: accept(booleano); break;
+	case '^':
+	case op_mult:
+	case op_div:
+	case op_mod:
+	case op_sub:
+	case op_sum:
+	case set_union:
+	case set_intersection:
+	case op_equal:
+	case op_diff:
+	case op_lt:
+	case op_gt:
+	case op_lte:
+	case op_gte:
+	case op_and:
+	case op_or:
+	case virgula:
+	case ';':
+	case ']': break;
+        default: error("esperando ExpBase\n");
     }
 }
 
@@ -636,7 +675,7 @@ void ExpId() {
         case '[': accept('['); Expressao(); accept(']'); break;
         case parenteses_esquerda: accept(parenteses_esquerda); Expressao(); accept(parenteses_direita); break;
         case ponto: accept(ponto); accept(id); break;
-        default: error("esperando [, ( ou .\n");
+        default: error("esperando ExpId\n");
     }
 }
 

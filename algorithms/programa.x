@@ -1,4 +1,4 @@
-tipodef registro ponto {
+deftipo registro ponto {
     real x;
     real y;
 }

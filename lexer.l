@@ -98,7 +98,9 @@ registro	 	{return key_register;}
 retorne		 	{return key_return;}
 vazio		 		{return key_return_nothing;}
 def			{return key_def;}
-tipodef			{return key_deftipo;}
+deftipo			{return key_deftipo;}
+vetor       {return key_vetor;}
+paraconj    {return key_for_set;}
 
 {BOOL}      {return booleano;}
 {INT}       {return inteiro;}

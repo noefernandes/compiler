@@ -62,7 +62,7 @@ void Instrucoes2(){
         case key_real:
         case key_int:
         case key_bool:
-        case parenteses_esquerda: Instrucao(); break;
+        case parenteses_esquerda: Instrucoes(); break;
         case '}': break;        
         default: error("esperando } \n");
     }
@@ -158,7 +158,7 @@ void InstrucaoDeclaracaoInicializacao2(){
         case assign_div:
         case assign_set_intersection: 
         case assign_set_union: OperadoresAtribuicao(); InstrucaoDeclaracaoInicializacao3(); break;
-        case ';': accept(';');
+        case ';': accept(';'); break;
         default: error(
             "esperando ',', =, +=, -=, *=, /=, /\\=, \\/=, ;\n"
         );
@@ -280,7 +280,7 @@ void InstrucaoChamadaId(){
 
 void ChamadaFuncaoOuAtribuicao(){
     switch(tok){
-        case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes(); accept(parenteses_direita); accept(';') break;
+        case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes(); accept(parenteses_direita); accept(';'); break;
         case '[': LvalueId(); OperadoresAtribuicao(); Expressao(); accept(';'); break; 
         default: error(
             "esperando (, [\n"
@@ -307,6 +307,7 @@ void InstrucaoCondicional(){
  void InstrucaoCondicional2(){
     switch(tok){
         case key_else: accept(key_else); Instrucao(); break;
+        case ';': accept(';'); break;
         default: error(
             "esperando senao\n"
         );
@@ -608,8 +609,30 @@ void ExpBase() {
     }
 }
 
+
+
 void ExpId() {
     switch(tok) {
+        case '^':
+        case op_mult:
+        case op_div:
+        case op_mod:
+        case op_sub:
+        case op_sum:
+        case set_union:
+        case set_intersection:
+        case op_equal:
+        case op_diff:
+        case op_lt:
+        case op_gt:
+        case op_lte:
+        case op_gte:
+        case op_and:
+        case op_or:
+        case virgula:
+        case ';': 
+        case ']':
+        case parenteses_direita: break;
         case '[': accept('['); Expressao(); accept(']'); break;
         case parenteses_esquerda: accept(parenteses_esquerda); Expressao(); accept(parenteses_direita); break;
         case ponto: accept(ponto); accept(id); break;
@@ -619,7 +642,7 @@ void ExpId() {
 
 void Programa() {
     switch(tok) {
-	case eof: break;
+	    case eof: break;
         case key_def:
         case key_deftipo:
         case parenteses_esquerda:
@@ -648,7 +671,7 @@ void Programa() {
 
 void Def() {
     switch(tok) {
-        case key_def: accept(key_def); DefinicaoFuncao(); break;
+        case key_def: accept(key_def); DefinicaoFuncao(); printf("------------------------\n"); break;
         case key_deftipo: DefinicaoRegistro(); break;
         case key_return_nothing:
         case key_caractere:
@@ -659,7 +682,7 @@ void Def() {
         case key_int:
         case key_real:
         case key_bool: Instrucao(); break;
-        default: error("esperando def, deftipo, vazio, caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");
+        default: error("-->esperando def, deftipo, vazio, caractere, palavra, conjunto, registro, vetor, inteiro, real ou booleano\n");
     }
 }
 

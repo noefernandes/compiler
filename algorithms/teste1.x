@@ -9,4 +9,8 @@ def inteiro programa(){
 			pare;
 		};
 	}
+
+	palavra teste = "nome1", "nome2", "nome3";
+
+	palavra teste2, teste3, teste4;
 }

@@ -248,7 +248,7 @@ void InstrucaoDeclaracaoInicializacao(){
         case key_bool:
         case key_set:
         case key_register:
-        case key_vetor: Tipo(); accept(id); InstrucaoDeclaracaoInicializacao2(); break;
+        case key_vetor: Tipo(); accept(id); InstrucaoDeclaracaoInicializacao2(); accept(';'); break;
         default: error(
             "esperando id\n"
         );
@@ -257,7 +257,7 @@ void InstrucaoDeclaracaoInicializacao(){
 
 void InstrucaoDeclaracaoInicializacao2(){
     switch(tok){
-        case virgula: accept(virgula);  ListaIdentificadores(); accept(';'); break;
+        case virgula: accept(virgula); ListaIdentificadores(); break;
         case assign:          
         case assign_sum: 
         case assign_sub: 
@@ -265,7 +265,7 @@ void InstrucaoDeclaracaoInicializacao2(){
         case assign_div:
         case assign_set_intersection: 
         case assign_set_union: OperadoresAtribuicao(); InstrucaoDeclaracaoInicializacao3(); break;
-        case ';': accept(';'); break;
+        case ';': break;
         default: error(
             "esperando ',', =, +=, -=, *=, /=, /\\=, \\/=, ;\n"
         );
@@ -282,9 +282,9 @@ void InstrucaoDeclaracaoInicializacao3(){
         case real: 
         case caractere: 
         case palavra: 
-        case parenteses_esquerda: Expressao(); accept(';'); break;
+        case parenteses_esquerda: ListaExpressoes(); break;
         
-        case '[': accept('['); ListaExpressoes(); accept(']'); accept(';'); break;
+        case '[': accept('['); ListaExpressoes(); accept(']'); break;
         default: error(
             "esperando [, ~, -, +, id, inteiro, real, caractere, palavra, (\n"
         );
@@ -294,20 +294,12 @@ void InstrucaoDeclaracaoInicializacao3(){
 void  ListaIdentificadores(){
     switch(tok){
         case id: accept(id); ListaIdentificadores2(); break;
-	case ';': break;
-        default: error(
-            "esperando id ou ;\n"
-        );
     }
 }
 
 void ListaIdentificadores2(){
     switch(tok){
         case virgula: accept(virgula); ListaIdentificadores(); break;
-	case ';': break;
-        default: error(
-            "esperando , ou ;\n"
-        );
     }
 }
 
@@ -331,11 +323,6 @@ void ListaExpressoes(){
 void ListaExpressoes2(){
     switch(tok){
         case virgula: accept(virgula);  ListaExpressoes(); break;
-	case ']':
-	case parenteses_direita: break;
-        default: error(
-            "esperando ,\n"
-        );
     }
 }
 
@@ -496,7 +483,7 @@ void LacoEnquanto(){
             accept(parenteses_direita); 
             Instrucao();
             break;
-        default: error(
+            default: error(
             "esperando enquanto \n"
         );
     }
@@ -512,7 +499,7 @@ void Expressao() {
         case op_sub:
         case op_sum:
         case parenteses_esquerda:
-	case booleano: 
+	    case booleano: 
         case op_not: TLogico(); Exp1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, +, ( ou ~\n");
     }
@@ -538,8 +525,8 @@ void TLogico() {
         case palavra:
         case op_sub:
         case op_sum:
-	case parenteses_esquerda:
-	case booleano: 	
+	    case parenteses_esquerda:
+	    case booleano: 	
         case op_not: FLogico(); TLogico1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
     }
@@ -565,8 +552,8 @@ void FLogico() {
         case caractere:
         case palavra:
         case op_sub:
-	case parenteses_esquerda: 
-	case booleano: 
+	    case parenteses_esquerda: 
+	    case booleano: 
         case op_sum: ExpRel(); break;
         case op_not: accept(op_not); ExpRel(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, + ou ~\n");
@@ -581,8 +568,8 @@ void ExpRel() {
         case caractere:
         case palavra:
         case op_sub:
-	case parenteses_esquerda: 
-	case booleano: 
+	    case parenteses_esquerda: 
+	    case booleano: 
         case op_sum: ExpA(); ExpRel2(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -614,8 +601,8 @@ void ExpA() {
         case caractere:
         case palavra:
         case op_sub:
-	case parenteses_esquerda: 
-	case booleano: 
+	    case parenteses_esquerda: 
+	    case booleano: 
         case op_sum: Termo(); ExpA1(); break;
         default: error("esperando (id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -651,8 +638,8 @@ void Termo() {
         case caractere:
         case palavra:
         case op_sub:
-	case parenteses_esquerda: 
-	case booleano: 
+	    case parenteses_esquerda: 
+	    case booleano: 
         case op_sum: Fator(); Termo1(); break;
         default: error("esperando (id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -691,8 +678,8 @@ void Fator() {
         case caractere:
         case palavra:
         case op_sub:
-	case parenteses_esquerda: 
-	case booleano: 
+	    case parenteses_esquerda: 
+	    case booleano: 
         case op_sum: ExpUnaria(); Fator2(); break;
         default: error("esperando (id, inteiro, real, caractere, palavra, -, ou +\n");
     }
@@ -732,8 +719,8 @@ void ExpUnaria() {
         case inteiro:
         case real:
         case caractere:
-	case parenteses_esquerda: 
-	case booleano: 
+	    case parenteses_esquerda: 
+	    case booleano: 
         case palavra: ExpBase(); break;
         default: error("esperando -, +, id, inteiro, real, caractere ou palavra\n");
     }
@@ -747,26 +734,26 @@ void ExpBase() {
         case real: accept(real); break;
         case caractere: accept(caractere); break;
         case palavra: accept(palavra); break;
-	case booleano: accept(booleano); break;
-	case '^':
-	case op_mult:
-	case op_div:
-	case op_mod:
-	case op_sub:
-	case op_sum:
-	case set_union:
-	case set_intersection:
-	case op_equal:
-	case op_diff:
-	case op_lt:
-	case op_gt:
-	case op_lte:
-	case op_gte:
-	case op_and:
-	case op_or:
-	case virgula:
-	case ';':
-	case ']': break;
+        case booleano: accept(booleano); break;
+        case '^':
+        case op_mult:
+        case op_div:
+        case op_mod:
+        case op_sub:
+        case op_sum:
+        case set_union:
+        case set_intersection:
+        case op_equal:
+        case op_diff:
+        case op_lt:
+        case op_gt:
+        case op_lte:
+        case op_gte:
+        case op_and:
+        case op_or:
+        case virgula:
+        case ';':
+        case ']': break;
         default: error("esperando ExpBase\n");
     }
 }

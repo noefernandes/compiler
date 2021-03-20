@@ -5,12 +5,113 @@
 
 Token tok;
 
+char token_names[100][25] = {
+    "=", 
+    "+=", 
+    "-=", 
+    "*=", 
+    "/=", 
+    "\\\/=", 
+    "\/\\=", 
+    "~",
+    "||",
+    "&&", 
+    ">",
+    "<",
+    "<=", 
+    ">=", 
+    "==", 
+    "!=", 
+    "%", 
+    "(", 
+    ")", 
+    "*", 
+    "/", 
+    "+", 
+    "-", 
+    ",", 
+    ".", 
+    "\/\\",
+    "\\\/",  
+    "booleano", 
+    "caractere", 
+    "conjunto",
+    "vetor",
+    "continue", 
+    "enquanto", 
+    "escreva", 
+    "inteiro", 
+    "leia", 
+    "para", 
+    "paraconj",
+    "em", 
+    "pare", 
+    "palavra",  
+    "se", 
+    "senao", 
+    "real", 
+    "registro", 
+    "retorne", 
+    "void", 
+    "def", 
+    "deftipo", 
+
+    "booleano_lit", 
+    "inteiro_lit", 
+    "real_lit", 
+    "caractere_lit", 
+    "palavra_lit", 
+    "id", 
+
+    "eof",
+    "empty"
+};
+
+
 void nextsym() {
     tok = yylex();
 }
 
 void accept(Token s) {
-    if (tok == s) nextsym();
+    if (tok == s){ 
+        if(tok == 59){
+            printf("; ");
+            nextsym();
+            return;
+        }
+        if(tok == 91){
+            printf("[ ");
+            nextsym();
+            return;
+        }
+        if(tok == 93){
+            printf("] ");
+            nextsym();
+            return;
+        }
+        if(tok == 94){
+            printf("^ ");
+            nextsym();
+            return;
+        }
+        if(tok == 123){
+            printf("{ ");
+            nextsym();
+            return;
+        }
+        if(tok == 125){
+            printf("} ");
+            nextsym();
+            return;
+        }
+
+        for(int i = 0; i < 11; i++){
+            printf("%c", token_names[tok][i]);
+        }
+
+        printf(" ");
+        nextsym();
+    }
     else error("token inesperado\n");
 }
 
@@ -139,15 +240,9 @@ void InstrucaoSaida(){
 };
 
 void InstrucaoDeclaracaoInicializacao(){
+    Tipo();
     switch(tok) {
-        case key_caractere:
-        case key_string:
-        case key_int:
-        case key_real:
-        case key_bool:
-        case key_set:
-        case key_register:
-        case key_vetor: Tipo(); accept(id); InstrucaoDeclaracaoInicializacao2(); break;
+        case id: accept(id); InstrucaoDeclaracaoInicializacao2(); break;
         default: error(
             "esperando id\n"
         );
@@ -182,6 +277,7 @@ void InstrucaoDeclaracaoInicializacao3(){
         case caractere: 
         case palavra: 
         case parenteses_esquerda: Expressao(); accept(';'); break;
+        
         case '[': accept('['); ListaExpressoes(); accept(']'); accept(';'); break;
         default: error(
             "esperando [, ~, -, +, id, inteiro, real, caractere, palavra, (\n"
@@ -410,7 +506,7 @@ void Expressao() {
         case op_sub:
         case op_sum:
         case parenteses_esquerda:
-	    case booleano: 
+	case booleano: 
         case op_not: TLogico(); Exp1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, +, ( ou ~\n");
     }
@@ -829,7 +925,7 @@ void ParamFunc() {
 
 void ListaParamsFunc2() {
     switch(tok) {
-        case virgula: accept(virgula); ListaParamsFunc(); break;
+        case virgula: accept(virgula); ParamFunc(); break;
         case parenteses_direita: break;
         default: error("esperando virgula ou )\n");
     }
@@ -888,7 +984,7 @@ void TipoEstruturado() {
     switch(tok) {
         case key_set: accept(key_set); Tipo(); break;
         case key_register: accept(key_register); accept(id); break;
-        case key_vetor: accept(key_vetor); Tipo(); accept('['); accept(']');break;
+        case key_vetor: accept(key_vetor); Tipo(); accept('['); accept(']'); break;
         default: error("esperando conjunto, registro ou vetor\n");
     }
 }

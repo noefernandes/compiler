@@ -1,21 +1,16 @@
-deftipo registro Pessoa {
-	palavra nome = "eu";
-	inteiro idade = 6;
+deftipo registro Pessoa{
+	palavra nome;
+	vetor inteiro[] numeros = {1, 2, 3, 4};
 }
 
-def booleano soma(inteiro a, inteiro b){
-	inteiro soma = ( 7 + 4 ) / 3;
+def inteiro programa(){
+	inteiro i;
+	i = 8 + 4;
+	(inteiro) i = 1 * 2;
 
-	//Não esta funcionando expressoes com parenteses
-	//Não pode usar senao vazio
-
-	se (c > 6 + 2){
-		retorne 1 + 3;
-	}senao{
-		retorne 3;
+	para(inteiro i = 0; i < 6; i = i + 1){
+		se(i < 5){
+			pare;
+		};
 	}
-
-	inteiro c = 4;
-
-	retorne falso;
 }

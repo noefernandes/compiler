@@ -70,7 +70,7 @@ void Instrucoes2(){
 
 void Instrucao(){
     switch(tok) {
-        case id: InstrucaoChamadaId(); break;
+        case id: InstrucaoChamadaId(); accept(';'); break;
         case key_if: InstrucaoCondicional(); break;
         case key_read: InstrucaoIO(); break;
         case key_out: InstrucaoIO(); break;
@@ -89,7 +89,7 @@ void Instrucao(){
         case key_real: InstrucaoDeclaracaoInicializacao(); break;
         case key_int: InstrucaoDeclaracaoInicializacao(); break;
         case key_bool: InstrucaoDeclaracaoInicializacao(); break;
-        case parenteses_esquerda:  InstrucaoAtribuicaoCasting();  break;
+        case parenteses_esquerda:  InstrucaoAtribuicaoCasting(); accept(';');  break;
         default: error(
             "esperando id, se, leia, escreva, retorne, pare, continue, {, para, paraconj, caractere, palavra, conjunto, registro, vetor, real, inteiro, booleano\n"
         );
@@ -242,6 +242,7 @@ void InstrucaoAtribuicaoCasting(){
             LvalueId();
             OperadoresAtribuicao();
             Expressao();
+            break;
         default: error(
             "esperando (\n"
         );
@@ -291,7 +292,7 @@ void InstrucaoChamadaId(){
 
 void ChamadaFuncaoOuAtribuicao(){
     switch(tok){
-        case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes(); accept(parenteses_direita); accept(';'); break;
+        case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes(); accept(parenteses_direita); break;
         case ponto:
         case assign: 
         case assign_sum: 
@@ -300,7 +301,7 @@ void ChamadaFuncaoOuAtribuicao(){
         case assign_div:
         case assign_set_union:
         case assign_set_intersection:
-        case '[': LvalueId(); OperadoresAtribuicao(); Expressao(); accept(';'); break; 
+        case '[': LvalueId(); OperadoresAtribuicao(); Expressao(); break; 
         default: error(
             "esperando (, [\n"
         );
@@ -354,7 +355,7 @@ void LacoPara(){
             accept(';'); 
             Expressao(); 
             accept(';'); 
-            InstrucaoAtribuicaoCasting(); 
+            InstrucaoChamadaId(); 
             accept(parenteses_direita); 
             Instrucao();
             break;

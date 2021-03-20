@@ -25,7 +25,7 @@ ID          [a-zA-Z][a-zA-Z0-9]*
 INT         [0]|[1-9][0-9]*
 REAL        [0-9]+"."[0-9]*
 CARACTERE   '[ -~]'
-STRING      \"[ -~]*\"
+STRING      \"(?:[^"\\]|\\.)*\"
 OP          [-+*/^%=]
 BOOL 	    verdadeiro|falso
  

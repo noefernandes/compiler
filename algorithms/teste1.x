@@ -1,7 +1,3 @@
-deftipo registro Pessoa{
-	palavra nome;
-	vetor inteiro[] numeros = {1, 2, 3, 4};
-}
 
 def inteiro programa(){
 	inteiro i;

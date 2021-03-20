@@ -139,9 +139,15 @@ void InstrucaoSaida(){
 };
 
 void InstrucaoDeclaracaoInicializacao(){
-    Tipo();
     switch(tok) {
-        case id: accept(id); InstrucaoDeclaracaoInicializacao2(); break;
+        case key_caractere:
+        case key_string:
+        case key_int:
+        case key_real:
+        case key_bool:
+        case key_set:
+        case key_register:
+        case key_vetor: Tipo(); accept(id); InstrucaoDeclaracaoInicializacao2(); break;
         default: error(
             "esperando id\n"
         );
@@ -176,7 +182,6 @@ void InstrucaoDeclaracaoInicializacao3(){
         case caractere: 
         case palavra: 
         case parenteses_esquerda: Expressao(); accept(';'); break;
-        
         case '[': accept('['); ListaExpressoes(); accept(']'); accept(';'); break;
         default: error(
             "esperando [, ~, -, +, id, inteiro, real, caractere, palavra, (\n"
@@ -405,7 +410,7 @@ void Expressao() {
         case op_sub:
         case op_sum:
         case parenteses_esquerda:
-	case booleano: 
+	    case booleano: 
         case op_not: TLogico(); Exp1(); break;
         default: error("esperando id, inteiro, real, caractere, palavra, -, +, ( ou ~\n");
     }
@@ -726,7 +731,7 @@ void Programa() {
 
 void Def() {
     switch(tok) {
-        case key_def: accept(key_def); DefinicaoFuncao(); printf("------------------------\n"); break;
+        case key_def: accept(key_def); DefinicaoFuncao(); break;
         case key_deftipo: DefinicaoRegistro(); break;
         case key_return_nothing:
         case key_caractere:
@@ -883,7 +888,7 @@ void TipoEstruturado() {
     switch(tok) {
         case key_set: accept(key_set); Tipo(); break;
         case key_register: accept(key_register); accept(id); break;
-        case key_vetor: accept(key_vetor); Tipo(); accept('['); accept(']'); break;
+        case key_vetor: accept(key_vetor); Tipo(); accept('['); accept(']');break;
         default: error("esperando conjunto, registro ou vetor\n");
     }
 }

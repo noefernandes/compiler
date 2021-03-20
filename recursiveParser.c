@@ -829,7 +829,7 @@ void ParamFunc() {
 
 void ListaParamsFunc2() {
     switch(tok) {
-        case virgula: accept(virgula); ParamFunc(); break;
+        case virgula: accept(virgula); ListaParamsFunc(); break;
         case parenteses_direita: break;
         default: error("esperando virgula ou )\n");
     }

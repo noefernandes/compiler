@@ -240,9 +240,15 @@ void InstrucaoSaida(){
 };
 
 void InstrucaoDeclaracaoInicializacao(){
-    Tipo();
     switch(tok) {
-        case id: accept(id); InstrucaoDeclaracaoInicializacao2(); break;
+        case key_caractere:
+        case key_string:
+        case key_int:
+        case key_real:
+        case key_bool:
+        case key_set:
+        case key_register:
+        case key_vetor: Tipo(); accept(id); InstrucaoDeclaracaoInicializacao2(); break;
         default: error(
             "esperando id\n"
         );
@@ -925,7 +931,7 @@ void ParamFunc() {
 
 void ListaParamsFunc2() {
     switch(tok) {
-        case virgula: accept(virgula); ParamFunc(); break;
+        case virgula: accept(virgula); ListaParamsFunc(); break;
         case parenteses_direita: break;
         default: error("esperando virgula ou )\n");
     }

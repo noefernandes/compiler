@@ -267,6 +267,13 @@ void LvalueId(){
     switch(tok){
         case '[': accept('['); Expressao(); accept(']'); break;
         case ponto: accept(ponto); accept(id); break;
+        case assign:
+        case assign_sum: 
+        case assign_sub:
+        case assign_mult:
+        case assign_div:
+        case assign_set_union:
+        case assign_set_intersection: break;
         default: error(
             "esperando [, .\n"
         );
@@ -285,6 +292,14 @@ void InstrucaoChamadaId(){
 void ChamadaFuncaoOuAtribuicao(){
     switch(tok){
         case parenteses_esquerda: accept(parenteses_esquerda); ListaExpressoes(); accept(parenteses_direita); accept(';'); break;
+        case ponto:
+        case assign: 
+        case assign_sum: 
+        case assign_sub:
+        case assign_mult:
+        case assign_div:
+        case assign_set_union:
+        case assign_set_intersection:
         case '[': LvalueId(); OperadoresAtribuicao(); Expressao(); accept(';'); break; 
         default: error(
             "esperando (, [\n"

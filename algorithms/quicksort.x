@@ -1,7 +1,7 @@
-inteiro programa{
+def inteiro programa(){
    inteiro i;
    inteiro count = 10;
-   inteiro number[] = {2,5,9,3,6,1,0,7,4,8};
+   inteiro number[] = [2,5,9,3,6,1,0,7,4,8];
 
    inteiro last = count -1;
    quicksort(number,0,last);
@@ -13,7 +13,7 @@ inteiro programa{
    retorne 0;
 }
 
-void quicksort(inteiro number[],inteiro first,inteiro last){
+def void quicksort(inteiro number[],inteiro first,inteiro last){
    inteiro i, j, pivot, temp;
 
    se(first<last){

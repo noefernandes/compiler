@@ -298,7 +298,7 @@ void initTable() {
 
     tabela[TTipoEstruturado][key_vetor] = list(4, ']', '[', TTipo, key_vetor );
     tabela[TTipoEstruturado][key_register] = list(2, id, key_register );
-    tabela[TTipoEstruturado][key_set] = list(2, TTipo, key_set, );
+    tabela[TTipoEstruturado][key_set] = list(2, TTipo, key_set);
 
     tabela[TBloco]['{'] = list(3, '}', TInstrucoes, '{');
 

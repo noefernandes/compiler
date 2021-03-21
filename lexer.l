@@ -84,7 +84,7 @@ caractere		{return key_caractere;}
 conjunto		{return key_set;}	
 continue		{return key_continue;}
 enquanto		{return key_while;}
-escreva			{return key_out;}
+escreva			{return key_write;}
 inteiro	 	 	{return key_int;}
 leia	 	 		{return key_read;}
 para	 	 		{return key_for;}

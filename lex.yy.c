@@ -1096,7 +1096,7 @@ YY_RULE_SETUP
 case 39:
 YY_RULE_SETUP
 #line 88 "lexer.l"
-{return key_out;}
+{return key_write;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP

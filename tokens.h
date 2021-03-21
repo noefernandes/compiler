@@ -81,6 +81,8 @@ typedef enum {
 	TExpBase,
 	TExpId,
 
+	TInstrucoes,
+	TInstrucoes2,
 	TInstrucao,
 	TInstrucaoDeclaracaoInicializacao,
 	TInstrucaoDeclaracaoInicializacao2,
@@ -110,11 +112,19 @@ typedef enum {
 	TLacoEnquanto,
 	TInstrucaoSaida,
 	TInstrucaoIO,
+	TBloco,
 
+	TDefinicaoFuncao,
+	TListaParametrosFuncao,
+	TListaParametrosFuncao2,
+
+	TTipoFuncao,
+	TParametroFuncao,
 	TTipo,
 	TTipoPrimitivo,
-	TTipoNumerico
-	
+	TTipoNumerico,
+	TTipoEstruturado,
+
 } Token;
 
 #endif

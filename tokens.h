@@ -40,6 +40,7 @@ typedef enum {
 	key_out, 
 	key_int, 
 	key_read, 
+	key_write,
 	key_for, 
 	key_for_set,
 	key_in, 
@@ -79,7 +80,42 @@ typedef enum {
 	TFator2,
 	TExpUnaria,
 	TExpBase,
-	TExpId
+	TExpId,
+
+	TInstrucao,
+	TInstrucaoDeclaracaoInicializacao,
+	TInstrucaoDeclaracaoInicializacao2,
+	TInstrucaoDeclaracaoInicializacao3,
+	TInstrucaoAtribuicaoCasting,
+	TInstrucaoChamadaId,
+	TChamadaFuncaoOuAtribuicao,
+	TLvalueId,
+	TOperadoresAtribuicao,
+	TListaIdentificadores,
+	TListaIdentificadores2,
+	TListaExpressoes,
+	TListaExpressoes2,
+	TInstrucaoCondicional,
+	TInstrucaoCondicional2,
+	TAtribuicao,
+	TAtribuicaoConj,
+	TAtribuicaoDisj,
+	TAtribuicaoDiv,
+	TAtribuicaoSoma,
+	TAtribuicaoSub,
+	TAtribuicaoMult,
+
+	TInstrucaoRepeticao,
+	TLacoPara,
+	TLacoParaConjunto,
+	TLacoEnquanto,
+	TInstrucaoSaida,
+	TInstrucaoIO,
+
+	TTipo,
+	TTipoPrimitivo,
+	TTipoNumerico
+	
 } Token;
 
 #endif

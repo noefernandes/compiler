@@ -719,7 +719,7 @@ void Def() {
 
 void DefinicaoRegistro() {
     switch(tok) {
-        case key_deftipo: accept(key_deftipo); accept(key_register); accept(id); accept(chaves_esquerda); ListaAtributos(); accept('}'); break;
+        case key_deftipo: accept(key_deftipo); accept(key_register); accept(id); accept(chaves_esquerda); ListaAtributos(); accept(chaves_direita); break;
         default: error("esperando deftipo\n");
     }
 }

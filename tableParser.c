@@ -210,25 +210,6 @@ void initTable() {
     tabela[TExpBase][palavra] = list(1, palavra);
     tabela[TExpBase][parenteses_esquerda] = list(3, parenteses_direita, TExpressao, parenteses_esquerda);
     tabela[TExpBase][booleano] = list(1, booleano);
-    tabela[TExpBase][op_mult] = list(1, empty);
-    tabela[TExpBase][op_div] = list(1, empty);
-    tabela[TExpBase][op_mod] = list(1, empty);
-    tabela[TExpBase]['^'] = list(1, empty);
-    tabela[TExpBase][']'] = list(1, empty);
-    tabela[TExpBase][op_and] = list(1, empty);
-    tabela[TExpBase][op_or] = list(1, empty);
-    tabela[TExpBase][';'] = list(1, empty);
-    tabela[TExpBase][virgula] = list(1, empty);
-    tabela[TExpBase][op_gte] = list(1, empty);
-    tabela[TExpBase][op_lte] = list(1, empty);
-    tabela[TExpBase][op_lt] = list(1, empty);
-    tabela[TExpBase][op_gt] = list(1, empty);
-    tabela[TExpBase][op_diff] = list(1, empty);
-    tabela[TExpBase][op_equal] = list(1, empty);
-    tabela[TExpBase][op_sum] = list(1, empty);
-    tabela[TExpBase][op_sub] = list(1, empty);
-    tabela[TExpBase][set_intersection] = list(1, empty);
-    tabela[TExpBase][set_union] = list(1, empty);
 
     tabela[TExpId]['['] = list(3, ']', TExpressao, '[');
     tabela[TExpId][parenteses_esquerda] = list(3, parenteses_direita, TExpressao, parenteses_esquerda);

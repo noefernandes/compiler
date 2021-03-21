@@ -366,14 +366,14 @@ void initTable() {
     tabela[TInstrucao][key_string] = list(1, TInstrucaoDeclaracaoInicializacao);
     tabela[TInstrucao][key_caractere] = list(1, TInstrucaoDeclaracaoInicializacao);
 
-    tabela[TInstrucaoDeclaracaoInicializacao][key_vetor] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_register] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_set] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_bool] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_real] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_int] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_string] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_caractere] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_vetor] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_register] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_set] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_bool] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_real] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_int] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_string] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_caractere] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
 
     tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicao] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
     tabela[TInstrucaoDeclaracaoInicializacao2][virgula] = list(2, TListaIdentificadores, virgula);

@@ -235,14 +235,14 @@ void initTable() {
     tabela[TExpId][set_union] = list(1, empty);
     tabela[TExpId][parenteses_direita] = list(1, empty);
 
-    tabela[TInstrucaoDeclaracaoInicializacao][booleano] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_vetor] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_register] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_set] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
-    tabela[TInstrucaoDeclaracaoInicializacao][real] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
-    tabela[TInstrucaoDeclaracaoInicializacao][inteiro] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
-    tabela[TInstrucaoDeclaracaoInicializacao][palavra] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
-    tabela[TInstrucaoDeclaracaoInicializacao][caractere] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_bool] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
+    tabela[TInstrucaoDeclaracaoInicializacao][key_vetor] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
+    tabela[TInstrucaoDeclaracaoInicializacao][key_register] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
+    tabela[TInstrucaoDeclaracaoInicializacao][key_set] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
+    tabela[TInstrucaoDeclaracaoInicializacao][key_real] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
+    tabela[TInstrucaoDeclaracaoInicializacao][key_int] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
+    tabela[TInstrucaoDeclaracaoInicializacao][key_string] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
+    tabela[TInstrucaoDeclaracaoInicializacao][key_caractere] = list(3, TInstrucaoDeclaracaoInicializacao2, id, TTipo, ';');
 
     tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicao] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
     tabela[TInstrucaoDeclaracaoInicializacao2][virgula] = list(2, TListaIdentificadores, virgula);
@@ -256,7 +256,7 @@ void initTable() {
     tabela[TInstrucaoDeclaracaoInicializacao3][id] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][parenteses_esquerda] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3]['['] = list(3, ']', TListaExpressoes, '[');
-    tabela[TInstrucaoDeclaracaoInicializacao3][palavra] = list(1, TListaExpressoes);
+    tabela[TInstrucaoDeclaracaoInicializacao3][key_string] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][booleano] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][caractere] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][real] = list(1, TListaExpressoes);

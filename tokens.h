@@ -59,7 +59,12 @@ typedef enum {
 	real, 
 	caractere, 
 	palavra, 
-	id, 
+	id,
+
+	colchetes_esquerda,
+	colchetes_direita,
+	circunflexo,
+	ponto_virgula,	
 
 	eof,
 	empty,

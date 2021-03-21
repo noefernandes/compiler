@@ -50,8 +50,8 @@ void initTable() {
 
     tabela[TExp1][op_or] = list(3, TExp1, TTLogico, op_or);
     tabela[TExp1][parenteses_direita] = list(1, empty);
-    tabela[TExp1][']'] = list(1, empty);
-    tabela[TExp1][';'] = list(1, empty);
+    tabela[TExp1][colchetes_direita] = list(1, empty);
+    tabela[TExp1][ponto_virgula] = list(1, empty);
     tabela[TExp1][virgula] = list(1, empty);
 
     tabela[TTLogico][id] = list(2, TTLogico1, TFLogico);
@@ -67,9 +67,9 @@ void initTable() {
 
     tabela[TTLogico1][op_and] = list(3, TTLogico1, TFLogico, op_and);
     tabela[TTLogico1][parenteses_direita] = list(1, empty);
-    tabela[TTLogico1][']'] = list(1, empty);
+    tabela[TTLogico1][colchetes_direita] = list(1, empty);
     tabela[TTLogico1][op_or] = list(1, empty);
-    tabela[TTLogico1][';'] = list(1, empty);
+    tabela[TTLogico1][ponto_virgula] = list(1, empty);
     tabela[TTLogico1][virgula] = list(1, empty);
 
     tabela[TFLogico][id] = list(1, TExpRel);
@@ -100,10 +100,10 @@ void initTable() {
     tabela[TExpRel2][op_lte] = list(2, TExpA, op_lte);
     tabela[TExpRel2][op_gte] = list(2, TExpA, op_gte);
     tabela[TExpRel2][parenteses_direita] = list(1, empty);
-    tabela[TExpRel2][']'] = list(1, empty);
+    tabela[TExpRel2][colchetes_direita] = list(1, empty);
     tabela[TExpRel2][op_and] = list(1, empty);
     tabela[TExpRel2][op_or] = list(1, empty);
-    tabela[TExpRel2][';'] = list(1, empty);
+    tabela[TExpRel2][ponto_virgula] = list(1, empty);
     tabela[TExpRel2][virgula] = list(1, empty);
 
     tabela[TExpA][id] = list(2, TExpA1, TTermo);
@@ -121,10 +121,10 @@ void initTable() {
     tabela[TExpA1][set_intersection] = list(3, TExpA1, TTermo, set_intersection);
     tabela[TExpA1][set_union] = list(3, TExpA1, TTermo, set_union);
     tabela[TExpA1][parenteses_direita] = list(1, empty);
-    tabela[TExpA1][']'] = list(1, empty);
+    tabela[TExpA1][colchetes_direita] = list(1, empty);
     tabela[TExpA1][op_and] = list(1, empty);
     tabela[TExpA1][op_or] = list(1, empty);
-    tabela[TExpA1][';'] = list(1, empty);
+    tabela[TExpA1][ponto_virgula] = list(1, empty);
     tabela[TExpA1][virgula] = list(1, empty);
     tabela[TExpA1][op_gte] = list(1, empty);
     tabela[TExpA1][op_lte] = list(1, empty);
@@ -146,10 +146,10 @@ void initTable() {
     tabela[TTermo1][op_mult] = list(3, TTermo1, TFator, op_mult);
     tabela[TTermo1][op_div] = list(3, TTermo1, TFator, op_div);
     tabela[TTermo1][op_mod] = list(3, TTermo1, TFator, op_mod);
-    tabela[TTermo1][']'] = list(1, empty);
+    tabela[TTermo1][colchetes_direita] = list(1, empty);
     tabela[TTermo1][op_and] = list(1, empty);
     tabela[TTermo1][op_or] = list(1, empty);
-    tabela[TTermo1][';'] = list(1, empty);
+    tabela[TTermo1][ponto_virgula] = list(1, empty);
     tabela[TTermo1][virgula] = list(1, empty);
     tabela[TTermo1][op_gte] = list(1, empty);
     tabela[TTermo1][op_lte] = list(1, empty);
@@ -172,15 +172,15 @@ void initTable() {
     tabela[TFator][parenteses_esquerda] = list(2, TFator2, TExpUnaria);
     tabela[TFator][booleano] = list(2, TFator2, TExpUnaria);
 
-    tabela[TFator2]['^'] = list(2, TFator, '^');
+    tabela[TFator2][circunflexo] = list(2, TFator, circunflexo);
     tabela[TFator2][op_mult] = list(1, empty);
     tabela[TFator2][op_div] = list(1, empty);
     tabela[TFator2][op_mod] = list(1, empty);
     tabela[TFator2][parenteses_direita] = list(1, empty);
-    tabela[TFator2][']'] = list(1, empty);
+    tabela[TFator2][colchetes_direita] = list(1, empty);
     tabela[TFator2][op_and] = list(1, empty);
     tabela[TFator2][op_or] = list(1, empty);
-    tabela[TFator2][';'] = list(1, empty);
+    tabela[TFator2][ponto_virgula] = list(1, empty);
     tabela[TFator2][virgula] = list(1, empty);
     tabela[TFator2][op_gte] = list(1, empty);
     tabela[TFator2][op_lte] = list(1, empty);
@@ -211,17 +211,17 @@ void initTable() {
     tabela[TExpBase][parenteses_esquerda] = list(3, parenteses_direita, TExpressao, parenteses_esquerda);
     tabela[TExpBase][booleano] = list(1, booleano);
 
-    tabela[TExpId]['['] = list(3, ']', TExpressao, '[');
+    tabela[TExpId][colchetes_esquerda] = list(3, colchetes_direita, TExpressao, colchetes_esquerda);
     tabela[TExpId][parenteses_esquerda] = list(3, parenteses_direita, TExpressao, parenteses_esquerda);
     tabela[TExpId][ponto] = list(2, id, ponto);
     tabela[TExpId][op_mult] = list(1, empty);
     tabela[TExpId][op_div] = list(1, empty);
     tabela[TExpId][op_mod] = list(1, empty);
-    tabela[TExpId]['^'] = list(1, empty);
-    tabela[TExpId][']'] = list(1, empty);
+    tabela[TExpId][circunflexo] = list(1, empty);
+    tabela[TExpId][colchetes_direita] = list(1, empty);
     tabela[TExpId][op_and] = list(1, empty);
     tabela[TExpId][op_or] = list(1, empty);
-    tabela[TExpId][';'] = list(1, empty);
+    tabela[TExpId][ponto_virgula] = list(1, empty);
     tabela[TExpId][virgula] = list(1, empty);
     tabela[TExpId][op_gte] = list(1, empty);
     tabela[TExpId][op_lte] = list(1, empty);
@@ -296,7 +296,7 @@ void initTable() {
     tabela[TTipoNumerico][key_real] = list(1, real);
     tabela[TTipoNumerico][key_int] = list(1, inteiro);
 
-    tabela[TTipoEstruturado][key_vetor] = list(4, ']', '[', TTipo, key_vetor );
+    tabela[TTipoEstruturado][key_vetor] = list(4, colchetes_direita, colchetes_esquerda, TTipo, key_vetor );
     tabela[TTipoEstruturado][key_register] = list(2, id, key_register );
     tabela[TTipoEstruturado][key_set] = list(2, TTipo, key_set);
 
@@ -366,14 +366,14 @@ void initTable() {
     tabela[TInstrucao][key_string] = list(1, TInstrucaoDeclaracaoInicializacao);
     tabela[TInstrucao][key_caractere] = list(1, TInstrucaoDeclaracaoInicializacao);
 
-    tabela[TInstrucaoDeclaracaoInicializacao][key_vetor] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_register] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_set] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_bool] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_real] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_int] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_string] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
-    tabela[TInstrucaoDeclaracaoInicializacao][key_caractere] = list(4, ';', TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_vetor] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_register] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_set] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_bool] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_real] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_int] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_string] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
+    tabela[TInstrucaoDeclaracaoInicializacao][key_caractere] = list(4, ponto_virgula, TTipo, id, TInstrucaoDeclaracaoInicializacao2);
 
     tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicao] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
     tabela[TInstrucaoDeclaracaoInicializacao2][virgula] = list(2, TListaIdentificadores, virgula);
@@ -386,7 +386,7 @@ void initTable() {
 
     tabela[TInstrucaoDeclaracaoInicializacao3][id] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][parenteses_esquerda] = list(1, TListaExpressoes);
-    tabela[TInstrucaoDeclaracaoInicializacao3]['['] = list(3, ']', TListaExpressoes, '[');
+    tabela[TInstrucaoDeclaracaoInicializacao3][colchetes_esquerda] = list(3, colchetes_direita, TListaExpressoes, colchetes_esquerda);
     tabela[TInstrucaoDeclaracaoInicializacao3][palavra] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][booleano] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][caractere] = list(1, TListaExpressoes);
@@ -395,7 +395,7 @@ void initTable() {
     tabela[TInstrucaoDeclaracaoInicializacao3][op_sum] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][op_sub] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][op_not] = list(1, TListaExpressoes);
-    tabela[TInstrucaoDeclaracaoInicializacao3][';'] = list(1, TListaExpressoes);
+    tabela[TInstrucaoDeclaracaoInicializacao3][ponto_virgula] = list(1, TListaExpressoes);
 
     tabela[TInstrucaoAtribuicaoCasting][parenteses_esquerda] = list(7, TExpressao, TOperadoresAtribuicao, TLvalueId, id, parenteses_direita, TTipoPrimitivo, parenteses_esquerda);
 
@@ -403,7 +403,7 @@ void initTable() {
 
     tabela[TChamadaFuncaoOuAtribuicao][ponto] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
     tabela[TChamadaFuncaoOuAtribuicao][parenteses_esquerda] = list(3, parenteses_direita, TListaExpressoes, parenteses_esquerda);
-    tabela[TChamadaFuncaoOuAtribuicao]['['] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][colchetes_esquerda] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
     tabela[TChamadaFuncaoOuAtribuicao][TAtribuicao] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
     tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoConj] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
     tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoDisj] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
@@ -413,7 +413,7 @@ void initTable() {
     tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoSub] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
 
     tabela[TLvalueId][ponto] = list(2, id, ponto);
-    tabela[TLvalueId]['['] = list(3, ']', TExpressao, '[');
+    tabela[TLvalueId][colchetes_esquerda] = list(3, colchetes_direita, TExpressao, colchetes_esquerda);
     tabela[TLvalueId][TAtribuicao] = list(1, empty);
     tabela[TLvalueId][TAtribuicaoConj] = list(1, empty);
     tabela[TLvalueId][TAtribuicaoDisj] = list(1, empty);
@@ -432,13 +432,13 @@ void initTable() {
 
     tabela[TListaIdentificadores][id] = list(2, TListaIdentificadores2, id);
 
-    tabela[TListaIdentificadores2][';'] = list(1, empty);
+    tabela[TListaIdentificadores2][ponto_virgula] = list(1, empty);
     tabela[TListaIdentificadores2][virgula] = list(TListaIdentificadores, virgula);
 
     tabela[TListaExpressoes][id] = list(2, TListaExpressoes2, TExpressao);
     tabela[TListaExpressoes][parenteses_direita] = list(1, empty);
     tabela[TListaExpressoes][parenteses_esquerda] = list(2, TListaExpressoes2, TExpressao);
-    tabela[TListaExpressoes][']'] = list(1, empty);
+    tabela[TListaExpressoes][colchetes_direita] = list(1, empty);
     tabela[TListaExpressoes][palavra] = list(2, TListaExpressoes2, TExpressao);
     tabela[TListaExpressoes][booleano] = list(2, TListaExpressoes2, TExpressao);
     tabela[TListaExpressoes][inteiro] = list(2, TListaExpressoes2, TExpressao);
@@ -447,34 +447,34 @@ void initTable() {
     tabela[TListaExpressoes][op_sum] = list(2, TListaExpressoes2, TExpressao);
     tabela[TListaExpressoes][op_sub] = list(2, TListaExpressoes2, TExpressao);
     tabela[TListaExpressoes][op_not] = list(2, TListaExpressoes2, TExpressao);
-    tabela[TListaExpressoes][';'] = list(1, empty);
+    tabela[TListaExpressoes][ponto_virgula] = list(1, empty);
 
     tabela[TListaExpressoes2][parenteses_direita] = list(1, empty);
-    tabela[TListaExpressoes2][']'] = list(1, empty);
-    tabela[TListaExpressoes2][';'] = list(1, empty);
+    tabela[TListaExpressoes2][colchetes_direita] = list(1, empty);
+    tabela[TListaExpressoes2][ponto_virgula] = list(1, empty);
     tabela[TListaExpressoes2][virgula] = list(2, TListaExpressoes, virgula);
 
     tabela[TInstrucaoCondicional][key_if] = list(6, TInstrucaoCondicional2, TInstrucao, parenteses_direita, TExpressao, parenteses_esquerda, key_if);
     
-    tabela[TInstrucaoCondicional2][';'] = list(1, ';');
+    tabela[TInstrucaoCondicional2][ponto_virgula] = list(1, ponto_virgula);
     tabela[TInstrucaoCondicional2][key_else] = list(2, TInstrucao, key_else);
 
     tabela[TInstrucaoRepeticao][key_while] = list(1, TLacoEnquanto);
     tabela[TInstrucaoRepeticao][key_for_set] = list(1, TLacoParaConjunto);
     tabela[TInstrucaoRepeticao][key_for] = list(1, TLacoPara);
 
-    tabela[TLacoPara][key_for] = list(12, TInstrucao, parenteses_direita, TInstrucaoChamadaId, ';', TExpressao, ';', TExpressao, TAtribuicao, id, TTipoNumerico, parenteses_esquerda, key_for);
+    tabela[TLacoPara][key_for] = list(12, TInstrucao, parenteses_direita, TInstrucaoChamadaId, ponto_virgula, TExpressao, ponto_virgula, TExpressao, TAtribuicao, id, TTipoNumerico, parenteses_esquerda, key_for);
     tabela[TLacoParaConjunto][key_for_set] = list(7, TInstrucao, parenteses_direita, TExpressao, key_in, id, parenteses_esquerda, key_for_set);
     tabela[TLacoParaConjunto][key_while] = list(5, TInstrucao, parenteses_direita, TExpressao, parenteses_esquerda, key_while);
 
-    tabela[TInstrucaoSaida][key_continue] = list(2, ';', key_continue);
-    tabela[TInstrucaoSaida][key_continue] = list(2, ';', key_break);
-    tabela[TInstrucaoSaida][key_return] = list(3, ';', TExpressao,key_return);
+    tabela[TInstrucaoSaida][key_continue] = list(2, ponto_virgula, key_continue);
+    tabela[TInstrucaoSaida][key_continue] = list(2, ponto_virgula, key_break);
+    tabela[TInstrucaoSaida][key_return] = list(3, ponto_virgula, TExpressao,key_return);
 
-    tabela[TInstrucaoIO][key_write] = list(5, ';', parenteses_direita,TExpressao,parenteses_esquerda, key_write);
-    tabela[TInstrucaoIO][key_read] = list(5, ';', parenteses_direita,id,parenteses_esquerda, key_read);
+    tabela[TInstrucaoIO][key_write] = list(5, ponto_virgula, parenteses_direita,TExpressao,parenteses_esquerda, key_write);
+    tabela[TInstrucaoIO][key_read] = list(5, ponto_virgula, parenteses_direita,id,parenteses_esquerda, key_read);
     
-    tabela[TPrograma][eof] = list(1, empty);
+    tabela[TPrograma][eof] = list(1, eof);
     tabela[TPrograma][id] = list(2, TPrograma, TDef);
     tabela[TPrograma][parenteses_esquerda] = list(2, TPrograma, TDef);
     tabela[TPrograma][key_write] = list(2, TPrograma, TDef);
@@ -572,7 +572,7 @@ struct item* list(int arg_count, ...) {
 
 void runTableParser() {
     push(eof);
-    push(TExpressao);
+    push(TPrograma);
     tokStack = top->data;
     tokInput = yylex();
     do {

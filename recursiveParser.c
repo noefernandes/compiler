@@ -120,7 +120,7 @@ void Instrucoes(){
         case id:
         case key_if:
         case key_read:
-        case key_out:
+        case key_write:
         case key_return:
         case key_break:
         case key_continue:
@@ -147,7 +147,7 @@ void Instrucoes2(){
         case id:
         case key_if:
         case key_read:
-        case key_out:
+        case key_write:
         case key_return:
         case key_break:
         case key_continue:
@@ -174,7 +174,7 @@ void Instrucao(){
         case id: InstrucaoChamadaId(); accept(';'); break;
         case key_if: InstrucaoCondicional(); break;
         case key_read: InstrucaoIO(); break;
-        case key_out: InstrucaoIO(); break;
+        case key_write: InstrucaoIO(); break;
         case key_return: InstrucaoSaida(); break;
         case key_break: InstrucaoSaida(); break;
         case key_continue: InstrucaoSaida();break;
@@ -209,8 +209,8 @@ void InstrucaoRepeticao(){
 };
 void InstrucaoIO(){
     switch(tok) {
-        case key_out: 
-            accept(key_out); 
+        case key_write: 
+            accept(key_write); 
             accept(parenteses_esquerda); 
             Expressao(); 
             accept(parenteses_direita); 
@@ -779,7 +779,7 @@ void Programa() {
         case id:
         case key_if:
         case key_read:
-        case key_out:
+        case key_write:
         case key_return:
         case key_break:
         case key_continue:

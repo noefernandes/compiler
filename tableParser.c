@@ -343,18 +343,6 @@ void initTable() {
     tabela[TInstrucaoIO][key_write] = list(5, ';', parenteses_direita,TExpressao,parenteses_esquerda, key_write);
     tabela[TInstrucaoIO][key_read] = list(5, ';', parenteses_direita,id,parenteses_esquerda, key_read);
 
-
-
-
-
-    
-
-
-
-
-
-
-
 }
 
 struct item* list(int arg_count, ...) {

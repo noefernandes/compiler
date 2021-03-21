@@ -124,6 +124,11 @@ typedef enum {
 	TTipoPrimitivo,
 	TTipoNumerico,
 	TTipoEstruturado,
+	TPrograma,
+	TDef,
+	TDefinicaoRegistro,
+	TListaAtributos,
+	TListaAtributos2
 
 } Token;
 

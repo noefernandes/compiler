@@ -473,8 +473,76 @@ void initTable() {
 
     tabela[TInstrucaoIO][key_write] = list(5, ';', parenteses_direita,TExpressao,parenteses_esquerda, key_write);
     tabela[TInstrucaoIO][key_read] = list(5, ';', parenteses_direita,id,parenteses_esquerda, key_read);
+    
+    tabela[TPrograma][eof] = list(1, empty);
+    tabela[TPrograma][id] = list(2, TPrograma, TDef);
+    tabela[TPrograma][parenteses_esquerda] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_write] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_read] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_continue] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_break] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_return] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_while] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_for_set] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_for] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_if] = list(2, TPrograma, TDef);
+    tabela[TPrograma]['{'] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_vetor] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_register] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_set] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_bool] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_real] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_int] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_string] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_caractere] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_deftipo] = list(2, TPrograma, TDef);
+    tabela[TPrograma][key_def] = list(2, TPrograma, TDef);
 
-}
+    tabela[TDef][id] = list(1, TInstrucao);
+    tabela[TDef][parenteses_esquerda] = list(1, TInstrucao);
+    tabela[TDef][id] = list(1, TInstrucao);
+    tabela[TDef][key_write] = list(1, TInstrucao);
+    tabela[TDef][key_read] = list(1, TInstrucao);
+    tabela[TDef][key_continue] = list(1, TInstrucao);
+    tabela[TDef][key_break] = list(1, TInstrucao);
+    tabela[TDef][key_return] = list(1, TInstrucao);
+    tabela[TDef][key_while] = list(1, TInstrucao);
+    tabela[TDef][key_for_set] = list(1, TInstrucao);
+    tabela[TDef][key_for] = list(1, TInstrucao);
+    tabela[TDef][key_if] = list(1, TInstrucao);
+    tabela[TDef]['{'] = list(1, TInstrucao);
+    tabela[TDef][key_vetor] = list(1, TInstrucao);
+    tabela[TDef][key_register] = list(1, TInstrucao);
+    tabela[TDef][key_set] = list(1, TInstrucao);
+    tabela[TDef][key_bool] = list(1, TInstrucao);
+    tabela[TDef][key_real] = list(1, TInstrucao);
+    tabela[TDef][key_int] = list(1, TInstrucao);
+    tabela[TDef][key_string] = list(1, TInstrucao);
+    tabela[TDef][key_caractere] = list(1, TInstrucao);
+    tabela[TDef][key_deftipo] = list(1, TDefinicaoRegistro);
+    tabela[TDef][key_def] = list(2, TDefinicaoFuncao, key_def);
+
+    tabela[TDefinicaoRegistro][key_deftipo] = list(6, '}', TListaAtributos, '{', id, key_register, key_deftipo);
+
+    tabela[TListaAtributos][key_vetor] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+    tabela[TListaAtributos][key_register] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+    tabela[TListaAtributos][key_set] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+    tabela[TListaAtributos][key_bool] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+    tabela[TListaAtributos][key_real] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+    tabela[TListaAtributos][key_int] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+    tabela[TListaAtributos][key_string] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+    tabela[TListaAtributos][key_caractere] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
+
+    tabela[TListaAtributos2]['}'] = list(1, empty);
+    tabela[TListaAtributos2][key_vetor] = list(1, TListaAtributos);
+    tabela[TListaAtributos2][key_register] = list(1, TListaAtributos);
+    tabela[TListaAtributos2][key_set] = list(1, TListaAtributos);
+    tabela[TListaAtributos2][key_bool] = list(1, TListaAtributos);
+    tabela[TListaAtributos2][key_real] = list(1, TListaAtributos);
+    tabela[TListaAtributos2][key_int] = list(1, TListaAtributos);
+    tabela[TListaAtributos2][key_string] = list(1, TListaAtributos);
+    tabela[TListaAtributos2][key_caractere] = list(1, TListaAtributos);
+}   
 
 struct item* list(int arg_count, ...) {
     va_list ap;

@@ -735,26 +735,7 @@ void ExpBase() {
         case caractere: accept(caractere); break;
         case palavra: accept(palavra); break;
         case booleano: accept(booleano); break;
-        case '^':
-        case op_mult:
-        case op_div:
-        case op_mod:
-        case op_sub:
-        case op_sum:
-        case set_union:
-        case set_intersection:
-        case op_equal:
-        case op_diff:
-        case op_lt:
-        case op_gt:
-        case op_lte:
-        case op_gte:
-        case op_and:
-        case op_or:
-        case virgula:
-        case ';':
-        case ']': break;
-        default: error("esperando ExpBase\n");
+        default: error("esperando (, id, inteiro, real, caractere, palavra ou booleano\n");
     }
 }
 

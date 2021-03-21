@@ -292,15 +292,15 @@ void initTable() {
     tabela[TTipoPrimitivo][key_string] = list(1, palavra);
     tabela[TTipoPrimitivo][key_caractere] = list(1, caractere);
 
-    tabela[TTipoNumerico][key_bool] = list(1, booleano);
-    tabela[TTipoNumerico][key_real] = list(1, real);
-    tabela[TTipoNumerico][key_int] = list(1, inteiro);
+    tabela[TTipoNumerico][key_bool] = list(1, key_bool);
+    tabela[TTipoNumerico][key_real] = list(1, key_real);
+    tabela[TTipoNumerico][key_int] = list(1, key_int);
 
     tabela[TTipoEstruturado][key_vetor] = list(4, colchetes_direita, colchetes_esquerda, TTipo, key_vetor );
     tabela[TTipoEstruturado][key_register] = list(2, id, key_register );
     tabela[TTipoEstruturado][key_set] = list(2, TTipo, key_set);
 
-    tabela[TBloco]['{'] = list(3, '}', TInstrucoes, '{');
+    tabela[TBloco][chaves_esquerda] = list(3, chaves_direita, TInstrucoes, chaves_esquerda);
 
     tabela[TInstrucoes][id] = list(2, TInstrucoes2, TInstrucao);
     tabela[TInstrucoes][parenteses_esquerda] = list(2, TInstrucoes2, TInstrucao);
@@ -313,7 +313,7 @@ void initTable() {
     tabela[TInstrucoes][key_for_set] = list(2, TInstrucoes2, TInstrucao);
     tabela[TInstrucoes][key_for] = list(2, TInstrucoes2, TInstrucao);
     tabela[TInstrucoes][key_if] = list(2, TInstrucoes2, TInstrucao);
-    tabela[TInstrucoes]['{'] = list(2, TInstrucoes2, TInstrucao);
+    tabela[TInstrucoes][chaves_esquerda] = list(2, TInstrucoes2, TInstrucao);
     tabela[TInstrucoes][key_vetor] = list(2, TInstrucoes2, TInstrucao);
     tabela[TInstrucoes][key_register] = list(2, TInstrucoes2, TInstrucao);
     tabela[TInstrucoes][key_set] = list(2, TInstrucoes2, TInstrucao);
@@ -334,8 +334,8 @@ void initTable() {
     tabela[TInstrucoes2][key_for_set] = list(1, TInstrucoes);
     tabela[TInstrucoes2][key_for] = list(1, TInstrucoes);
     tabela[TInstrucoes2][key_if] = list(1, TInstrucoes);
-    tabela[TInstrucoes2]['{'] = list(1, TInstrucoes);
-    tabela[TInstrucoes2]['}'] = list(1, empty);
+    tabela[TInstrucoes2][chaves_esquerda] = list(1, TInstrucoes);
+    tabela[TInstrucoes2][chaves_direita] = list(1, empty);
     tabela[TInstrucoes2][key_vetor] = list(1, TInstrucoes);
     tabela[TInstrucoes2][key_register] = list(1, TInstrucoes);
     tabela[TInstrucoes2][key_set] = list(1, TInstrucoes);
@@ -345,8 +345,8 @@ void initTable() {
     tabela[TInstrucoes2][key_string] = list(1, TInstrucoes);
     tabela[TInstrucoes2][key_caractere] = list(1, TInstrucoes);
 
-    tabela[TInstrucao][id] = list(2,';', TInstrucaoChamadaId);
-    tabela[TInstrucao][parenteses_esquerda] = list(2, ';', TInstrucaoAtribuicaoCasting);
+    tabela[TInstrucao][id] = list(2, ponto_virgula, TInstrucaoChamadaId);
+    tabela[TInstrucao][parenteses_esquerda] = list(2, ponto_virgula, TInstrucaoAtribuicaoCasting);
     tabela[TInstrucao][key_write] = list(1, TInstrucaoIO);
     tabela[TInstrucao][key_read] = list(1, TInstrucaoIO);
     tabela[TInstrucao][key_continue] = list(1, TInstrucaoSaida);
@@ -356,7 +356,7 @@ void initTable() {
     tabela[TInstrucao][key_for_set] = list(1, TInstrucaoRepeticao);
     tabela[TInstrucao][key_for] = list(1, TInstrucaoRepeticao);
     tabela[TInstrucao][key_if] = list(1, TInstrucaoCondicional);
-    tabela[TInstrucao]['{'] = list(1, TBloco);
+    tabela[TInstrucao][chaves_esquerda] = list(1, TBloco);
     tabela[TInstrucao][key_vetor] = list(1, TInstrucaoDeclaracaoInicializacao);
     tabela[TInstrucao][key_register] = list(1, TInstrucaoDeclaracaoInicializacao);
     tabela[TInstrucao][key_set] = list(1, TInstrucaoDeclaracaoInicializacao);
@@ -486,7 +486,7 @@ void initTable() {
     tabela[TPrograma][key_for_set] = list(2, TPrograma, TDef);
     tabela[TPrograma][key_for] = list(2, TPrograma, TDef);
     tabela[TPrograma][key_if] = list(2, TPrograma, TDef);
-    tabela[TPrograma]['{'] = list(2, TPrograma, TDef);
+    tabela[TPrograma][chaves_esquerda] = list(2, TPrograma, TDef);
     tabela[TPrograma][key_vetor] = list(2, TPrograma, TDef);
     tabela[TPrograma][key_register] = list(2, TPrograma, TDef);
     tabela[TPrograma][key_set] = list(2, TPrograma, TDef);
@@ -510,7 +510,7 @@ void initTable() {
     tabela[TDef][key_for_set] = list(1, TInstrucao);
     tabela[TDef][key_for] = list(1, TInstrucao);
     tabela[TDef][key_if] = list(1, TInstrucao);
-    tabela[TDef]['{'] = list(1, TInstrucao);
+    tabela[TDef][chaves_esquerda] = list(1, TInstrucao);
     tabela[TDef][key_vetor] = list(1, TInstrucao);
     tabela[TDef][key_register] = list(1, TInstrucao);
     tabela[TDef][key_set] = list(1, TInstrucao);
@@ -522,7 +522,7 @@ void initTable() {
     tabela[TDef][key_deftipo] = list(1, TDefinicaoRegistro);
     tabela[TDef][key_def] = list(2, TDefinicaoFuncao, key_def);
 
-    tabela[TDefinicaoRegistro][key_deftipo] = list(6, '}', TListaAtributos, '{', id, key_register, key_deftipo);
+    tabela[TDefinicaoRegistro][key_deftipo] = list(6, chaves_direita, TListaAtributos, chaves_esquerda, id, key_register, key_deftipo);
 
     tabela[TListaAtributos][key_vetor] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
     tabela[TListaAtributos][key_register] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
@@ -533,7 +533,7 @@ void initTable() {
     tabela[TListaAtributos][key_string] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
     tabela[TListaAtributos][key_caractere] = list(2, TListaAtributos2, TInstrucaoDeclaracaoInicializacao);
 
-    tabela[TListaAtributos2]['}'] = list(1, empty);
+    tabela[TListaAtributos2][chaves_direita] = list(1, empty);
     tabela[TListaAtributos2][key_vetor] = list(1, TListaAtributos);
     tabela[TListaAtributos2][key_register] = list(1, TListaAtributos);
     tabela[TListaAtributos2][key_set] = list(1, TListaAtributos);

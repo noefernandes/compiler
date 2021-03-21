@@ -911,27 +911,27 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 41 "lexer.l"
-{return '[';}
+{return colchetes_esquerda;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 42 "lexer.l"
-{return ']';}
+{return colchetes_direita;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 43 "lexer.l"
-{return '{';}
+{return chaves_esquerda;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 44 "lexer.l"
-{return '}';}
+{return chaves_direita;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 45 "lexer.l"
-{return ';';}
+{return ponto_virgula;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
@@ -967,7 +967,7 @@ YY_RULE_SETUP
 case 14:
 YY_RULE_SETUP
 #line 54 "lexer.l"
-{return '^';}
+{return circunflexo;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP

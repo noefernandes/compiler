@@ -2,8 +2,8 @@
 #define TABLEPARSER_H
 
 #include "tokens.h"
-#define TOKENS_COUNT 122
-#define NONTERMINAL_BEGIN_INDEX 61
+#define TOKENS_COUNT 124
+#define NONTERMINAL_BEGIN_INDEX 63
 
 struct item {
     Token data;

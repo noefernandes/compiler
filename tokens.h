@@ -62,7 +62,9 @@ typedef enum {
 	colchetes_esquerda,
 	colchetes_direita,
 	circunflexo,
-	ponto_virgula,	
+	ponto_virgula,
+	chaves_esquerda,
+	chaves_direita,	
 
 	eof,
 	empty,

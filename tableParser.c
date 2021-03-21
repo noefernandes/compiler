@@ -345,8 +345,8 @@ void initTable() {
     tabela[TInstrucoes2][key_string] = list(1, TInstrucoes);
     tabela[TInstrucoes2][key_caractere] = list(1, TInstrucoes);
 
-    tabela[TInstrucao][id] = list(1, TInstrucaoChamadaId);
-    tabela[TInstrucao][parenteses_esquerda] = list(1, TInstrucaoAtribuicaoCasting);
+    tabela[TInstrucao][id] = list(2,';', TInstrucaoChamadaId);
+    tabela[TInstrucao][parenteses_esquerda] = list(2, ';', TInstrucaoAtribuicaoCasting);
     tabela[TInstrucao][key_write] = list(1, TInstrucaoIO);
     tabela[TInstrucao][key_read] = list(1, TInstrucaoIO);
     tabela[TInstrucao][key_continue] = list(1, TInstrucaoSaida);

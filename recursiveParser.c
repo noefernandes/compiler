@@ -5,69 +5,6 @@
 
 Token tok;
 
-char token_names[100][25] = {
-    "=", 
-    "+=", 
-    "-=", 
-    "*=", 
-    "/=", 
-    "\\\/=", 
-    "\/\\=", 
-    "~",
-    "||",
-    "&&", 
-    ">",
-    "<",
-    "<=", 
-    ">=", 
-    "==", 
-    "!=", 
-    "%", 
-    "(", 
-    ")", 
-    "*", 
-    "/", 
-    "+", 
-    "-", 
-    ",", 
-    ".", 
-    "\/\\",
-    "\\\/",  
-    "booleano", 
-    "caractere", 
-    "conjunto",
-    "vetor",
-    "continue", 
-    "enquanto", 
-    "escreva", 
-    "inteiro", 
-    "leia", 
-    "para", 
-    "paraconj",
-    "em", 
-    "pare", 
-    "palavra",  
-    "se", 
-    "senao", 
-    "real", 
-    "registro", 
-    "retorne", 
-    "void", 
-    "def", 
-    "deftipo", 
-
-    "booleano_lit", 
-    "inteiro_lit", 
-    "real_lit", 
-    "caractere_lit", 
-    "palavra_lit", 
-    "id", 
-
-    "eof",
-    "empty"
-};
-
-
 void nextsym() {
     tok = yylex();
 }
@@ -94,22 +31,8 @@ void accept(Token s) {
             nextsym();
             return;
         }
-        if(tok == 123){
-            printf("{ ");
-            nextsym();
-            return;
-        }
-        if(tok == 125){
-            printf("} ");
-            nextsym();
-            return;
-        }
 
-        for(int i = 0; i < 11; i++){
-            printf("%c", token_names[tok][i]);
-        }
-
-        printf(" ");
+        printToken(s);
         nextsym();
     }
     else error("token inesperado\n");

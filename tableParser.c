@@ -583,8 +583,11 @@ void runTableParser() {
 		pop();
 		tokInput = yylex();
 	    } else {
-		printf("%d %d ", tokStack, tokInput);
-		error("erro na aceitação de terminal \n");
+		printf("topo da pilha: ");
+		printToken(tokStack);
+		printf("\ntoken da entrada: ");
+		printToken(tokInput);
+		error("\nerro na aceitação de terminal \n");
 		break;
 	    }
 	} else {
@@ -597,8 +600,11 @@ void runTableParser() {
 		    tmp = tmp->next;
 		}
 	    } else {
-		printf("%d %d ", tokStack, tokInput);
-		error("erro na regra da tabela \n");
+		printf("topo da pilha: ");
+		printToken(tokStack);
+		printf("\ntoken da entrada: ");
+		printToken(tokInput);
+		error("\nerro na regra da tabela \n");
 		break;
 	    }
 	}

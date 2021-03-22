@@ -377,6 +377,7 @@ void initTable() {
 
     tabela[TInstrucaoDeclaracaoInicializacao2][assign] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
     tabela[TInstrucaoDeclaracaoInicializacao2][virgula] = list(2, TListaIdentificadores, virgula);
+    tabela[TInstrucaoDeclaracaoInicializacao2][ponto_virgula] = list(1, empty);
     tabela[TInstrucaoDeclaracaoInicializacao2][assign_set_union] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
     tabela[TInstrucaoDeclaracaoInicializacao2][assign_set_intersection] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
     tabela[TInstrucaoDeclaracaoInicializacao2][assign_div] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);

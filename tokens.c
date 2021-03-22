@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "tokens.h"
 
-char token_names[124][35] = {
+char token_names[117][35] = {
     "=", 
     "+=", 
     "-=", 

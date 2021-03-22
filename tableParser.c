@@ -476,7 +476,7 @@ void initTable() {
 
     tabela[TLacoPara][key_for] = list(12, TInstrucao, parenteses_direita, TInstrucaoChamadaId, ponto_virgula, TExpressao, ponto_virgula, TExpressao, assign, id, TTipoNumerico, parenteses_esquerda, key_for);
     tabela[TLacoParaConjunto][key_for_set] = list(7, TInstrucao, parenteses_direita, TExpressao, key_in, id, parenteses_esquerda, key_for_set);
-    tabela[TLacoParaConjunto][key_while] = list(5, TInstrucao, parenteses_direita, TExpressao, parenteses_esquerda, key_while);
+    tabela[TLacoEnquanto][key_while] = list(5, TInstrucao, parenteses_direita, TExpressao, parenteses_esquerda, key_while);
 
     tabela[TInstrucaoSaida][key_continue] = list(2, ponto_virgula, key_continue);
     tabela[TInstrucaoSaida][key_continue] = list(2, ponto_virgula, key_break);

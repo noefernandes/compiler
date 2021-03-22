@@ -103,13 +103,6 @@ typedef enum {
 	TListaExpressoes2,
 	TInstrucaoCondicional,
 	TInstrucaoCondicional2,
-	TAtribuicao,
-	TAtribuicaoConj,
-	TAtribuicaoDisj,
-	TAtribuicaoDiv,
-	TAtribuicaoSoma,
-	TAtribuicaoSub,
-	TAtribuicaoMult,
 
 	TInstrucaoRepeticao,
 	TLacoPara,

@@ -375,14 +375,14 @@ void initTable() {
     tabela[TInstrucaoDeclaracaoInicializacao][key_string] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
     tabela[TInstrucaoDeclaracaoInicializacao][key_caractere] = list(4, ponto_virgula, TInstrucaoDeclaracaoInicializacao2, id, TTipo);
 
-    tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicao] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
+    tabela[TInstrucaoDeclaracaoInicializacao2][assign] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
     tabela[TInstrucaoDeclaracaoInicializacao2][virgula] = list(2, TListaIdentificadores, virgula);
-    tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicaoConj] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
-    tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicaoDisj] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
-    tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicaoDiv] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
-    tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicaoMult] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
-    tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicaoSoma] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
-    tabela[TInstrucaoDeclaracaoInicializacao2][TAtribuicaoSub] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
+    tabela[TInstrucaoDeclaracaoInicializacao2][assign_set_union] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
+    tabela[TInstrucaoDeclaracaoInicializacao2][assign_set_intersection] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
+    tabela[TInstrucaoDeclaracaoInicializacao2][assign_div] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
+    tabela[TInstrucaoDeclaracaoInicializacao2][assign_mult] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
+    tabela[TInstrucaoDeclaracaoInicializacao2][assign_sum] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
+    tabela[TInstrucaoDeclaracaoInicializacao2][assign_sub] = list(2, TInstrucaoDeclaracaoInicializacao3, TOperadoresAtribuicao);
 
     tabela[TInstrucaoDeclaracaoInicializacao3][id] = list(1, TListaExpressoes);
     tabela[TInstrucaoDeclaracaoInicializacao3][parenteses_esquerda] = list(1, TListaExpressoes);
@@ -404,31 +404,31 @@ void initTable() {
     tabela[TChamadaFuncaoOuAtribuicao][ponto] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
     tabela[TChamadaFuncaoOuAtribuicao][parenteses_esquerda] = list(3, parenteses_direita, TListaExpressoes, parenteses_esquerda);
     tabela[TChamadaFuncaoOuAtribuicao][colchetes_esquerda] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
-    tabela[TChamadaFuncaoOuAtribuicao][TAtribuicao] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
-    tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoConj] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
-    tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoDisj] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
-    tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoDiv] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
-    tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoMult] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
-    tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoSoma] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
-    tabela[TChamadaFuncaoOuAtribuicao][TAtribuicaoSub] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][assign] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][assign_set_union] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][assign_set_intersection] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][assign_div] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][assign_mult] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][assign_sum] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
+    tabela[TChamadaFuncaoOuAtribuicao][assign_sub] = list(3, TExpressao, TOperadoresAtribuicao, TLvalueId);
 
     tabela[TLvalueId][ponto] = list(2, id, ponto);
     tabela[TLvalueId][colchetes_esquerda] = list(3, colchetes_direita, TExpressao, colchetes_esquerda);
-    tabela[TLvalueId][TAtribuicao] = list(1, empty);
-    tabela[TLvalueId][TAtribuicaoConj] = list(1, empty);
-    tabela[TLvalueId][TAtribuicaoDisj] = list(1, empty);
-    tabela[TLvalueId][TAtribuicaoDiv] = list(1, empty);
-    tabela[TLvalueId][TAtribuicaoMult] = list(1, empty);
-    tabela[TLvalueId][TAtribuicaoSoma] = list(1, empty);
-    tabela[TLvalueId][TAtribuicaoSub] = list(1, empty);
+    tabela[TLvalueId][assign] = list(1, empty);
+    tabela[TLvalueId][assign_set_union] = list(1, empty);
+    tabela[TLvalueId][assign_set_intersection] = list(1, empty);
+    tabela[TLvalueId][assign_div] = list(1, empty);
+    tabela[TLvalueId][assign_mult] = list(1, empty);
+    tabela[TLvalueId][assign_sum] = list(1, empty);
+    tabela[TLvalueId][assign_sub] = list(1, empty);
 
-    tabela[TOperadoresAtribuicao][TAtribuicao] = list(1, TAtribuicao);
-    tabela[TOperadoresAtribuicao][TAtribuicaoConj] = list(1, TAtribuicaoConj);
-    tabela[TOperadoresAtribuicao][TAtribuicaoDisj] = list(1, TAtribuicaoDisj);
-    tabela[TOperadoresAtribuicao][TAtribuicaoDiv] = list(1, TAtribuicaoDiv);
-    tabela[TOperadoresAtribuicao][TAtribuicaoMult] = list(1, TAtribuicaoMult);
-    tabela[TOperadoresAtribuicao][TAtribuicaoSoma] = list(1, TAtribuicaoSoma);
-    tabela[TOperadoresAtribuicao][TAtribuicaoSub] = list(1, TAtribuicaoSub);
+    tabela[TOperadoresAtribuicao][assign] = list(1, assign);
+    tabela[TOperadoresAtribuicao][assign_set_union] = list(1, assign_set_union);
+    tabela[TOperadoresAtribuicao][assign_set_intersection] = list(1, assign_set_intersection);
+    tabela[TOperadoresAtribuicao][assign_div] = list(1, assign_div);
+    tabela[TOperadoresAtribuicao][assign_mult] = list(1, assign_mult);
+    tabela[TOperadoresAtribuicao][assign_sum] = list(1, assign_sum);
+    tabela[TOperadoresAtribuicao][assign_sub] = list(1, assign_sub);
 
     tabela[TListaIdentificadores][id] = list(2, TListaIdentificadores2, id);
 
@@ -463,7 +463,7 @@ void initTable() {
     tabela[TInstrucaoRepeticao][key_for_set] = list(1, TLacoParaConjunto);
     tabela[TInstrucaoRepeticao][key_for] = list(1, TLacoPara);
 
-    tabela[TLacoPara][key_for] = list(12, TInstrucao, parenteses_direita, TInstrucaoChamadaId, ponto_virgula, TExpressao, ponto_virgula, TExpressao, TAtribuicao, id, TTipoNumerico, parenteses_esquerda, key_for);
+    tabela[TLacoPara][key_for] = list(12, TInstrucao, parenteses_direita, TInstrucaoChamadaId, ponto_virgula, TExpressao, ponto_virgula, TExpressao, assign, id, TTipoNumerico, parenteses_esquerda, key_for);
     tabela[TLacoParaConjunto][key_for_set] = list(7, TInstrucao, parenteses_direita, TExpressao, key_in, id, parenteses_esquerda, key_for_set);
     tabela[TLacoParaConjunto][key_while] = list(5, TInstrucao, parenteses_direita, TExpressao, parenteses_esquerda, key_while);
 

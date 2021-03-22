@@ -587,6 +587,11 @@ void runTableParser() {
     tokStack = top->data;
     tokInput = yylex();
     do {
+	printf("pilha: ");
+	printStack();
+	printf("\nentrada: ");
+	printToken(tokInput);
+	printf("\n\n");
 	if (tokStack == empty) {
 	    pop();
 	} else if (tokStack < NONTERMINAL_BEGIN_INDEX) {

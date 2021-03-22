@@ -29,6 +29,15 @@ void initStack() {
     top = NULL;
 }
 
+void printStack() {
+    struct item *tmp;
+    tmp = top;
+    while (tmp) {
+	printToken(tmp->data);
+	tmp = tmp->next;
+    }
+}
+
 void initTable() {
     for (int i=0; i<TOKENS_COUNT; i++) {
         for (int j=0; j<TOKENS_COUNT; j++) {
@@ -161,6 +170,7 @@ void initTable() {
     tabela[TTermo1][op_sub] = list(1, empty);
     tabela[TTermo1][set_intersection] = list(1, empty);
     tabela[TTermo1][set_union] = list(1, empty);
+    tabela[TTermo1][parenteses_direita] = list(1, empty);
 
     tabela[TFator][id] = list(2, TFator2, TExpUnaria);
     tabela[TFator][inteiro] = list(2, TFator2, TExpUnaria);
@@ -577,10 +587,6 @@ void runTableParser() {
     tokStack = top->data;
     tokInput = yylex();
     do {
-	printf("\n\ntopo da pilha: ");
-	printToken(tokStack);
-	printf("\ntoken da entrada: ");
-	printToken(tokInput);
 	if (tokStack == empty) {
 	    pop();
 	} else if (tokStack < NONTERMINAL_BEGIN_INDEX) {
@@ -588,8 +594,8 @@ void runTableParser() {
 		pop();
 		tokInput = yylex();
 	    } else {
-		printf("topo da pilha: ");
-		printToken(tokStack);
+		printf("pilha: ");
+		printStack();
 		printf("\ntoken da entrada: ");
 		printToken(tokInput);
 		error("\nerro na aceitação de terminal \n");
@@ -605,8 +611,8 @@ void runTableParser() {
 		    tmp = tmp->next;
 		}
 	    } else {
-		printf("topo da pilha: ");
-		printToken(tokStack);
+		printf("pilha: ");
+		printStack();
 		printf("\ntoken da entrada: ");
 		printToken(tokInput);
 		error("\nerro na regra da tabela \n");

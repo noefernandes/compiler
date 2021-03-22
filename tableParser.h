@@ -2,7 +2,7 @@
 #define TABLEPARSER_H
 
 #include "tokens.h"
-#define TOKENS_COUNT 124
+#define TOKENS_COUNT 117
 #define NONTERMINAL_BEGIN_INDEX 63
 
 struct item {
@@ -16,6 +16,7 @@ struct item* tabela[TOKENS_COUNT][TOKENS_COUNT];
 void push(Token value);
 Token pop();
 void initStack();
+void printStack();
 
 /* Table */
 void initTable();

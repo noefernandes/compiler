@@ -299,8 +299,8 @@ void initTable() {
     tabela[TTipoPrimitivo][key_bool] = list(1, TTipoNumerico);
     tabela[TTipoPrimitivo][key_real] = list(1, TTipoNumerico);
     tabela[TTipoPrimitivo][key_int] = list(1, TTipoNumerico);
-    tabela[TTipoPrimitivo][key_string] = list(1, palavra);
-    tabela[TTipoPrimitivo][key_caractere] = list(1, caractere);
+    tabela[TTipoPrimitivo][key_string] = list(1, key_string);
+    tabela[TTipoPrimitivo][key_caractere] = list(1, key_caractere);
 
     tabela[TTipoNumerico][key_bool] = list(1, key_bool);
     tabela[TTipoNumerico][key_real] = list(1, key_real);

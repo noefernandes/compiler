@@ -444,7 +444,7 @@ void initTable() {
     tabela[TListaIdentificadores][id] = list(2, TListaIdentificadores2, id);
 
     tabela[TListaIdentificadores2][ponto_virgula] = list(1, empty);
-    tabela[TListaIdentificadores2][virgula] = list(TListaIdentificadores, virgula);
+    tabela[TListaIdentificadores2][virgula] = list(2, TListaIdentificadores, virgula);
 
     tabela[TListaExpressoes][id] = list(2, TListaExpressoes2, TExpressao);
     tabela[TListaExpressoes][parenteses_direita] = list(1, empty);

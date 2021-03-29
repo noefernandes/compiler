@@ -1,3 +1,3 @@
 make:
 	flex lexer.l
-	gcc -o lexer tokens.c tableParser.c recursiveParser.c lex.yy.c
+	gcc -o x_compiler tokens.c tableParser.c recursiveParser.c main.c

@@ -4,4 +4,4 @@
 Execute no terminal as seguintes instruções:
 
 - `make`
-- `./lexer (r | t) < file.x`
+- `./x_compiler (r | t) < file.x`

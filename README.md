@@ -4,4 +4,4 @@
 Execute no terminal as seguintes instruções:
 
 - `make`
-- `./x_compiler (r | t) < file.x`
+- `./x_compiler (r | t | a) < file.x`

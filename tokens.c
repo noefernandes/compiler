@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "tokens.h"
 
-char token_names[117][35] = {
+char token_names[116][35] = {
     "=", 
     "+=", 
     "-=", 
@@ -67,7 +67,6 @@ char token_names[117][35] = {
     "{",
     "}",
 
-    "eof",
     "empty",
 
     "TExpressao",
@@ -128,8 +127,12 @@ char token_names[117][35] = {
 };
 
 void printToken(Token token) {
-    for(int i = 0; i < 35; i++){
-        printf("%c", token_names[token][i]);
+    if (token == eof) {
+        printf("eof");
+    } else {
+        for (int i = 0; i < 35; i++) {
+            printf("%c", token_names[token-258][i]);
+        }
     }
     printf(" ");
 }

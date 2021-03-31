@@ -19,7 +19,62 @@
 %right circunflexo
 
 %%
-PROGRAM: EXP eof
+PROGRAM: DEF PROGRAM eof
+| %empty
+;
+
+DEF: key_def DEFINICAO_FUNCAO
+| DEFINICAO_FUNCAO
+| DEFINICAO_REGISTRO
+| INSTRUCAO
+;
+
+DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda LISTA_ATRIBUTOS chaves_direita
+;
+
+LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO_INICIALIZACAO LISTA_ATRIBUTOS_2
+;
+
+LISTA_ATRIBUTOS_2: LISTA_ATRIBUTOS
+| %empty
+;
+
+DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
+;
+
+LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO LISTA_PARAMETROS_FUNCAO_2
+| %empty
+;
+
+LISTA_PARAMETROS_FUNCAO_2: virgula LISTA_PARAMETROS_FUNCAO
+| empty
+;
+
+TIPO_FUNCAO -> TIPO
+| key_return_nothing
+;
+
+PARAMETRO_FUNCAO: TIPO id
+;
+
+TIPO: TIPO_PRIMITIVO
+| TIPO_ESTRUTURADO
+;
+
+TIPO_PRIMITIVO: TIPO_NUMERICO
+| key_caractere
+| key_string
+;
+
+TIPO_NUMERICO: key_int
+| key_real
+| key_booleano
+;
+
+TIPO_ESTRUTURADO: key_set TIPO
+| key_register id
+| key_vetor TIPO colchetes_esquerda colchetes_direita
+;
 
 EXP: id EXP_ID
 | inteiro

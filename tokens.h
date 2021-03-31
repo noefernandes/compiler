@@ -4,6 +4,7 @@
 
 typedef enum yytokentype Token;
 
+int yylex();
 void error(const char msg[]);
 void printToken(Token token);
 

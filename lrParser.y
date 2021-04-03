@@ -18,6 +18,9 @@
 %left op_mult op_div op_mod
 %right circunflexo
 
+%precedence parenteses_direita
+%precedence key_else
+
 %%
 PROGRAM: DEF PROGRAM eof
 | %empty
@@ -38,7 +41,7 @@ LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO
 | INSTRUCAO_INICIALIZACAO LISTA_ATRIBUTOS
 ;
 
-DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
+DEFINICAO_FUNCAO: TIPO_FUNCAO %prec id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
 ;
 
 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO 
@@ -193,7 +196,7 @@ EXP: id EXP_ID
 EXP_ID: %empty
 | ponto id
 | colchetes_esquerda EXP colchetes_direita
-| parenteses_esquerda EXP parenteses_direita
+| parenteses_esquerda EXP %prec parenteses_direita
 ;
 
 %%

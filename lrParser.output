@@ -57,9 +57,6 @@ Terminals unused in grammar
     TListaAtributos2
 
 
-State 30 conflicts: 2 shift/reduce
-
-
 Grammar
 
     0 $accept: PROGRAM eof
@@ -112,12 +109,12 @@ Grammar
 
    33 INSTRUCAO: INSTRUCAO_DECLARACAO
    34          | INSTRUCAO_INICIALIZACAO
-   35          | INSTRUCAO_ATRIBUICAO
-   36          | INSTRUCAO_CONDICIONAL
-   37          | INSTRUCAO_REPETICAO
-   38          | INSTRUCAO_IO
-   39          | INSTRUCAO_SAIDA
-   40          | INSTRUCAO_CHAMADA_FUNCAO
+   35          | INSTRUCAO_CHAMADA_ID ponto_virgula
+   36          | INSTRUCAO_ATRIBUICAO_CASTING ponto_virgula
+   37          | INSTRUCAO_CONDICIONAL
+   38          | INSTRUCAO_REPETICAO
+   39          | INSTRUCAO_IO
+   40          | INSTRUCAO_SAIDA
    41          | BLOCO
    42          | EXP ponto_virgula
 
@@ -129,150 +126,148 @@ Grammar
    46 INSTRUCAO_INICIALIZACAO: TIPO id assign EXP ponto_virgula
    47                        | TIPO id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
 
-   48 INSTRUCAO_ATRIBUICAO: CLVALUE OPERADORES_ATRIBUICAO EXP ponto_virgula
+   48 INSTRUCAO_CHAMADA_ID: id CHAMADA_FUNCAO_OU_ATRIBUICAO
 
-   49 CLVALUE: CASTING LVALUE
-   50        | LVALUE
+   49 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda LISTA_EXPRESSOES parenteses_direita
+   50                             | LVALUE OPERADORES_ATRIBUICAO EXP
 
-   51 LVALUE: id
-   52       | LVALUE colchetes_esquerda EXP colchetes_direita
-   53       | LVALUE ponto id
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP
 
-   54 CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita
+   52 LVALUE: colchetes_esquerda EXP colchetes_direita
+   53       | ponto id
+   54       | %empty
 
-   55 INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda LISTA_EXPRESSOES parenteses_direita ponto_virgula
+   55 LISTA_EXPRESSOES: EXP
+   56                 | EXP virgula LISTA_EXPRESSOES
+   57                 | %empty
 
-   56 LISTA_EXPRESSOES: EXP
-   57                 | EXP virgula LISTA_EXPRESSOES
-   58                 | %empty
+   58 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO
+   59                      | key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
 
-   59 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO
-   60                      | key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
+   60 INSTRUCAO_REPETICAO: LACO_PARA
+   61                    | LACO_PARA_CONJUNTO
+   62                    | LACO_ENQUANTO
 
-   61 INSTRUCAO_REPETICAO: LACO_PARA
-   62                    | LACO_PARA_CONJUNTO
-   63                    | LACO_ENQUANTO
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   64          | key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 
-   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO
-   65          | INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   65 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO
 
-   66 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO
+   66 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO
 
-   67 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO
+   67 INSTRUCAO_SAIDA: key_return EXP ponto_virgula
+   68                | key_break ponto_virgula
+   69                | key_continue ponto_virgula
 
-   68 INSTRUCAO_SAIDA: key_return EXP ponto_virgula
-   69                | key_break ponto_virgula
-   70                | key_continue ponto_virgula
+   70 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita ponto_virgula
+   71             | key_write parenteses_esquerda EXP parenteses_direita ponto_virgula
 
-   71 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita ponto_virgula
-   72             | key_write parenteses_esquerda EXP parenteses_direita ponto_virgula
+   72 OPERADORES_ATRIBUICAO: assign
+   73                      | assign_sum
+   74                      | assign_sub
+   75                      | assign_mult
+   76                      | assign_div
+   77                      | assign_set_union
+   78                      | assign_set_intersection
 
-   73 OPERADORES_ATRIBUICAO: assign
-   74                      | assign_sum
-   75                      | assign_sub
-   76                      | assign_mult
-   77                      | assign_div
-   78                      | assign_set_union
-   79                      | assign_set_intersection
+   79 EXP: id EXP_ID
+   80    | inteiro
+   81    | real
+   82    | caractere
+   83    | palavra
+   84    | booleano
+   85    | parenteses_esquerda EXP parenteses_direita
+   86    | EXP op_or EXP
+   87    | EXP op_and EXP
+   88    | op_not EXP
+   89    | op_sub EXP
+   90    | op_sum EXP
+   91    | EXP op_sub EXP
+   92    | EXP op_sum EXP
+   93    | EXP set_intersection EXP
+   94    | EXP set_union EXP
+   95    | EXP op_mult EXP
+   96    | EXP op_div EXP
+   97    | EXP op_mod EXP
+   98    | EXP circunflexo EXP
+   99    | EXP op_diff EXP
+  100    | EXP op_equal EXP
+  101    | EXP op_gte EXP
+  102    | EXP op_lte EXP
+  103    | EXP op_gt EXP
+  104    | EXP op_lt EXP
 
-   80 EXP: id EXP_ID
-   81    | inteiro
-   82    | real
-   83    | caractere
-   84    | palavra
-   85    | booleano
-   86    | parenteses_esquerda EXP parenteses_direita
-   87    | EXP op_or EXP
-   88    | EXP op_and EXP
-   89    | op_not EXP
-   90    | op_sub EXP
-   91    | op_sum EXP
-   92    | EXP op_sub EXP
-   93    | EXP op_sum EXP
-   94    | EXP set_intersection EXP
-   95    | EXP set_union EXP
-   96    | EXP op_mult EXP
-   97    | EXP op_div EXP
-   98    | EXP op_mod EXP
-   99    | EXP circunflexo EXP
-  100    | EXP op_diff EXP
-  101    | EXP op_equal EXP
-  102    | EXP op_gte EXP
-  103    | EXP op_lte EXP
-  104    | EXP op_gt EXP
-  105    | EXP op_lt EXP
-
-  106 EXP_ID: %empty
-  107       | ponto id
-  108       | colchetes_esquerda EXP colchetes_direita
-  109       | parenteses_esquerda EXP
+  105 EXP_ID: %empty
+  106       | ponto id
+  107       | colchetes_esquerda EXP colchetes_direita
+  108       | parenteses_esquerda EXP
 
 
 Terminals, with rules where they appear
 
     eof (0) 0 1
     error (256)
-    assign (258) 46 47 73
-    assign_sum (259) 74
-    assign_sub (260) 75
-    assign_mult (261) 76
-    assign_div (262) 77
-    assign_set_union (263) 78
-    assign_set_intersection (264) 79
-    op_not (265) 89
-    op_or (266) 87
-    op_and (267) 88
-    op_gt (268) 104
-    op_lt (269) 105
-    op_lte (270) 103
-    op_gte (271) 102
-    op_equal (272) 101
-    op_diff (273) 100
-    op_mod (274) 98
-    parenteses_esquerda (275) 12 54 55 59 60 64 66 67 71 72 86 109
-    parenteses_direita (276) 12 54 55 59 60 65 66 67 71 72 86
-    op_mult (277) 96
-    op_div (278) 97
-    op_sum (279) 91 93
-    op_sub (280) 90 92
-    virgula (281) 14 45 57
-    ponto (282) 53 107
-    set_intersection (283) 94
-    set_union (284) 95
+    assign (258) 46 47 72
+    assign_sum (259) 73
+    assign_sub (260) 74
+    assign_mult (261) 75
+    assign_div (262) 76
+    assign_set_union (263) 77
+    assign_set_intersection (264) 78
+    op_not (265) 88
+    op_or (266) 86
+    op_and (267) 87
+    op_gt (268) 103
+    op_lt (269) 104
+    op_lte (270) 102
+    op_gte (271) 101
+    op_equal (272) 100
+    op_diff (273) 99
+    op_mod (274) 97
+    parenteses_esquerda (275) 12 49 51 58 59 63 64 65 66 70 71 85 108
+    parenteses_direita (276) 12 49 51 58 59 63 64 65 66 70 71 85
+    op_mult (277) 95
+    op_div (278) 96
+    op_sum (279) 90 92
+    op_sub (280) 89 91
+    virgula (281) 14 45 56
+    ponto (282) 53 106
+    set_intersection (283) 93
+    set_union (284) 94
     key_bool (285) 26
     key_caractere (286) 22
     key_set (287) 27
     key_vetor (288) 29
-    key_continue (289) 70
-    key_while (290) 67
-    key_write (291) 72
+    key_continue (289) 69
+    key_while (290) 66
+    key_write (291) 71
     key_int (292) 24
-    key_read (293) 71
-    key_for (294) 64
-    key_for_set (295) 66
-    key_in (296) 66
-    key_break (297) 69
+    key_read (293) 70
+    key_for (294) 63 64
+    key_for_set (295) 65
+    key_in (296) 65
+    key_break (297) 68
     key_string (298) 23
-    key_if (299) 59 60
-    key_else (300) 60
+    key_if (299) 58 59
+    key_else (300) 59
     key_real (301) 25
     key_register (302) 7 28
-    key_return (303) 68
+    key_return (303) 67
     key_return_nothing (304) 17
     key_def (305) 3
     key_deftipo (306) 7
-    booleano (307) 85
-    inteiro (308) 81
-    real (309) 82
-    caractere (310) 83
-    palavra (311) 84
-    id (312) 7 18 28 44 45 46 47 51 53 55 66 71 80 107
-    colchetes_esquerda (313) 29 52 108
-    colchetes_direita (314) 29 52 108
-    circunflexo (315) 99
-    ponto_virgula (316) 42 46 47 48 55 65 68 69 70 71 72
-    chaves_esquerda (317) 7 30 47 65
-    chaves_direita (318) 7 30 47 65
+    booleano (307) 84
+    inteiro (308) 80
+    real (309) 81
+    caractere (310) 82
+    palavra (311) 83
+    id (312) 7 18 28 44 45 46 47 48 51 53 65 70 79 106
+    colchetes_esquerda (313) 29 52 107
+    colchetes_direita (314) 29 52 107
+    circunflexo (315) 98
+    ponto_virgula (316) 35 36 42 46 47 63 64 67 68 69 70 71
+    chaves_esquerda (317) 7 30 47 63 64
+    chaves_direita (318) 7 30 47 63 64
     empty (319)
     TExpressao (320)
     TExp1 (321)
@@ -363,7 +358,7 @@ Nonterminals, with rules where they appear
         on right: 16 18 27 29 43 46 47
     TIPO_PRIMITIVO (129)
         on left: 21 22 23
-        on right: 19 54
+        on right: 19 51
     TIPO_NUMERICO (130)
         on left: 24 25 26
         on right: 21
@@ -378,7 +373,7 @@ Nonterminals, with rules where they appear
         on right: 30 32
     INSTRUCAO (134)
         on left: 33 34 35 36 37 38 39 40 41 42
-        on right: 6 31 32 59 60 65 66 67
+        on right: 6 31 32 58 59 63 64 65 66
     INSTRUCAO_DECLARACAO (135)
         on left: 43
         on right: 8 10 33
@@ -387,55 +382,52 @@ Nonterminals, with rules where they appear
         on right: 43 45
     INSTRUCAO_INICIALIZACAO (137)
         on left: 46 47
-        on right: 9 11 34 64
-    INSTRUCAO_ATRIBUICAO (138)
+        on right: 9 11 34 63
+    INSTRUCAO_CHAMADA_ID (138)
         on left: 48
-        on right: 35 65
-    CLVALUE (139)
+        on right: 35 63 64
+    CHAMADA_FUNCAO_OU_ATRIBUICAO (139)
         on left: 49 50
         on right: 48
-    LVALUE (140)
-        on left: 51 52 53
-        on right: 49 50 52 53
-    CASTING (141)
-        on left: 54
-        on right: 49
-    INSTRUCAO_CHAMADA_FUNCAO (142)
-        on left: 55
-        on right: 40
-    LISTA_EXPRESSOES (143)
-        on left: 56 57 58
-        on right: 47 55 57
-    INSTRUCAO_CONDICIONAL (144)
-        on left: 59 60
+    INSTRUCAO_ATRIBUICAO_CASTING (140)
+        on left: 51
         on right: 36
-    INSTRUCAO_REPETICAO (145)
-        on left: 61 62 63
+    LVALUE (141)
+        on left: 52 53 54
+        on right: 50 51
+    LISTA_EXPRESSOES (142)
+        on left: 55 56 57
+        on right: 47 49 56
+    INSTRUCAO_CONDICIONAL (143)
+        on left: 58 59
         on right: 37
-    LACO_PARA (146)
-        on left: 64 65
+    INSTRUCAO_REPETICAO (144)
+        on left: 60 61 62
+        on right: 38
+    LACO_PARA (145)
+        on left: 63 64
+        on right: 60
+    LACO_PARA_CONJUNTO (146)
+        on left: 65
         on right: 61
-    LACO_PARA_CONJUNTO (147)
+    LACO_ENQUANTO (147)
         on left: 66
         on right: 62
-    LACO_ENQUANTO (148)
-        on left: 67
-        on right: 63
-    INSTRUCAO_SAIDA (149)
-        on left: 68 69 70
+    INSTRUCAO_SAIDA (148)
+        on left: 67 68 69
+        on right: 40
+    INSTRUCAO_IO (149)
+        on left: 70 71
         on right: 39
-    INSTRUCAO_IO (150)
-        on left: 71 72
-        on right: 38
-    OPERADORES_ATRIBUICAO (151)
-        on left: 73 74 75 76 77 78 79
-        on right: 48
-    EXP (152)
-        on left: 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105
-        on right: 42 46 48 52 56 57 59 60 65 66 67 68 72 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 108 109
-    EXP_ID (153)
-        on left: 106 107 108 109
-        on right: 80
+    OPERADORES_ATRIBUICAO (150)
+        on left: 72 73 74 75 76 77 78
+        on right: 50 51
+    EXP (151)
+        on left: 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+        on right: 42 46 50 51 52 55 56 58 59 63 64 65 66 67 71 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 107 108
+    EXP_ID (152)
+        on left: 105 106 107 108
+        on right: 79
 
 
 State 0
@@ -476,40 +468,37 @@ State 0
 
     $default  reduce using rule 2 (PROGRAM)
 
-    PROGRAM                   go to state 32
-    DEF                       go to state 33
-    DEFINICAO_REGISTRO        go to state 34
-    DEFINICAO_FUNCAO          go to state 35
-    TIPO_FUNCAO               go to state 36
-    TIPO                      go to state 37
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCAO                 go to state 42
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    PROGRAM                       go to state 32
+    DEF                           go to state 33
+    DEFINICAO_REGISTRO            go to state 34
+    DEFINICAO_FUNCAO              go to state 35
+    TIPO_FUNCAO                   go to state 36
+    TIPO                          go to state 37
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 42
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
 State 1
 
-   89 EXP: op_not . EXP
+   88 EXP: op_not . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -517,18 +506,18 @@ State 1
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 60
+    EXP  go to state 57
 
 
 State 2
 
-   54 CASTING: parenteses_esquerda . TIPO_PRIMITIVO parenteses_direita
-   86 EXP: parenteses_esquerda . EXP parenteses_direita
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda . TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP
+   85 EXP: parenteses_esquerda . EXP parenteses_direita
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     key_bool             shift, and go to state 5
@@ -541,19 +530,19 @@ State 2
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    TIPO_PRIMITIVO  go to state 61
+    TIPO_PRIMITIVO  go to state 58
     TIPO_NUMERICO   go to state 39
-    EXP             go to state 62
+    EXP             go to state 59
 
 
 State 3
 
-   91 EXP: op_sum . EXP
+   90 EXP: op_sum . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -561,17 +550,17 @@ State 3
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 63
+    EXP  go to state 60
 
 
 State 4
 
-   90 EXP: op_sub . EXP
+   89 EXP: op_sub . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -579,9 +568,9 @@ State 4
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 64
+    EXP  go to state 61
 
 
 State 5
@@ -611,7 +600,7 @@ State 7
     key_real       shift, and go to state 19
     key_register   shift, and go to state 20
 
-    TIPO              go to state 65
+    TIPO              go to state 62
     TIPO_PRIMITIVO    go to state 38
     TIPO_NUMERICO     go to state 39
     TIPO_ESTRUTURADO  go to state 40
@@ -630,7 +619,7 @@ State 8
     key_real       shift, and go to state 19
     key_register   shift, and go to state 20
 
-    TIPO              go to state 66
+    TIPO              go to state 63
     TIPO_PRIMITIVO    go to state 38
     TIPO_NUMERICO     go to state 39
     TIPO_ESTRUTURADO  go to state 40
@@ -638,23 +627,23 @@ State 8
 
 State 9
 
-   70 INSTRUCAO_SAIDA: key_continue . ponto_virgula
+   69 INSTRUCAO_SAIDA: key_continue . ponto_virgula
 
-    ponto_virgula  shift, and go to state 67
+    ponto_virgula  shift, and go to state 64
 
 
 State 10
 
-   67 LACO_ENQUANTO: key_while . parenteses_esquerda EXP parenteses_direita INSTRUCAO
+   66 LACO_ENQUANTO: key_while . parenteses_esquerda EXP parenteses_direita INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 68
+    parenteses_esquerda  shift, and go to state 65
 
 
 State 11
 
-   72 INSTRUCAO_IO: key_write . parenteses_esquerda EXP parenteses_direita ponto_virgula
+   71 INSTRUCAO_IO: key_write . parenteses_esquerda EXP parenteses_direita ponto_virgula
 
-    parenteses_esquerda  shift, and go to state 69
+    parenteses_esquerda  shift, and go to state 66
 
 
 State 12
@@ -666,30 +655,31 @@ State 12
 
 State 13
 
-   71 INSTRUCAO_IO: key_read . parenteses_esquerda id parenteses_direita ponto_virgula
+   70 INSTRUCAO_IO: key_read . parenteses_esquerda id parenteses_direita ponto_virgula
 
-    parenteses_esquerda  shift, and go to state 70
+    parenteses_esquerda  shift, and go to state 67
 
 
 State 14
 
-   64 LACO_PARA: key_for . parenteses_esquerda INSTRUCAO_INICIALIZACAO
+   63 LACO_PARA: key_for . parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   64          | key_for . parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 
-    parenteses_esquerda  shift, and go to state 71
+    parenteses_esquerda  shift, and go to state 68
 
 
 State 15
 
-   66 LACO_PARA_CONJUNTO: key_for_set . parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO
+   65 LACO_PARA_CONJUNTO: key_for_set . parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 72
+    parenteses_esquerda  shift, and go to state 69
 
 
 State 16
 
-   69 INSTRUCAO_SAIDA: key_break . ponto_virgula
+   68 INSTRUCAO_SAIDA: key_break . ponto_virgula
 
-    ponto_virgula  shift, and go to state 73
+    ponto_virgula  shift, and go to state 70
 
 
 State 17
@@ -701,10 +691,10 @@ State 17
 
 State 18
 
-   59 INSTRUCAO_CONDICIONAL: key_if . parenteses_esquerda EXP parenteses_direita INSTRUCAO
-   60                      | key_if . parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
+   58 INSTRUCAO_CONDICIONAL: key_if . parenteses_esquerda EXP parenteses_direita INSTRUCAO
+   59                      | key_if . parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 74
+    parenteses_esquerda  shift, and go to state 71
 
 
 State 19
@@ -718,15 +708,15 @@ State 20
 
    28 TIPO_ESTRUTURADO: key_register . id
 
-    id  shift, and go to state 75
+    id  shift, and go to state 72
 
 
 State 21
 
-   68 INSTRUCAO_SAIDA: key_return . EXP ponto_virgula
+   67 INSTRUCAO_SAIDA: key_return . EXP ponto_virgula
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -734,9 +724,9 @@ State 21
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 76
+    EXP  go to state 73
 
 
 State 22
@@ -760,9 +750,9 @@ State 23
     key_register        shift, and go to state 20
     key_return_nothing  shift, and go to state 22
 
-    DEFINICAO_FUNCAO  go to state 77
+    DEFINICAO_FUNCAO  go to state 74
     TIPO_FUNCAO       go to state 36
-    TIPO              go to state 78
+    TIPO              go to state 75
     TIPO_PRIMITIVO    go to state 38
     TIPO_NUMERICO     go to state 39
     TIPO_ESTRUTURADO  go to state 40
@@ -772,66 +762,65 @@ State 24
 
     7 DEFINICAO_REGISTRO: key_deftipo . key_register id chaves_esquerda LISTA_ATRIBUTOS chaves_direita
 
-    key_register  shift, and go to state 79
+    key_register  shift, and go to state 76
 
 
 State 25
 
-   85 EXP: booleano .
-
-    $default  reduce using rule 85 (EXP)
-
-
-State 26
-
-   81 EXP: inteiro .
-
-    $default  reduce using rule 81 (EXP)
-
-
-State 27
-
-   82 EXP: real .
-
-    $default  reduce using rule 82 (EXP)
-
-
-State 28
-
-   83 EXP: caractere .
-
-    $default  reduce using rule 83 (EXP)
-
-
-State 29
-
-   84 EXP: palavra .
+   84 EXP: booleano .
 
     $default  reduce using rule 84 (EXP)
 
 
+State 26
+
+   80 EXP: inteiro .
+
+    $default  reduce using rule 80 (EXP)
+
+
+State 27
+
+   81 EXP: real .
+
+    $default  reduce using rule 81 (EXP)
+
+
+State 28
+
+   82 EXP: caractere .
+
+    $default  reduce using rule 82 (EXP)
+
+
+State 29
+
+   83 EXP: palavra .
+
+    $default  reduce using rule 83 (EXP)
+
+
 State 30
 
-   51 LVALUE: id .
-   55 INSTRUCAO_CHAMADA_FUNCAO: id . parenteses_esquerda LISTA_EXPRESSOES parenteses_direita ponto_virgula
-   80 EXP: id . EXP_ID
+   48 INSTRUCAO_CHAMADA_ID: id . CHAMADA_FUNCAO_OU_ATRIBUICAO
+   79 EXP: id . EXP_ID
 
-    parenteses_esquerda  shift, and go to state 80
-    ponto                shift, and go to state 81
-    colchetes_esquerda   shift, and go to state 82
+    parenteses_esquerda  shift, and go to state 77
+    ponto                shift, and go to state 78
+    colchetes_esquerda   shift, and go to state 79
 
-    assign                   reduce using rule 51 (LVALUE)
-    assign_sum               reduce using rule 51 (LVALUE)
-    assign_sub               reduce using rule 51 (LVALUE)
-    assign_mult              reduce using rule 51 (LVALUE)
-    assign_div               reduce using rule 51 (LVALUE)
-    assign_set_union         reduce using rule 51 (LVALUE)
-    assign_set_intersection  reduce using rule 51 (LVALUE)
-    ponto                    [reduce using rule 51 (LVALUE)]
-    colchetes_esquerda       [reduce using rule 51 (LVALUE)]
-    $default                 reduce using rule 106 (EXP_ID)
+    assign                   reduce using rule 54 (LVALUE)
+    assign_sum               reduce using rule 54 (LVALUE)
+    assign_sub               reduce using rule 54 (LVALUE)
+    assign_mult              reduce using rule 54 (LVALUE)
+    assign_div               reduce using rule 54 (LVALUE)
+    assign_set_union         reduce using rule 54 (LVALUE)
+    assign_set_intersection  reduce using rule 54 (LVALUE)
+    $default                 reduce using rule 105 (EXP_ID)
 
-    EXP_ID  go to state 83
+    CHAMADA_FUNCAO_OU_ATRIBUICAO  go to state 80
+    LVALUE                        go to state 81
+    EXP_ID                        go to state 82
 
 
 State 31
@@ -867,35 +856,32 @@ State 31
     id                   shift, and go to state 30
     chaves_esquerda      shift, and go to state 31
 
-    TIPO                      go to state 84
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCOES                go to state 85
-    INSTRUCAO                 go to state 86
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCOES                    go to state 84
+    INSTRUCAO                     go to state 85
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
 State 32
 
     0 $accept: PROGRAM . eof
 
-    eof  shift, and go to state 87
+    eof  shift, and go to state 86
 
 
 State 33
@@ -936,32 +922,29 @@ State 33
 
     $default  reduce using rule 2 (PROGRAM)
 
-    PROGRAM                   go to state 88
-    DEF                       go to state 33
-    DEFINICAO_REGISTRO        go to state 34
-    DEFINICAO_FUNCAO          go to state 35
-    TIPO_FUNCAO               go to state 36
-    TIPO                      go to state 37
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCAO                 go to state 42
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    PROGRAM                       go to state 87
+    DEF                           go to state 33
+    DEFINICAO_REGISTRO            go to state 34
+    DEFINICAO_FUNCAO              go to state 35
+    TIPO_FUNCAO                   go to state 36
+    TIPO                          go to state 37
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 42
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
 State 34
@@ -982,7 +965,7 @@ State 36
 
    12 DEFINICAO_FUNCAO: TIPO_FUNCAO . parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
 
-    parenteses_esquerda  shift, and go to state 89
+    parenteses_esquerda  shift, and go to state 88
 
 
 State 37
@@ -992,11 +975,11 @@ State 37
    46 INSTRUCAO_INICIALIZACAO: TIPO . id assign EXP ponto_virgula
    47                        | TIPO . id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
 
-    id  shift, and go to state 90
+    id  shift, and go to state 89
 
     $default  reduce using rule 16 (TIPO_FUNCAO)
 
-    LISTA_IDENTIFICADORES  go to state 91
+    LISTA_IDENTIFICADORES  go to state 90
 
 
 State 38
@@ -1050,151 +1033,112 @@ State 44
 
 State 45
 
-   35 INSTRUCAO: INSTRUCAO_ATRIBUICAO .
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO . ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   35 INSTRUCAO: INSTRUCAO_CHAMADA_ID . ponto_virgula
 
-    ponto_virgula  shift, and go to state 92
-
-    $default  reduce using rule 35 (INSTRUCAO)
+    ponto_virgula  shift, and go to state 91
 
 
 State 46
 
-   48 INSTRUCAO_ATRIBUICAO: CLVALUE . OPERADORES_ATRIBUICAO EXP ponto_virgula
+   36 INSTRUCAO: INSTRUCAO_ATRIBUICAO_CASTING . ponto_virgula
 
-    assign                   shift, and go to state 93
-    assign_sum               shift, and go to state 94
-    assign_sub               shift, and go to state 95
-    assign_mult              shift, and go to state 96
-    assign_div               shift, and go to state 97
-    assign_set_union         shift, and go to state 98
-    assign_set_intersection  shift, and go to state 99
-
-    OPERADORES_ATRIBUICAO  go to state 100
+    ponto_virgula  shift, and go to state 92
 
 
 State 47
 
-   50 CLVALUE: LVALUE .
-   52 LVALUE: LVALUE . colchetes_esquerda EXP colchetes_direita
-   53       | LVALUE . ponto id
-
-    ponto               shift, and go to state 101
-    colchetes_esquerda  shift, and go to state 102
-
-    $default  reduce using rule 50 (CLVALUE)
-
-
-State 48
-
-   49 CLVALUE: CASTING . LVALUE
-
-    id  shift, and go to state 103
-
-    LVALUE  go to state 104
-
-
-State 49
-
-   40 INSTRUCAO: INSTRUCAO_CHAMADA_FUNCAO .
-
-    $default  reduce using rule 40 (INSTRUCAO)
-
-
-State 50
-
-   36 INSTRUCAO: INSTRUCAO_CONDICIONAL .
-
-    $default  reduce using rule 36 (INSTRUCAO)
-
-
-State 51
-
-   37 INSTRUCAO: INSTRUCAO_REPETICAO .
+   37 INSTRUCAO: INSTRUCAO_CONDICIONAL .
 
     $default  reduce using rule 37 (INSTRUCAO)
 
 
-State 52
+State 48
 
-   61 INSTRUCAO_REPETICAO: LACO_PARA .
-
-    $default  reduce using rule 61 (INSTRUCAO_REPETICAO)
-
-
-State 53
-
-   62 INSTRUCAO_REPETICAO: LACO_PARA_CONJUNTO .
-
-    $default  reduce using rule 62 (INSTRUCAO_REPETICAO)
-
-
-State 54
-
-   63 INSTRUCAO_REPETICAO: LACO_ENQUANTO .
-
-    $default  reduce using rule 63 (INSTRUCAO_REPETICAO)
-
-
-State 55
-
-   39 INSTRUCAO: INSTRUCAO_SAIDA .
-
-    $default  reduce using rule 39 (INSTRUCAO)
-
-
-State 56
-
-   38 INSTRUCAO: INSTRUCAO_IO .
+   38 INSTRUCAO: INSTRUCAO_REPETICAO .
 
     $default  reduce using rule 38 (INSTRUCAO)
 
 
-State 57
+State 49
+
+   60 INSTRUCAO_REPETICAO: LACO_PARA .
+
+    $default  reduce using rule 60 (INSTRUCAO_REPETICAO)
+
+
+State 50
+
+   61 INSTRUCAO_REPETICAO: LACO_PARA_CONJUNTO .
+
+    $default  reduce using rule 61 (INSTRUCAO_REPETICAO)
+
+
+State 51
+
+   62 INSTRUCAO_REPETICAO: LACO_ENQUANTO .
+
+    $default  reduce using rule 62 (INSTRUCAO_REPETICAO)
+
+
+State 52
+
+   40 INSTRUCAO: INSTRUCAO_SAIDA .
+
+    $default  reduce using rule 40 (INSTRUCAO)
+
+
+State 53
+
+   39 INSTRUCAO: INSTRUCAO_IO .
+
+    $default  reduce using rule 39 (INSTRUCAO)
+
+
+State 54
 
    42 INSTRUCAO: EXP . ponto_virgula
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 105
-    op_and            shift, and go to state 106
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-    ponto_virgula     shift, and go to state 121
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+    ponto_virgula     shift, and go to state 109
 
 
-State 58
+State 55
 
-   86 EXP: parenteses_esquerda . EXP parenteses_direita
+   85 EXP: parenteses_esquerda . EXP parenteses_direita
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1202,231 +1146,232 @@ State 58
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 62
+    EXP  go to state 59
+
+
+State 56
+
+   79 EXP: id . EXP_ID
+
+    parenteses_esquerda  shift, and go to state 110
+    ponto                shift, and go to state 111
+    colchetes_esquerda   shift, and go to state 112
+
+    $default  reduce using rule 105 (EXP_ID)
+
+    EXP_ID  go to state 82
+
+
+State 57
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   88    | op_not EXP .
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+
+    $default  reduce using rule 88 (EXP)
+
+
+State 58
+
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO . parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP
+
+    parenteses_direita  shift, and go to state 113
 
 
 State 59
 
-   80 EXP: id . EXP_ID
+   85 EXP: parenteses_esquerda EXP . parenteses_direita
+   86    | EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    parenteses_esquerda  shift, and go to state 122
-    ponto                shift, and go to state 81
-    colchetes_esquerda   shift, and go to state 82
-
-    $default  reduce using rule 106 (EXP_ID)
-
-    EXP_ID  go to state 83
+    op_or               shift, and go to state 93
+    op_and              shift, and go to state 94
+    op_gt               shift, and go to state 95
+    op_lt               shift, and go to state 96
+    op_lte              shift, and go to state 97
+    op_gte              shift, and go to state 98
+    op_equal            shift, and go to state 99
+    op_diff             shift, and go to state 100
+    op_mod              shift, and go to state 101
+    parenteses_direita  shift, and go to state 114
+    op_mult             shift, and go to state 102
+    op_div              shift, and go to state 103
+    op_sum              shift, and go to state 104
+    op_sub              shift, and go to state 105
+    set_intersection    shift, and go to state 106
+    set_union           shift, and go to state 107
+    circunflexo         shift, and go to state 108
 
 
 State 60
 
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   89    | op_not EXP .
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   90    | op_sum EXP .
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-
-    $default  reduce using rule 89 (EXP)
-
-
-State 61
-
-   54 CASTING: parenteses_esquerda TIPO_PRIMITIVO . parenteses_direita
-
-    parenteses_direita  shift, and go to state 123
-
-
-State 62
-
-   86 EXP: parenteses_esquerda EXP . parenteses_direita
-   87    | EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_or               shift, and go to state 105
-    op_and              shift, and go to state 106
-    op_gt               shift, and go to state 107
-    op_lt               shift, and go to state 108
-    op_lte              shift, and go to state 109
-    op_gte              shift, and go to state 110
-    op_equal            shift, and go to state 111
-    op_diff             shift, and go to state 112
-    op_mod              shift, and go to state 113
-    parenteses_direita  shift, and go to state 124
-    op_mult             shift, and go to state 114
-    op_div              shift, and go to state 115
-    op_sum              shift, and go to state 116
-    op_sub              shift, and go to state 117
-    set_intersection    shift, and go to state 118
-    set_union           shift, and go to state 119
-    circunflexo         shift, and go to state 120
-
-
-State 63
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   91    | op_sum EXP .
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_mod       shift, and go to state 113
-    op_mult      shift, and go to state 114
-    op_div       shift, and go to state 115
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 91 (EXP)
-
-
-State 64
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   90    | op_sub EXP .
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_mod       shift, and go to state 113
-    op_mult      shift, and go to state 114
-    op_div       shift, and go to state 115
-    circunflexo  shift, and go to state 120
+    op_mod       shift, and go to state 101
+    op_mult      shift, and go to state 102
+    op_div       shift, and go to state 103
+    circunflexo  shift, and go to state 108
 
     $default  reduce using rule 90 (EXP)
 
 
-State 65
+State 61
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   89    | op_sub EXP .
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_mod       shift, and go to state 101
+    op_mult      shift, and go to state 102
+    op_div       shift, and go to state 103
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 89 (EXP)
+
+
+State 62
 
    27 TIPO_ESTRUTURADO: key_set TIPO .
 
     $default  reduce using rule 27 (TIPO_ESTRUTURADO)
 
 
-State 66
+State 63
 
    29 TIPO_ESTRUTURADO: key_vetor TIPO . colchetes_esquerda colchetes_direita
 
-    colchetes_esquerda  shift, and go to state 125
+    colchetes_esquerda  shift, and go to state 115
+
+
+State 64
+
+   69 INSTRUCAO_SAIDA: key_continue ponto_virgula .
+
+    $default  reduce using rule 69 (INSTRUCAO_SAIDA)
+
+
+State 65
+
+   66 LACO_ENQUANTO: key_while parenteses_esquerda . EXP parenteses_direita INSTRUCAO
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 116
+
+
+State 66
+
+   71 INSTRUCAO_IO: key_write parenteses_esquerda . EXP parenteses_direita ponto_virgula
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 117
 
 
 State 67
 
-   70 INSTRUCAO_SAIDA: key_continue ponto_virgula .
+   70 INSTRUCAO_IO: key_read parenteses_esquerda . id parenteses_direita ponto_virgula
 
-    $default  reduce using rule 70 (INSTRUCAO_SAIDA)
+    id  shift, and go to state 118
 
 
 State 68
 
-   67 LACO_ENQUANTO: key_while parenteses_esquerda . EXP parenteses_direita INSTRUCAO
-
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 126
-
-
-State 69
-
-   72 INSTRUCAO_IO: key_write parenteses_esquerda . EXP parenteses_direita ponto_virgula
-
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 127
-
-
-State 70
-
-   71 INSTRUCAO_IO: key_read parenteses_esquerda . id parenteses_direita ponto_virgula
-
-    id  shift, and go to state 128
-
-
-State 71
-
-   64 LACO_PARA: key_for parenteses_esquerda . INSTRUCAO_INICIALIZACAO
+   63 LACO_PARA: key_for parenteses_esquerda . INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   64          | key_for parenteses_esquerda . INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 
     key_bool       shift, and go to state 5
     key_caractere  shift, and go to state 6
@@ -1436,35 +1381,37 @@ State 71
     key_string     shift, and go to state 17
     key_real       shift, and go to state 19
     key_register   shift, and go to state 20
+    id             shift, and go to state 119
 
-    TIPO                     go to state 129
+    TIPO                     go to state 120
     TIPO_PRIMITIVO           go to state 38
     TIPO_NUMERICO            go to state 39
     TIPO_ESTRUTURADO         go to state 40
-    INSTRUCAO_INICIALIZACAO  go to state 130
+    INSTRUCAO_INICIALIZACAO  go to state 121
+    INSTRUCAO_CHAMADA_ID     go to state 122
 
 
-State 72
+State 69
 
-   66 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda . id key_in EXP parenteses_direita INSTRUCAO
+   65 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda . id key_in EXP parenteses_direita INSTRUCAO
 
-    id  shift, and go to state 131
-
-
-State 73
-
-   69 INSTRUCAO_SAIDA: key_break ponto_virgula .
-
-    $default  reduce using rule 69 (INSTRUCAO_SAIDA)
+    id  shift, and go to state 123
 
 
-State 74
+State 70
 
-   59 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda . EXP parenteses_direita INSTRUCAO
-   60                      | key_if parenteses_esquerda . EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
+   68 INSTRUCAO_SAIDA: key_break ponto_virgula .
+
+    $default  reduce using rule 68 (INSTRUCAO_SAIDA)
+
+
+State 71
+
+   58 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda . EXP parenteses_direita INSTRUCAO
+   59                      | key_if parenteses_esquerda . EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1472,151 +1419,175 @@ State 74
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 132
+    EXP  go to state 124
 
 
-State 75
+State 72
 
    28 TIPO_ESTRUTURADO: key_register id .
 
     $default  reduce using rule 28 (TIPO_ESTRUTURADO)
 
 
-State 76
+State 73
 
-   68 INSTRUCAO_SAIDA: key_return EXP . ponto_virgula
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   67 INSTRUCAO_SAIDA: key_return EXP . ponto_virgula
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 105
-    op_and            shift, and go to state 106
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-    ponto_virgula     shift, and go to state 133
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+    ponto_virgula     shift, and go to state 125
 
 
-State 77
+State 74
 
     3 DEF: key_def DEFINICAO_FUNCAO .
 
     $default  reduce using rule 3 (DEF)
 
 
-State 78
+State 75
 
    16 TIPO_FUNCAO: TIPO .
 
     $default  reduce using rule 16 (TIPO_FUNCAO)
 
 
-State 79
+State 76
 
     7 DEFINICAO_REGISTRO: key_deftipo key_register . id chaves_esquerda LISTA_ATRIBUTOS chaves_direita
 
-    id  shift, and go to state 134
+    id  shift, and go to state 126
+
+
+State 77
+
+   49 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda . LISTA_EXPRESSOES parenteses_direita
+  108 EXP_ID: parenteses_esquerda . EXP
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    $default  reduce using rule 57 (LISTA_EXPRESSOES)
+
+    LISTA_EXPRESSOES  go to state 127
+    EXP               go to state 128
+
+
+State 78
+
+   53 LVALUE: ponto . id
+  106 EXP_ID: ponto . id
+
+    id  shift, and go to state 129
+
+
+State 79
+
+   52 LVALUE: colchetes_esquerda . EXP colchetes_direita
+  107 EXP_ID: colchetes_esquerda . EXP colchetes_direita
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 130
 
 
 State 80
 
-   55 INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda . LISTA_EXPRESSOES parenteses_direita ponto_virgula
-  109 EXP_ID: parenteses_esquerda . EXP
+   48 INSTRUCAO_CHAMADA_ID: id CHAMADA_FUNCAO_OU_ATRIBUICAO .
 
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    $default  reduce using rule 58 (LISTA_EXPRESSOES)
-
-    LISTA_EXPRESSOES  go to state 135
-    EXP               go to state 136
+    $default  reduce using rule 48 (INSTRUCAO_CHAMADA_ID)
 
 
 State 81
 
-  107 EXP_ID: ponto . id
+   50 CHAMADA_FUNCAO_OU_ATRIBUICAO: LVALUE . OPERADORES_ATRIBUICAO EXP
 
-    id  shift, and go to state 137
+    assign                   shift, and go to state 131
+    assign_sum               shift, and go to state 132
+    assign_sub               shift, and go to state 133
+    assign_mult              shift, and go to state 134
+    assign_div               shift, and go to state 135
+    assign_set_union         shift, and go to state 136
+    assign_set_intersection  shift, and go to state 137
+
+    OPERADORES_ATRIBUICAO  go to state 138
 
 
 State 82
 
-  108 EXP_ID: colchetes_esquerda . EXP colchetes_direita
+   79 EXP: id EXP_ID .
 
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 138
+    $default  reduce using rule 79 (EXP)
 
 
 State 83
-
-   80 EXP: id EXP_ID .
-
-    $default  reduce using rule 80 (EXP)
-
-
-State 84
 
    43 INSTRUCAO_DECLARACAO: TIPO . LISTA_IDENTIFICADORES
    46 INSTRUCAO_INICIALIZACAO: TIPO . id assign EXP ponto_virgula
    47                        | TIPO . id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
 
-    id  shift, and go to state 90
+    id  shift, and go to state 89
 
-    LISTA_IDENTIFICADORES  go to state 91
+    LISTA_IDENTIFICADORES  go to state 90
 
 
-State 85
+State 84
 
    30 BLOCO: chaves_esquerda INSTRUCOES . chaves_direita
 
     chaves_direita  shift, and go to state 139
 
 
-State 86
+State 85
 
    31 INSTRUCOES: INSTRUCAO .
    32           | INSTRUCAO . INSTRUCOES
@@ -1652,45 +1623,42 @@ State 86
 
     $default  reduce using rule 31 (INSTRUCOES)
 
-    TIPO                      go to state 84
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCOES                go to state 140
-    INSTRUCAO                 go to state 86
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCOES                    go to state 140
+    INSTRUCAO                     go to state 85
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
-State 87
+State 86
 
     0 $accept: PROGRAM eof .
 
     $default  accept
 
 
-State 88
+State 87
 
     1 PROGRAM: DEF PROGRAM . eof
 
     eof  shift, and go to state 141
 
 
-State 89
+State 88
 
    12 DEFINICAO_FUNCAO: TIPO_FUNCAO parenteses_esquerda . LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
 
@@ -1713,7 +1681,7 @@ State 89
     TIPO_ESTRUTURADO         go to state 40
 
 
-State 90
+State 89
 
    44 LISTA_IDENTIFICADORES: id .
    45                      | id . virgula LISTA_IDENTIFICADORES
@@ -1726,86 +1694,51 @@ State 90
     $default  reduce using rule 44 (LISTA_IDENTIFICADORES)
 
 
-State 91
+State 90
 
    43 INSTRUCAO_DECLARACAO: TIPO LISTA_IDENTIFICADORES .
 
     $default  reduce using rule 43 (INSTRUCAO_DECLARACAO)
 
 
+State 91
+
+   35 INSTRUCAO: INSTRUCAO_CHAMADA_ID ponto_virgula .
+
+    $default  reduce using rule 35 (INSTRUCAO)
+
+
 State 92
 
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula . EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   36 INSTRUCAO: INSTRUCAO_ATRIBUICAO_CASTING ponto_virgula .
 
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 147
+    $default  reduce using rule 36 (INSTRUCAO)
 
 
 State 93
 
-   73 OPERADORES_ATRIBUICAO: assign .
+   86 EXP: EXP op_or . EXP
 
-    $default  reduce using rule 73 (OPERADORES_ATRIBUICAO)
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 147
 
 
 State 94
 
-   74 OPERADORES_ATRIBUICAO: assign_sum .
-
-    $default  reduce using rule 74 (OPERADORES_ATRIBUICAO)
-
-
-State 95
-
-   75 OPERADORES_ATRIBUICAO: assign_sub .
-
-    $default  reduce using rule 75 (OPERADORES_ATRIBUICAO)
-
-
-State 96
-
-   76 OPERADORES_ATRIBUICAO: assign_mult .
-
-    $default  reduce using rule 76 (OPERADORES_ATRIBUICAO)
-
-
-State 97
-
-   77 OPERADORES_ATRIBUICAO: assign_div .
-
-    $default  reduce using rule 77 (OPERADORES_ATRIBUICAO)
-
-
-State 98
-
-   78 OPERADORES_ATRIBUICAO: assign_set_union .
-
-    $default  reduce using rule 78 (OPERADORES_ATRIBUICAO)
-
-
-State 99
-
-   79 OPERADORES_ATRIBUICAO: assign_set_intersection .
-
-    $default  reduce using rule 79 (OPERADORES_ATRIBUICAO)
-
-
-State 100
-
-   48 INSTRUCAO_ATRIBUICAO: CLVALUE OPERADORES_ATRIBUICAO . EXP ponto_virgula
+   87 EXP: EXP op_and . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1813,24 +1746,17 @@ State 100
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 148
 
 
-State 101
+State 95
 
-   53 LVALUE: LVALUE ponto . id
-
-    id  shift, and go to state 149
-
-
-State 102
-
-   52 LVALUE: LVALUE colchetes_esquerda . EXP colchetes_direita
+  103 EXP: EXP op_gt . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1838,36 +1764,35 @@ State 102
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
+
+    EXP  go to state 149
+
+
+State 96
+
+  104 EXP: EXP op_lt . EXP
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
 
     EXP  go to state 150
 
 
-State 103
+State 97
 
-   51 LVALUE: id .
-
-    $default  reduce using rule 51 (LVALUE)
-
-
-State 104
-
-   49 CLVALUE: CASTING LVALUE .
-   52 LVALUE: LVALUE . colchetes_esquerda EXP colchetes_direita
-   53       | LVALUE . ponto id
-
-    ponto               shift, and go to state 101
-    colchetes_esquerda  shift, and go to state 102
-
-    $default  reduce using rule 49 (CLVALUE)
-
-
-State 105
-
-   87 EXP: EXP op_or . EXP
+  102 EXP: EXP op_lte . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1875,17 +1800,17 @@ State 105
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 151
 
 
-State 106
+State 98
 
-   88 EXP: EXP op_and . EXP
+  101 EXP: EXP op_gte . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1893,17 +1818,17 @@ State 106
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 152
 
 
-State 107
+State 99
 
-  104 EXP: EXP op_gt . EXP
+  100 EXP: EXP op_equal . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1911,17 +1836,17 @@ State 107
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 153
 
 
-State 108
+State 100
 
-  105 EXP: EXP op_lt . EXP
+   99 EXP: EXP op_diff . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1929,17 +1854,17 @@ State 108
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 154
 
 
-State 109
+State 101
 
-  103 EXP: EXP op_lte . EXP
+   97 EXP: EXP op_mod . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1947,17 +1872,17 @@ State 109
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 155
 
 
-State 110
+State 102
 
-  102 EXP: EXP op_gte . EXP
+   95 EXP: EXP op_mult . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1965,17 +1890,17 @@ State 110
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 156
 
 
-State 111
+State 103
 
-  101 EXP: EXP op_equal . EXP
+   96 EXP: EXP op_div . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -1983,17 +1908,17 @@ State 111
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 157
 
 
-State 112
+State 104
 
-  100 EXP: EXP op_diff . EXP
+   92 EXP: EXP op_sum . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -2001,17 +1926,17 @@ State 112
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 158
 
 
-State 113
+State 105
 
-   98 EXP: EXP op_mod . EXP
+   91 EXP: EXP op_sub . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -2019,17 +1944,17 @@ State 113
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 159
 
 
-State 114
+State 106
 
-   96 EXP: EXP op_mult . EXP
+   93 EXP: EXP set_intersection . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -2037,17 +1962,17 @@ State 114
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 160
 
 
-State 115
+State 107
 
-   97 EXP: EXP op_div . EXP
+   94 EXP: EXP set_union . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -2055,17 +1980,17 @@ State 115
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 161
 
 
-State 116
+State 108
 
-   93 EXP: EXP op_sum . EXP
+   98 EXP: EXP circunflexo . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -2073,96 +1998,24 @@ State 116
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
     EXP  go to state 162
 
 
-State 117
-
-   92 EXP: EXP op_sub . EXP
-
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 163
-
-
-State 118
-
-   94 EXP: EXP set_intersection . EXP
-
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 164
-
-
-State 119
-
-   95 EXP: EXP set_union . EXP
-
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 165
-
-
-State 120
-
-   99 EXP: EXP circunflexo . EXP
-
-    op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
-    op_sum               shift, and go to state 3
-    op_sub               shift, and go to state 4
-    booleano             shift, and go to state 25
-    inteiro              shift, and go to state 26
-    real                 shift, and go to state 27
-    caractere            shift, and go to state 28
-    palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-
-    EXP  go to state 166
-
-
-State 121
+State 109
 
    42 INSTRUCAO: EXP ponto_virgula .
 
     $default  reduce using rule 42 (INSTRUCAO)
 
 
-State 122
+State 110
 
-  109 EXP_ID: parenteses_esquerda . EXP
+  108 EXP_ID: parenteses_esquerda . EXP
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -2170,272 +2023,394 @@ State 122
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 167
-
-
-State 123
-
-   54 CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita .
-
-    $default  reduce using rule 54 (CASTING)
+    EXP  go to state 163
 
 
-State 124
+State 111
 
-   86 EXP: parenteses_esquerda EXP parenteses_direita .
+  106 EXP_ID: ponto . id
 
-    $default  reduce using rule 86 (EXP)
+    id  shift, and go to state 164
 
 
-State 125
+State 112
+
+  107 EXP_ID: colchetes_esquerda . EXP colchetes_direita
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 165
+
+
+State 113
+
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita . id LVALUE OPERADORES_ATRIBUICAO EXP
+
+    id  shift, and go to state 166
+
+
+State 114
+
+   85 EXP: parenteses_esquerda EXP parenteses_direita .
+
+    $default  reduce using rule 85 (EXP)
+
+
+State 115
 
    29 TIPO_ESTRUTURADO: key_vetor TIPO colchetes_esquerda . colchetes_direita
 
-    colchetes_direita  shift, and go to state 168
+    colchetes_direita  shift, and go to state 167
 
 
-State 126
+State 116
 
-   67 LACO_ENQUANTO: key_while parenteses_esquerda EXP . parenteses_direita INSTRUCAO
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   66 LACO_ENQUANTO: key_while parenteses_esquerda EXP . parenteses_direita INSTRUCAO
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_or               shift, and go to state 105
-    op_and              shift, and go to state 106
-    op_gt               shift, and go to state 107
-    op_lt               shift, and go to state 108
-    op_lte              shift, and go to state 109
-    op_gte              shift, and go to state 110
-    op_equal            shift, and go to state 111
-    op_diff             shift, and go to state 112
-    op_mod              shift, and go to state 113
+    op_or               shift, and go to state 93
+    op_and              shift, and go to state 94
+    op_gt               shift, and go to state 95
+    op_lt               shift, and go to state 96
+    op_lte              shift, and go to state 97
+    op_gte              shift, and go to state 98
+    op_equal            shift, and go to state 99
+    op_diff             shift, and go to state 100
+    op_mod              shift, and go to state 101
+    parenteses_direita  shift, and go to state 168
+    op_mult             shift, and go to state 102
+    op_div              shift, and go to state 103
+    op_sum              shift, and go to state 104
+    op_sub              shift, and go to state 105
+    set_intersection    shift, and go to state 106
+    set_union           shift, and go to state 107
+    circunflexo         shift, and go to state 108
+
+
+State 117
+
+   71 INSTRUCAO_IO: key_write parenteses_esquerda EXP . parenteses_direita ponto_virgula
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or               shift, and go to state 93
+    op_and              shift, and go to state 94
+    op_gt               shift, and go to state 95
+    op_lt               shift, and go to state 96
+    op_lte              shift, and go to state 97
+    op_gte              shift, and go to state 98
+    op_equal            shift, and go to state 99
+    op_diff             shift, and go to state 100
+    op_mod              shift, and go to state 101
     parenteses_direita  shift, and go to state 169
-    op_mult             shift, and go to state 114
-    op_div              shift, and go to state 115
-    op_sum              shift, and go to state 116
-    op_sub              shift, and go to state 117
-    set_intersection    shift, and go to state 118
-    set_union           shift, and go to state 119
-    circunflexo         shift, and go to state 120
+    op_mult             shift, and go to state 102
+    op_div              shift, and go to state 103
+    op_sum              shift, and go to state 104
+    op_sub              shift, and go to state 105
+    set_intersection    shift, and go to state 106
+    set_union           shift, and go to state 107
+    circunflexo         shift, and go to state 108
 
 
-State 127
+State 118
 
-   72 INSTRUCAO_IO: key_write parenteses_esquerda EXP . parenteses_direita ponto_virgula
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   70 INSTRUCAO_IO: key_read parenteses_esquerda id . parenteses_direita ponto_virgula
 
-    op_or               shift, and go to state 105
-    op_and              shift, and go to state 106
-    op_gt               shift, and go to state 107
-    op_lt               shift, and go to state 108
-    op_lte              shift, and go to state 109
-    op_gte              shift, and go to state 110
-    op_equal            shift, and go to state 111
-    op_diff             shift, and go to state 112
-    op_mod              shift, and go to state 113
     parenteses_direita  shift, and go to state 170
-    op_mult             shift, and go to state 114
-    op_div              shift, and go to state 115
-    op_sum              shift, and go to state 116
-    op_sub              shift, and go to state 117
-    set_intersection    shift, and go to state 118
-    set_union           shift, and go to state 119
-    circunflexo         shift, and go to state 120
 
 
-State 128
+State 119
 
-   71 INSTRUCAO_IO: key_read parenteses_esquerda id . parenteses_direita ponto_virgula
+   48 INSTRUCAO_CHAMADA_ID: id . CHAMADA_FUNCAO_OU_ATRIBUICAO
 
-    parenteses_direita  shift, and go to state 171
+    parenteses_esquerda  shift, and go to state 171
+    ponto                shift, and go to state 172
+    colchetes_esquerda   shift, and go to state 173
+
+    $default  reduce using rule 54 (LVALUE)
+
+    CHAMADA_FUNCAO_OU_ATRIBUICAO  go to state 80
+    LVALUE                        go to state 81
 
 
-State 129
+State 120
 
    46 INSTRUCAO_INICIALIZACAO: TIPO . id assign EXP ponto_virgula
    47                        | TIPO . id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
 
-    id  shift, and go to state 172
+    id  shift, and go to state 174
+
+
+State 121
+
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO . ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+
+    ponto_virgula  shift, and go to state 175
+
+
+State 122
+
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID . ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+
+    ponto_virgula  shift, and go to state 176
+
+
+State 123
+
+   65 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id . key_in EXP parenteses_direita INSTRUCAO
+
+    key_in  shift, and go to state 177
+
+
+State 124
+
+   58 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP . parenteses_direita INSTRUCAO
+   59                      | key_if parenteses_esquerda EXP . parenteses_direita INSTRUCAO key_else INSTRUCAO
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or               shift, and go to state 93
+    op_and              shift, and go to state 94
+    op_gt               shift, and go to state 95
+    op_lt               shift, and go to state 96
+    op_lte              shift, and go to state 97
+    op_gte              shift, and go to state 98
+    op_equal            shift, and go to state 99
+    op_diff             shift, and go to state 100
+    op_mod              shift, and go to state 101
+    parenteses_direita  shift, and go to state 178
+    op_mult             shift, and go to state 102
+    op_div              shift, and go to state 103
+    op_sum              shift, and go to state 104
+    op_sub              shift, and go to state 105
+    set_intersection    shift, and go to state 106
+    set_union           shift, and go to state 107
+    circunflexo         shift, and go to state 108
+
+
+State 125
+
+   67 INSTRUCAO_SAIDA: key_return EXP ponto_virgula .
+
+    $default  reduce using rule 67 (INSTRUCAO_SAIDA)
+
+
+State 126
+
+    7 DEFINICAO_REGISTRO: key_deftipo key_register id . chaves_esquerda LISTA_ATRIBUTOS chaves_direita
+
+    chaves_esquerda  shift, and go to state 179
+
+
+State 127
+
+   49 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda LISTA_EXPRESSOES . parenteses_direita
+
+    parenteses_direita  shift, and go to state 180
+
+
+State 128
+
+   55 LISTA_EXPRESSOES: EXP .
+   56                 | EXP . virgula LISTA_EXPRESSOES
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+  108 EXP_ID: parenteses_esquerda EXP .
+
+    virgula  shift, and go to state 181
+
+    parenteses_direita  reduce using rule 55 (LISTA_EXPRESSOES)
+    $default            reduce using rule 108 (EXP_ID)
+
+
+State 129
+
+   53 LVALUE: ponto id .
+  106 EXP_ID: ponto id .
+
+    assign                   reduce using rule 53 (LVALUE)
+    assign_sum               reduce using rule 53 (LVALUE)
+    assign_sub               reduce using rule 53 (LVALUE)
+    assign_mult              reduce using rule 53 (LVALUE)
+    assign_div               reduce using rule 53 (LVALUE)
+    assign_set_union         reduce using rule 53 (LVALUE)
+    assign_set_intersection  reduce using rule 53 (LVALUE)
+    $default                 reduce using rule 106 (EXP_ID)
 
 
 State 130
 
-   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO .
+   52 LVALUE: colchetes_esquerda EXP . colchetes_direita
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+  107 EXP_ID: colchetes_esquerda EXP . colchetes_direita
 
-    $default  reduce using rule 64 (LACO_PARA)
+    op_or              shift, and go to state 93
+    op_and             shift, and go to state 94
+    op_gt              shift, and go to state 95
+    op_lt              shift, and go to state 96
+    op_lte             shift, and go to state 97
+    op_gte             shift, and go to state 98
+    op_equal           shift, and go to state 99
+    op_diff            shift, and go to state 100
+    op_mod             shift, and go to state 101
+    op_mult            shift, and go to state 102
+    op_div             shift, and go to state 103
+    op_sum             shift, and go to state 104
+    op_sub             shift, and go to state 105
+    set_intersection   shift, and go to state 106
+    set_union          shift, and go to state 107
+    colchetes_direita  shift, and go to state 182
+    circunflexo        shift, and go to state 108
 
 
 State 131
 
-   66 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id . key_in EXP parenteses_direita INSTRUCAO
+   72 OPERADORES_ATRIBUICAO: assign .
 
-    key_in  shift, and go to state 173
+    $default  reduce using rule 72 (OPERADORES_ATRIBUICAO)
 
 
 State 132
 
-   59 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP . parenteses_direita INSTRUCAO
-   60                      | key_if parenteses_esquerda EXP . parenteses_direita INSTRUCAO key_else INSTRUCAO
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   73 OPERADORES_ATRIBUICAO: assign_sum .
 
-    op_or               shift, and go to state 105
-    op_and              shift, and go to state 106
-    op_gt               shift, and go to state 107
-    op_lt               shift, and go to state 108
-    op_lte              shift, and go to state 109
-    op_gte              shift, and go to state 110
-    op_equal            shift, and go to state 111
-    op_diff             shift, and go to state 112
-    op_mod              shift, and go to state 113
-    parenteses_direita  shift, and go to state 174
-    op_mult             shift, and go to state 114
-    op_div              shift, and go to state 115
-    op_sum              shift, and go to state 116
-    op_sub              shift, and go to state 117
-    set_intersection    shift, and go to state 118
-    set_union           shift, and go to state 119
-    circunflexo         shift, and go to state 120
+    $default  reduce using rule 73 (OPERADORES_ATRIBUICAO)
 
 
 State 133
 
-   68 INSTRUCAO_SAIDA: key_return EXP ponto_virgula .
+   74 OPERADORES_ATRIBUICAO: assign_sub .
 
-    $default  reduce using rule 68 (INSTRUCAO_SAIDA)
+    $default  reduce using rule 74 (OPERADORES_ATRIBUICAO)
 
 
 State 134
 
-    7 DEFINICAO_REGISTRO: key_deftipo key_register id . chaves_esquerda LISTA_ATRIBUTOS chaves_direita
+   75 OPERADORES_ATRIBUICAO: assign_mult .
 
-    chaves_esquerda  shift, and go to state 175
+    $default  reduce using rule 75 (OPERADORES_ATRIBUICAO)
 
 
 State 135
 
-   55 INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda LISTA_EXPRESSOES . parenteses_direita ponto_virgula
+   76 OPERADORES_ATRIBUICAO: assign_div .
 
-    parenteses_direita  shift, and go to state 176
+    $default  reduce using rule 76 (OPERADORES_ATRIBUICAO)
 
 
 State 136
 
-   56 LISTA_EXPRESSOES: EXP .
-   57                 | EXP . virgula LISTA_EXPRESSOES
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-  109 EXP_ID: parenteses_esquerda EXP .
+   77 OPERADORES_ATRIBUICAO: assign_set_union .
 
-    virgula  shift, and go to state 177
-
-    parenteses_direita  reduce using rule 56 (LISTA_EXPRESSOES)
-    $default            reduce using rule 109 (EXP_ID)
+    $default  reduce using rule 77 (OPERADORES_ATRIBUICAO)
 
 
 State 137
 
-  107 EXP_ID: ponto id .
+   78 OPERADORES_ATRIBUICAO: assign_set_intersection .
 
-    $default  reduce using rule 107 (EXP_ID)
+    $default  reduce using rule 78 (OPERADORES_ATRIBUICAO)
 
 
 State 138
 
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-  108 EXP_ID: colchetes_esquerda EXP . colchetes_direita
+   50 CHAMADA_FUNCAO_OU_ATRIBUICAO: LVALUE OPERADORES_ATRIBUICAO . EXP
 
-    op_or              shift, and go to state 105
-    op_and             shift, and go to state 106
-    op_gt              shift, and go to state 107
-    op_lt              shift, and go to state 108
-    op_lte             shift, and go to state 109
-    op_gte             shift, and go to state 110
-    op_equal           shift, and go to state 111
-    op_diff            shift, and go to state 112
-    op_mod             shift, and go to state 113
-    op_mult            shift, and go to state 114
-    op_div             shift, and go to state 115
-    op_sum             shift, and go to state 116
-    op_sub             shift, and go to state 117
-    set_intersection   shift, and go to state 118
-    set_union          shift, and go to state 119
-    colchetes_direita  shift, and go to state 178
-    circunflexo        shift, and go to state 120
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 183
 
 
 State 139
@@ -2463,7 +2438,7 @@ State 142
 
    12 DEFINICAO_FUNCAO: TIPO_FUNCAO parenteses_esquerda LISTA_PARAMETROS_FUNCAO . parenteses_direita BLOCO
 
-    parenteses_direita  shift, and go to state 179
+    parenteses_direita  shift, and go to state 184
 
 
 State 143
@@ -2471,7 +2446,7 @@ State 143
    13 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO .
    14                        | PARAMETRO_FUNCAO . virgula LISTA_PARAMETROS_FUNCAO
 
-    virgula  shift, and go to state 180
+    virgula  shift, and go to state 185
 
     $default  reduce using rule 13 (LISTA_PARAMETROS_FUNCAO)
 
@@ -2480,7 +2455,7 @@ State 144
 
    18 PARAMETRO_FUNCAO: TIPO . id
 
-    id  shift, and go to state 181
+    id  shift, and go to state 186
 
 
 State 145
@@ -2489,7 +2464,7 @@ State 145
    47                        | TIPO id assign . chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -2497,659 +2472,593 @@ State 145
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
-    chaves_esquerda      shift, and go to state 182
+    id                   shift, and go to state 56
+    chaves_esquerda      shift, and go to state 187
 
-    EXP  go to state 183
+    EXP  go to state 188
 
 
 State 146
 
    45 LISTA_IDENTIFICADORES: id virgula . LISTA_IDENTIFICADORES
 
-    id  shift, and go to state 184
+    id  shift, and go to state 189
 
-    LISTA_IDENTIFICADORES  go to state 185
+    LISTA_IDENTIFICADORES  go to state 190
 
 
 State 147
 
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula EXP . ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   86    | EXP op_or EXP .
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 105
-    op_and            shift, and go to state 106
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-    ponto_virgula     shift, and go to state 186
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+
+    $default  reduce using rule 86 (EXP)
 
 
 State 148
 
-   48 INSTRUCAO_ATRIBUICAO: CLVALUE OPERADORES_ATRIBUICAO EXP . ponto_virgula
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   87    | EXP op_and EXP .
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 105
-    op_and            shift, and go to state 106
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-    ponto_virgula     shift, and go to state 187
-
-
-State 149
-
-   53 LVALUE: LVALUE ponto id .
-
-    $default  reduce using rule 53 (LVALUE)
-
-
-State 150
-
-   52 LVALUE: LVALUE colchetes_esquerda EXP . colchetes_direita
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_or              shift, and go to state 105
-    op_and             shift, and go to state 106
-    op_gt              shift, and go to state 107
-    op_lt              shift, and go to state 108
-    op_lte             shift, and go to state 109
-    op_gte             shift, and go to state 110
-    op_equal           shift, and go to state 111
-    op_diff            shift, and go to state 112
-    op_mod             shift, and go to state 113
-    op_mult            shift, and go to state 114
-    op_div             shift, and go to state 115
-    op_sum             shift, and go to state 116
-    op_sub             shift, and go to state 117
-    set_intersection   shift, and go to state 118
-    set_union          shift, and go to state 119
-    colchetes_direita  shift, and go to state 188
-    circunflexo        shift, and go to state 120
-
-
-State 151
-
-   87 EXP: EXP . op_or EXP
-   87    | EXP op_or EXP .
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_and            shift, and go to state 106
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
 
     $default  reduce using rule 87 (EXP)
 
 
-State 152
+State 149
 
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   88    | EXP op_and EXP .
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  103    | EXP op_gt EXP .
+  104    | EXP . op_lt EXP
 
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-
-    $default  reduce using rule 88 (EXP)
-
-
-State 153
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  104    | EXP op_gt EXP .
-  105    | EXP . op_lt EXP
-
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-
-    $default  reduce using rule 104 (EXP)
-
-
-State 154
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-  105    | EXP op_lt EXP .
-
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-
-    $default  reduce using rule 105 (EXP)
-
-
-State 155
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  103    | EXP op_lte EXP .
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
 
     $default  reduce using rule 103 (EXP)
 
 
-State 156
+State 150
 
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  102    | EXP op_gte EXP .
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+  104    | EXP op_lt EXP .
 
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+
+    $default  reduce using rule 104 (EXP)
+
+
+State 151
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  102    | EXP op_lte EXP .
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
 
     $default  reduce using rule 102 (EXP)
 
 
-State 157
+State 152
 
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  101    | EXP op_equal EXP .
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  101    | EXP op_gte EXP .
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
 
     $default  reduce using rule 101 (EXP)
 
 
-State 158
+State 153
 
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  100    | EXP op_diff EXP .
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  100    | EXP op_equal EXP .
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
 
     $default  reduce using rule 100 (EXP)
 
 
-State 159
+State 154
 
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   98    | EXP op_mod EXP .
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+   99    | EXP op_diff EXP .
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 98 (EXP)
-
-
-State 160
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   96    | EXP op_mult EXP .
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 96 (EXP)
-
-
-State 161
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   97    | EXP op_div EXP .
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 97 (EXP)
-
-
-State 162
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   93    | EXP op_sum EXP .
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_mod       shift, and go to state 113
-    op_mult      shift, and go to state 114
-    op_div       shift, and go to state 115
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 93 (EXP)
-
-
-State 163
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   92    | EXP op_sub EXP .
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_mod       shift, and go to state 113
-    op_mult      shift, and go to state 114
-    op_div       shift, and go to state 115
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 92 (EXP)
-
-
-State 164
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   94    | EXP set_intersection EXP .
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_mod       shift, and go to state 113
-    op_mult      shift, and go to state 114
-    op_div       shift, and go to state 115
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 94 (EXP)
-
-
-State 165
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   95    | EXP set_union EXP .
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_mod       shift, and go to state 113
-    op_mult      shift, and go to state 114
-    op_div       shift, and go to state 115
-    circunflexo  shift, and go to state 120
-
-    $default  reduce using rule 95 (EXP)
-
-
-State 166
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-   99    | EXP circunflexo EXP .
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    circunflexo  shift, and go to state 120
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
 
     $default  reduce using rule 99 (EXP)
 
 
+State 155
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   97    | EXP op_mod EXP .
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 97 (EXP)
+
+
+State 156
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   95    | EXP op_mult EXP .
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 95 (EXP)
+
+
+State 157
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   96    | EXP op_div EXP .
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 96 (EXP)
+
+
+State 158
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   92    | EXP op_sum EXP .
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_mod       shift, and go to state 101
+    op_mult      shift, and go to state 102
+    op_div       shift, and go to state 103
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 92 (EXP)
+
+
+State 159
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   91    | EXP op_sub EXP .
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_mod       shift, and go to state 101
+    op_mult      shift, and go to state 102
+    op_div       shift, and go to state 103
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 91 (EXP)
+
+
+State 160
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   93    | EXP set_intersection EXP .
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_mod       shift, and go to state 101
+    op_mult      shift, and go to state 102
+    op_div       shift, and go to state 103
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 93 (EXP)
+
+
+State 161
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   94    | EXP set_union EXP .
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_mod       shift, and go to state 101
+    op_mult      shift, and go to state 102
+    op_div       shift, and go to state 103
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 94 (EXP)
+
+
+State 162
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   98    | EXP circunflexo EXP .
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    circunflexo  shift, and go to state 108
+
+    $default  reduce using rule 98 (EXP)
+
+
+State 163
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+  108 EXP_ID: parenteses_esquerda EXP .
+
+    $default  reduce using rule 108 (EXP_ID)
+
+
+State 164
+
+  106 EXP_ID: ponto id .
+
+    $default  reduce using rule 106 (EXP_ID)
+
+
+State 165
+
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+  107 EXP_ID: colchetes_esquerda EXP . colchetes_direita
+
+    op_or              shift, and go to state 93
+    op_and             shift, and go to state 94
+    op_gt              shift, and go to state 95
+    op_lt              shift, and go to state 96
+    op_lte             shift, and go to state 97
+    op_gte             shift, and go to state 98
+    op_equal           shift, and go to state 99
+    op_diff            shift, and go to state 100
+    op_mod             shift, and go to state 101
+    op_mult            shift, and go to state 102
+    op_div             shift, and go to state 103
+    op_sum             shift, and go to state 104
+    op_sub             shift, and go to state 105
+    set_intersection   shift, and go to state 106
+    set_union          shift, and go to state 107
+    colchetes_direita  shift, and go to state 191
+    circunflexo        shift, and go to state 108
+
+
+State 166
+
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id . LVALUE OPERADORES_ATRIBUICAO EXP
+
+    ponto               shift, and go to state 172
+    colchetes_esquerda  shift, and go to state 173
+
+    $default  reduce using rule 54 (LVALUE)
+
+    LVALUE  go to state 192
+
+
 State 167
-
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-  109 EXP_ID: parenteses_esquerda EXP .
-
-    $default  reduce using rule 109 (EXP_ID)
-
-
-State 168
 
    29 TIPO_ESTRUTURADO: key_vetor TIPO colchetes_esquerda colchetes_direita .
 
     $default  reduce using rule 29 (TIPO_ESTRUTURADO)
 
 
-State 169
+State 168
 
-   67 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita . INSTRUCAO
+   66 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita . INSTRUCAO
 
     op_not               shift, and go to state 1
     parenteses_esquerda  shift, and go to state 2
@@ -3180,44 +3089,87 @@ State 169
     id                   shift, and go to state 30
     chaves_esquerda      shift, and go to state 31
 
-    TIPO                      go to state 84
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCAO                 go to state 189
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 193
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
+
+
+State 169
+
+   71 INSTRUCAO_IO: key_write parenteses_esquerda EXP parenteses_direita . ponto_virgula
+
+    ponto_virgula  shift, and go to state 194
 
 
 State 170
 
-   72 INSTRUCAO_IO: key_write parenteses_esquerda EXP parenteses_direita . ponto_virgula
+   70 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita . ponto_virgula
 
-    ponto_virgula  shift, and go to state 190
+    ponto_virgula  shift, and go to state 195
 
 
 State 171
 
-   71 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita . ponto_virgula
+   49 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda . LISTA_EXPRESSOES parenteses_direita
 
-    ponto_virgula  shift, and go to state 191
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    $default  reduce using rule 57 (LISTA_EXPRESSOES)
+
+    LISTA_EXPRESSOES  go to state 127
+    EXP               go to state 196
 
 
 State 172
+
+   53 LVALUE: ponto . id
+
+    id  shift, and go to state 197
+
+
+State 173
+
+   52 LVALUE: colchetes_esquerda . EXP colchetes_direita
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 198
+
+
+State 174
 
    46 INSTRUCAO_INICIALIZACAO: TIPO id . assign EXP ponto_virgula
    47                        | TIPO id . assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
@@ -3225,12 +3177,12 @@ State 172
     assign  shift, and go to state 145
 
 
-State 173
+State 175
 
-   66 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in . EXP parenteses_direita INSTRUCAO
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula . EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -3238,15 +3190,51 @@ State 173
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    EXP  go to state 192
+    EXP  go to state 199
 
 
-State 174
+State 176
 
-   59 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita . INSTRUCAO
-   60                      | key_if parenteses_esquerda EXP parenteses_direita . INSTRUCAO key_else INSTRUCAO
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula . EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 200
+
+
+State 177
+
+   65 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in . EXP parenteses_direita INSTRUCAO
+
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
+
+    EXP  go to state 201
+
+
+State 178
+
+   58 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita . INSTRUCAO
+   59                      | key_if parenteses_esquerda EXP parenteses_direita . INSTRUCAO key_else INSTRUCAO
 
     op_not               shift, and go to state 1
     parenteses_esquerda  shift, and go to state 2
@@ -3277,30 +3265,27 @@ State 174
     id                   shift, and go to state 30
     chaves_esquerda      shift, and go to state 31
 
-    TIPO                      go to state 84
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCAO                 go to state 193
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 202
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
-State 175
+State 179
 
     7 DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda . LISTA_ATRIBUTOS chaves_direita
 
@@ -3313,28 +3298,28 @@ State 175
     key_real       shift, and go to state 19
     key_register   shift, and go to state 20
 
-    LISTA_ATRIBUTOS          go to state 194
-    TIPO                     go to state 84
+    LISTA_ATRIBUTOS          go to state 203
+    TIPO                     go to state 83
     TIPO_PRIMITIVO           go to state 38
     TIPO_NUMERICO            go to state 39
     TIPO_ESTRUTURADO         go to state 40
-    INSTRUCAO_DECLARACAO     go to state 195
-    INSTRUCAO_INICIALIZACAO  go to state 196
+    INSTRUCAO_DECLARACAO     go to state 204
+    INSTRUCAO_INICIALIZACAO  go to state 205
 
 
-State 176
+State 180
 
-   55 INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda LISTA_EXPRESSOES parenteses_direita . ponto_virgula
+   49 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda LISTA_EXPRESSOES parenteses_direita .
 
-    ponto_virgula  shift, and go to state 197
+    $default  reduce using rule 49 (CHAMADA_FUNCAO_OU_ATRIBUICAO)
 
 
-State 177
+State 181
 
-   57 LISTA_EXPRESSOES: EXP virgula . LISTA_EXPRESSOES
+   56 LISTA_EXPRESSOES: EXP virgula . LISTA_EXPRESSOES
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -3342,31 +3327,79 @@ State 177
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    $default  reduce using rule 58 (LISTA_EXPRESSOES)
+    $default  reduce using rule 57 (LISTA_EXPRESSOES)
 
-    LISTA_EXPRESSOES  go to state 198
-    EXP               go to state 199
-
-
-State 178
-
-  108 EXP_ID: colchetes_esquerda EXP colchetes_direita .
-
-    $default  reduce using rule 108 (EXP_ID)
+    LISTA_EXPRESSOES  go to state 206
+    EXP               go to state 196
 
 
-State 179
+State 182
+
+   52 LVALUE: colchetes_esquerda EXP colchetes_direita .
+  107 EXP_ID: colchetes_esquerda EXP colchetes_direita .
+
+    assign                   reduce using rule 52 (LVALUE)
+    assign_sum               reduce using rule 52 (LVALUE)
+    assign_sub               reduce using rule 52 (LVALUE)
+    assign_mult              reduce using rule 52 (LVALUE)
+    assign_div               reduce using rule 52 (LVALUE)
+    assign_set_union         reduce using rule 52 (LVALUE)
+    assign_set_intersection  reduce using rule 52 (LVALUE)
+    $default                 reduce using rule 107 (EXP_ID)
+
+
+State 183
+
+   50 CHAMADA_FUNCAO_OU_ATRIBUICAO: LVALUE OPERADORES_ATRIBUICAO EXP .
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+
+    $default  reduce using rule 50 (CHAMADA_FUNCAO_OU_ATRIBUICAO)
+
+
+State 184
 
    12 DEFINICAO_FUNCAO: TIPO_FUNCAO parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita . BLOCO
 
     chaves_esquerda  shift, and go to state 31
 
-    BLOCO  go to state 200
+    BLOCO  go to state 207
 
 
-State 180
+State 185
 
    14 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO virgula . LISTA_PARAMETROS_FUNCAO
 
@@ -3381,7 +3414,7 @@ State 180
 
     $default  reduce using rule 15 (LISTA_PARAMETROS_FUNCAO)
 
-    LISTA_PARAMETROS_FUNCAO  go to state 201
+    LISTA_PARAMETROS_FUNCAO  go to state 208
     PARAMETRO_FUNCAO         go to state 143
     TIPO                     go to state 144
     TIPO_PRIMITIVO           go to state 38
@@ -3389,19 +3422,19 @@ State 180
     TIPO_ESTRUTURADO         go to state 40
 
 
-State 181
+State 186
 
    18 PARAMETRO_FUNCAO: TIPO id .
 
     $default  reduce using rule 18 (PARAMETRO_FUNCAO)
 
 
-State 182
+State 187
 
    47 INSTRUCAO_INICIALIZACAO: TIPO id assign chaves_esquerda . LISTA_EXPRESSOES chaves_direita ponto_virgula
 
     op_not               shift, and go to state 1
-    parenteses_esquerda  shift, and go to state 58
+    parenteses_esquerda  shift, and go to state 55
     op_sum               shift, and go to state 3
     op_sub               shift, and go to state 4
     booleano             shift, and go to state 25
@@ -3409,54 +3442,54 @@ State 182
     real                 shift, and go to state 27
     caractere            shift, and go to state 28
     palavra              shift, and go to state 29
-    id                   shift, and go to state 59
+    id                   shift, and go to state 56
 
-    $default  reduce using rule 58 (LISTA_EXPRESSOES)
+    $default  reduce using rule 57 (LISTA_EXPRESSOES)
 
-    LISTA_EXPRESSOES  go to state 202
-    EXP               go to state 199
+    LISTA_EXPRESSOES  go to state 209
+    EXP               go to state 196
 
 
-State 183
+State 188
 
    46 INSTRUCAO_INICIALIZACAO: TIPO id assign EXP . ponto_virgula
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 105
-    op_and            shift, and go to state 106
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
-    ponto_virgula     shift, and go to state 203
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+    ponto_virgula     shift, and go to state 210
 
 
-State 184
+State 189
 
    44 LISTA_IDENTIFICADORES: id .
    45                      | id . virgula LISTA_IDENTIFICADORES
@@ -3466,118 +3499,279 @@ State 184
     $default  reduce using rule 44 (LISTA_IDENTIFICADORES)
 
 
-State 185
+State 190
 
    45 LISTA_IDENTIFICADORES: id virgula LISTA_IDENTIFICADORES .
 
     $default  reduce using rule 45 (LISTA_IDENTIFICADORES)
 
 
-State 186
-
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula . INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
-
-    parenteses_esquerda  shift, and go to state 204
-    id                   shift, and go to state 103
-
-    INSTRUCAO_ATRIBUICAO  go to state 205
-    CLVALUE               go to state 46
-    LVALUE                go to state 47
-    CASTING               go to state 48
-
-
-State 187
-
-   48 INSTRUCAO_ATRIBUICAO: CLVALUE OPERADORES_ATRIBUICAO EXP ponto_virgula .
-
-    $default  reduce using rule 48 (INSTRUCAO_ATRIBUICAO)
-
-
-State 188
-
-   52 LVALUE: LVALUE colchetes_esquerda EXP colchetes_direita .
-
-    $default  reduce using rule 52 (LVALUE)
-
-
-State 189
-
-   67 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO .
-
-    $default  reduce using rule 67 (LACO_ENQUANTO)
-
-
-State 190
-
-   72 INSTRUCAO_IO: key_write parenteses_esquerda EXP parenteses_direita ponto_virgula .
-
-    $default  reduce using rule 72 (INSTRUCAO_IO)
-
-
 State 191
 
-   71 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita ponto_virgula .
+  107 EXP_ID: colchetes_esquerda EXP colchetes_direita .
 
-    $default  reduce using rule 71 (INSTRUCAO_IO)
+    $default  reduce using rule 107 (EXP_ID)
 
 
 State 192
 
-   66 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP . parenteses_direita INSTRUCAO
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE . OPERADORES_ATRIBUICAO EXP
 
-    op_or               shift, and go to state 105
-    op_and              shift, and go to state 106
-    op_gt               shift, and go to state 107
-    op_lt               shift, and go to state 108
-    op_lte              shift, and go to state 109
-    op_gte              shift, and go to state 110
-    op_equal            shift, and go to state 111
-    op_diff             shift, and go to state 112
-    op_mod              shift, and go to state 113
-    parenteses_direita  shift, and go to state 206
-    op_mult             shift, and go to state 114
-    op_div              shift, and go to state 115
-    op_sum              shift, and go to state 116
-    op_sub              shift, and go to state 117
-    set_intersection    shift, and go to state 118
-    set_union           shift, and go to state 119
-    circunflexo         shift, and go to state 120
+    assign                   shift, and go to state 131
+    assign_sum               shift, and go to state 132
+    assign_sub               shift, and go to state 133
+    assign_mult              shift, and go to state 134
+    assign_div               shift, and go to state 135
+    assign_set_union         shift, and go to state 136
+    assign_set_intersection  shift, and go to state 137
+
+    OPERADORES_ATRIBUICAO  go to state 211
 
 
 State 193
 
-   59 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO .
-   60                      | key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO . key_else INSTRUCAO
+   66 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO .
 
-    key_else  shift, and go to state 207
-
-    $default  reduce using rule 59 (INSTRUCAO_CONDICIONAL)
+    $default  reduce using rule 66 (LACO_ENQUANTO)
 
 
 State 194
 
-    7 DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda LISTA_ATRIBUTOS . chaves_direita
+   71 INSTRUCAO_IO: key_write parenteses_esquerda EXP parenteses_direita ponto_virgula .
 
-    chaves_direita  shift, and go to state 208
+    $default  reduce using rule 71 (INSTRUCAO_IO)
 
 
 State 195
+
+   70 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita ponto_virgula .
+
+    $default  reduce using rule 70 (INSTRUCAO_IO)
+
+
+State 196
+
+   55 LISTA_EXPRESSOES: EXP .
+   56                 | EXP . virgula LISTA_EXPRESSOES
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    virgula           shift, and go to state 181
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+
+    $default  reduce using rule 55 (LISTA_EXPRESSOES)
+
+
+State 197
+
+   53 LVALUE: ponto id .
+
+    $default  reduce using rule 53 (LVALUE)
+
+
+State 198
+
+   52 LVALUE: colchetes_esquerda EXP . colchetes_direita
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or              shift, and go to state 93
+    op_and             shift, and go to state 94
+    op_gt              shift, and go to state 95
+    op_lt              shift, and go to state 96
+    op_lte             shift, and go to state 97
+    op_gte             shift, and go to state 98
+    op_equal           shift, and go to state 99
+    op_diff            shift, and go to state 100
+    op_mod             shift, and go to state 101
+    op_mult            shift, and go to state 102
+    op_div             shift, and go to state 103
+    op_sum             shift, and go to state 104
+    op_sub             shift, and go to state 105
+    set_intersection   shift, and go to state 106
+    set_union          shift, and go to state 107
+    colchetes_direita  shift, and go to state 212
+    circunflexo        shift, and go to state 108
+
+
+State 199
+
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP . ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+    ponto_virgula     shift, and go to state 213
+
+
+State 200
+
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP . ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+    ponto_virgula     shift, and go to state 214
+
+
+State 201
+
+   65 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP . parenteses_direita INSTRUCAO
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
+
+    op_or               shift, and go to state 93
+    op_and              shift, and go to state 94
+    op_gt               shift, and go to state 95
+    op_lt               shift, and go to state 96
+    op_lte              shift, and go to state 97
+    op_gte              shift, and go to state 98
+    op_equal            shift, and go to state 99
+    op_diff             shift, and go to state 100
+    op_mod              shift, and go to state 101
+    parenteses_direita  shift, and go to state 215
+    op_mult             shift, and go to state 102
+    op_div              shift, and go to state 103
+    op_sum              shift, and go to state 104
+    op_sub              shift, and go to state 105
+    set_intersection    shift, and go to state 106
+    set_union           shift, and go to state 107
+    circunflexo         shift, and go to state 108
+
+
+State 202
+
+   58 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO .
+   59                      | key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO . key_else INSTRUCAO
+
+    key_else  shift, and go to state 216
+
+    $default  reduce using rule 58 (INSTRUCAO_CONDICIONAL)
+
+
+State 203
+
+    7 DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda LISTA_ATRIBUTOS . chaves_direita
+
+    chaves_direita  shift, and go to state 217
+
+
+State 204
 
     8 LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO .
    10                | INSTRUCAO_DECLARACAO . LISTA_ATRIBUTOS
@@ -3593,16 +3787,16 @@ State 195
 
     $default  reduce using rule 8 (LISTA_ATRIBUTOS)
 
-    LISTA_ATRIBUTOS          go to state 209
-    TIPO                     go to state 84
+    LISTA_ATRIBUTOS          go to state 218
+    TIPO                     go to state 83
     TIPO_PRIMITIVO           go to state 38
     TIPO_NUMERICO            go to state 39
     TIPO_ESTRUTURADO         go to state 40
-    INSTRUCAO_DECLARACAO     go to state 195
-    INSTRUCAO_INICIALIZACAO  go to state 196
+    INSTRUCAO_DECLARACAO     go to state 204
+    INSTRUCAO_INICIALIZACAO  go to state 205
 
 
-State 196
+State 205
 
     9 LISTA_ATRIBUTOS: INSTRUCAO_INICIALIZACAO .
    11                | INSTRUCAO_INICIALIZACAO . LISTA_ATRIBUTOS
@@ -3618,123 +3812,96 @@ State 196
 
     $default  reduce using rule 9 (LISTA_ATRIBUTOS)
 
-    LISTA_ATRIBUTOS          go to state 210
-    TIPO                     go to state 84
+    LISTA_ATRIBUTOS          go to state 219
+    TIPO                     go to state 83
     TIPO_PRIMITIVO           go to state 38
     TIPO_NUMERICO            go to state 39
     TIPO_ESTRUTURADO         go to state 40
-    INSTRUCAO_DECLARACAO     go to state 195
-    INSTRUCAO_INICIALIZACAO  go to state 196
+    INSTRUCAO_DECLARACAO     go to state 204
+    INSTRUCAO_INICIALIZACAO  go to state 205
 
 
-State 197
+State 206
 
-   55 INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda LISTA_EXPRESSOES parenteses_direita ponto_virgula .
-
-    $default  reduce using rule 55 (INSTRUCAO_CHAMADA_FUNCAO)
-
-
-State 198
-
-   57 LISTA_EXPRESSOES: EXP virgula LISTA_EXPRESSOES .
-
-    $default  reduce using rule 57 (LISTA_EXPRESSOES)
-
-
-State 199
-
-   56 LISTA_EXPRESSOES: EXP .
-   57                 | EXP . virgula LISTA_EXPRESSOES
-   87 EXP: EXP . op_or EXP
-   88    | EXP . op_and EXP
-   92    | EXP . op_sub EXP
-   93    | EXP . op_sum EXP
-   94    | EXP . set_intersection EXP
-   95    | EXP . set_union EXP
-   96    | EXP . op_mult EXP
-   97    | EXP . op_div EXP
-   98    | EXP . op_mod EXP
-   99    | EXP . circunflexo EXP
-  100    | EXP . op_diff EXP
-  101    | EXP . op_equal EXP
-  102    | EXP . op_gte EXP
-  103    | EXP . op_lte EXP
-  104    | EXP . op_gt EXP
-  105    | EXP . op_lt EXP
-
-    op_or             shift, and go to state 105
-    op_and            shift, and go to state 106
-    op_gt             shift, and go to state 107
-    op_lt             shift, and go to state 108
-    op_lte            shift, and go to state 109
-    op_gte            shift, and go to state 110
-    op_equal          shift, and go to state 111
-    op_diff           shift, and go to state 112
-    op_mod            shift, and go to state 113
-    op_mult           shift, and go to state 114
-    op_div            shift, and go to state 115
-    op_sum            shift, and go to state 116
-    op_sub            shift, and go to state 117
-    virgula           shift, and go to state 177
-    set_intersection  shift, and go to state 118
-    set_union         shift, and go to state 119
-    circunflexo       shift, and go to state 120
+   56 LISTA_EXPRESSOES: EXP virgula LISTA_EXPRESSOES .
 
     $default  reduce using rule 56 (LISTA_EXPRESSOES)
 
 
-State 200
+State 207
 
    12 DEFINICAO_FUNCAO: TIPO_FUNCAO parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO .
 
     $default  reduce using rule 12 (DEFINICAO_FUNCAO)
 
 
-State 201
+State 208
 
    14 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO virgula LISTA_PARAMETROS_FUNCAO .
 
     $default  reduce using rule 14 (LISTA_PARAMETROS_FUNCAO)
 
 
-State 202
+State 209
 
    47 INSTRUCAO_INICIALIZACAO: TIPO id assign chaves_esquerda LISTA_EXPRESSOES . chaves_direita ponto_virgula
 
-    chaves_direita  shift, and go to state 211
+    chaves_direita  shift, and go to state 220
 
 
-State 203
+State 210
 
    46 INSTRUCAO_INICIALIZACAO: TIPO id assign EXP ponto_virgula .
 
     $default  reduce using rule 46 (INSTRUCAO_INICIALIZACAO)
 
 
-State 204
+State 211
 
-   54 CASTING: parenteses_esquerda . TIPO_PRIMITIVO parenteses_direita
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO . EXP
 
-    key_bool       shift, and go to state 5
-    key_caractere  shift, and go to state 6
-    key_int        shift, and go to state 12
-    key_string     shift, and go to state 17
-    key_real       shift, and go to state 19
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 55
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 56
 
-    TIPO_PRIMITIVO  go to state 61
-    TIPO_NUMERICO   go to state 39
-
-
-State 205
-
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO . parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
-
-    parenteses_direita  shift, and go to state 212
+    EXP  go to state 221
 
 
-State 206
+State 212
 
-   66 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita . INSTRUCAO
+   52 LVALUE: colchetes_esquerda EXP colchetes_direita .
+
+    $default  reduce using rule 52 (LVALUE)
+
+
+State 213
+
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula . INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+
+    id  shift, and go to state 119
+
+    INSTRUCAO_CHAMADA_ID  go to state 222
+
+
+State 214
+
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula . INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+
+    id  shift, and go to state 119
+
+    INSTRUCAO_CHAMADA_ID  go to state 223
+
+
+State 215
+
+   65 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita . INSTRUCAO
 
     op_not               shift, and go to state 1
     parenteses_esquerda  shift, and go to state 2
@@ -3765,32 +3932,29 @@ State 206
     id                   shift, and go to state 30
     chaves_esquerda      shift, and go to state 31
 
-    TIPO                      go to state 84
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCAO                 go to state 213
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 224
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
-State 207
+State 216
 
-   60 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else . INSTRUCAO
+   59 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else . INSTRUCAO
 
     op_not               shift, and go to state 1
     parenteses_esquerda  shift, and go to state 2
@@ -3821,88 +3985,146 @@ State 207
     id                   shift, and go to state 30
     chaves_esquerda      shift, and go to state 31
 
-    TIPO                      go to state 84
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCAO                 go to state 214
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 225
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
-State 208
+State 217
 
     7 DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda LISTA_ATRIBUTOS chaves_direita .
 
     $default  reduce using rule 7 (DEFINICAO_REGISTRO)
 
 
-State 209
+State 218
 
    10 LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO LISTA_ATRIBUTOS .
 
     $default  reduce using rule 10 (LISTA_ATRIBUTOS)
 
 
-State 210
+State 219
 
    11 LISTA_ATRIBUTOS: INSTRUCAO_INICIALIZACAO LISTA_ATRIBUTOS .
 
     $default  reduce using rule 11 (LISTA_ATRIBUTOS)
 
 
-State 211
+State 220
 
    47 INSTRUCAO_INICIALIZACAO: TIPO id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita . ponto_virgula
 
-    ponto_virgula  shift, and go to state 215
+    ponto_virgula  shift, and go to state 226
 
 
-State 212
+State 221
 
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita . chaves_esquerda INSTRUCAO chaves_direita
+   51 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP .
+   86 EXP: EXP . op_or EXP
+   87    | EXP . op_and EXP
+   91    | EXP . op_sub EXP
+   92    | EXP . op_sum EXP
+   93    | EXP . set_intersection EXP
+   94    | EXP . set_union EXP
+   95    | EXP . op_mult EXP
+   96    | EXP . op_div EXP
+   97    | EXP . op_mod EXP
+   98    | EXP . circunflexo EXP
+   99    | EXP . op_diff EXP
+  100    | EXP . op_equal EXP
+  101    | EXP . op_gte EXP
+  102    | EXP . op_lte EXP
+  103    | EXP . op_gt EXP
+  104    | EXP . op_lt EXP
 
-    chaves_esquerda  shift, and go to state 216
+    op_or             shift, and go to state 93
+    op_and            shift, and go to state 94
+    op_gt             shift, and go to state 95
+    op_lt             shift, and go to state 96
+    op_lte            shift, and go to state 97
+    op_gte            shift, and go to state 98
+    op_equal          shift, and go to state 99
+    op_diff           shift, and go to state 100
+    op_mod            shift, and go to state 101
+    op_mult           shift, and go to state 102
+    op_div            shift, and go to state 103
+    op_sum            shift, and go to state 104
+    op_sub            shift, and go to state 105
+    set_intersection  shift, and go to state 106
+    set_union         shift, and go to state 107
+    circunflexo       shift, and go to state 108
+
+    $default  reduce using rule 51 (INSTRUCAO_ATRIBUICAO_CASTING)
 
 
-State 213
+State 222
 
-   66 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO .
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID . parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 
-    $default  reduce using rule 66 (LACO_PARA_CONJUNTO)
-
-
-State 214
-
-   60 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO .
-
-    $default  reduce using rule 60 (INSTRUCAO_CONDICIONAL)
+    parenteses_direita  shift, and go to state 227
 
 
-State 215
+State 223
+
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID . parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+
+    parenteses_direita  shift, and go to state 228
+
+
+State 224
+
+   65 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO .
+
+    $default  reduce using rule 65 (LACO_PARA_CONJUNTO)
+
+
+State 225
+
+   59 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO .
+
+    $default  reduce using rule 59 (INSTRUCAO_CONDICIONAL)
+
+
+State 226
 
    47 INSTRUCAO_INICIALIZACAO: TIPO id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula .
 
     $default  reduce using rule 47 (INSTRUCAO_INICIALIZACAO)
 
 
-State 216
+State 227
 
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda . INSTRUCAO chaves_direita
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita . chaves_esquerda INSTRUCAO chaves_direita
+
+    chaves_esquerda  shift, and go to state 229
+
+
+State 228
+
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita . chaves_esquerda INSTRUCAO chaves_direita
+
+    chaves_esquerda  shift, and go to state 230
+
+
+State 229
+
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda . INSTRUCAO chaves_direita
 
     op_not               shift, and go to state 1
     parenteses_esquerda  shift, and go to state 2
@@ -3933,38 +4155,102 @@ State 216
     id                   shift, and go to state 30
     chaves_esquerda      shift, and go to state 31
 
-    TIPO                      go to state 84
-    TIPO_PRIMITIVO            go to state 38
-    TIPO_NUMERICO             go to state 39
-    TIPO_ESTRUTURADO          go to state 40
-    BLOCO                     go to state 41
-    INSTRUCAO                 go to state 217
-    INSTRUCAO_DECLARACAO      go to state 43
-    INSTRUCAO_INICIALIZACAO   go to state 44
-    INSTRUCAO_ATRIBUICAO      go to state 45
-    CLVALUE                   go to state 46
-    LVALUE                    go to state 47
-    CASTING                   go to state 48
-    INSTRUCAO_CHAMADA_FUNCAO  go to state 49
-    INSTRUCAO_CONDICIONAL     go to state 50
-    INSTRUCAO_REPETICAO       go to state 51
-    LACO_PARA                 go to state 52
-    LACO_PARA_CONJUNTO        go to state 53
-    LACO_ENQUANTO             go to state 54
-    INSTRUCAO_SAIDA           go to state 55
-    INSTRUCAO_IO              go to state 56
-    EXP                       go to state 57
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 231
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
-State 217
+State 230
 
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO . chaves_direita
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda . INSTRUCAO chaves_direita
 
-    chaves_direita  shift, and go to state 218
+    op_not               shift, and go to state 1
+    parenteses_esquerda  shift, and go to state 2
+    op_sum               shift, and go to state 3
+    op_sub               shift, and go to state 4
+    key_bool             shift, and go to state 5
+    key_caractere        shift, and go to state 6
+    key_set              shift, and go to state 7
+    key_vetor            shift, and go to state 8
+    key_continue         shift, and go to state 9
+    key_while            shift, and go to state 10
+    key_write            shift, and go to state 11
+    key_int              shift, and go to state 12
+    key_read             shift, and go to state 13
+    key_for              shift, and go to state 14
+    key_for_set          shift, and go to state 15
+    key_break            shift, and go to state 16
+    key_string           shift, and go to state 17
+    key_if               shift, and go to state 18
+    key_real             shift, and go to state 19
+    key_register         shift, and go to state 20
+    key_return           shift, and go to state 21
+    booleano             shift, and go to state 25
+    inteiro              shift, and go to state 26
+    real                 shift, and go to state 27
+    caractere            shift, and go to state 28
+    palavra              shift, and go to state 29
+    id                   shift, and go to state 30
+    chaves_esquerda      shift, and go to state 31
+
+    TIPO                          go to state 83
+    TIPO_PRIMITIVO                go to state 38
+    TIPO_NUMERICO                 go to state 39
+    TIPO_ESTRUTURADO              go to state 40
+    BLOCO                         go to state 41
+    INSTRUCAO                     go to state 232
+    INSTRUCAO_DECLARACAO          go to state 43
+    INSTRUCAO_INICIALIZACAO       go to state 44
+    INSTRUCAO_CHAMADA_ID          go to state 45
+    INSTRUCAO_ATRIBUICAO_CASTING  go to state 46
+    INSTRUCAO_CONDICIONAL         go to state 47
+    INSTRUCAO_REPETICAO           go to state 48
+    LACO_PARA                     go to state 49
+    LACO_PARA_CONJUNTO            go to state 50
+    LACO_ENQUANTO                 go to state 51
+    INSTRUCAO_SAIDA               go to state 52
+    INSTRUCAO_IO                  go to state 53
+    EXP                           go to state 54
 
 
-State 218
+State 231
 
-   65 LACO_PARA: INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita .
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO . chaves_direita
 
-    $default  reduce using rule 65 (LACO_PARA)
+    chaves_direita  shift, and go to state 233
+
+
+State 232
+
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO . chaves_direita
+
+    chaves_direita  shift, and go to state 234
+
+
+State 233
+
+   63 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita .
+
+    $default  reduce using rule 63 (LACO_PARA)
+
+
+State 234
+
+   64 LACO_PARA: key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita .
+
+    $default  reduce using rule 64 (LACO_PARA)

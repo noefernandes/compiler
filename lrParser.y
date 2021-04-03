@@ -134,8 +134,8 @@ INSTRUCAO_REPETICAO: LACO_PARA
 |  LACO_ENQUANTO
 ;
 
-LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO 
-| INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+| key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 ;
 
 LACO_PARA_CONJUNTO:  key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO

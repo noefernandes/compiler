@@ -84,12 +84,12 @@ INSTRUCOES: INSTRUCAO
 
 INSTRUCAO: INSTRUCAO_DECLARACAO
 |  INSTRUCAO_INICIALIZACAO 
-|  INSTRUCAO_ATRIBUICAO
+|  INSTRUCAO_CHAMADA_ID ponto_virgula
+|  INSTRUCAO_ATRIBUICAO_CASTING ponto_virgula
 |  INSTRUCAO_CONDICIONAL
 |  INSTRUCAO_REPETICAO
 |  INSTRUCAO_IO
 |  INSTRUCAO_SAIDA
-|  INSTRUCAO_CHAMADA_FUNCAO
 |  BLOCO 
 |  EXP ponto_virgula
 ;
@@ -105,22 +105,19 @@ INSTRUCAO_INICIALIZACAO: TIPO id assign EXP ponto_virgula
 | TIPO id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
 ;
 
-INSTRUCAO_ATRIBUICAO: CLVALUE OPERADORES_ATRIBUICAO EXP ponto_virgula
+INSTRUCAO_CHAMADA_ID: id CHAMADA_FUNCAO_OU_ATRIBUICAO
 ;
 
-CLVALUE: CASTING LVALUE
-| LVALUE
+CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda LISTA_EXPRESSOES parenteses_direita
+| LVALUE OPERADORES_ATRIBUICAO EXP
 ;
 
-LVALUE: id
-| LVALUE colchetes_esquerda EXP colchetes_direita
-| LVALUE ponto id
+INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP
 ;
 
-CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita
-;
-
-INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda LISTA_EXPRESSOES parenteses_direita ponto_virgula
+LVALUE: colchetes_esquerda EXP colchetes_direita
+| ponto id
+| %empty
 ;
 
 LISTA_EXPRESSOES: EXP
@@ -138,7 +135,7 @@ INSTRUCAO_REPETICAO: LACO_PARA
 ;
 
 LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO 
-| INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+| INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 ;
 
 LACO_PARA_CONJUNTO:  key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO

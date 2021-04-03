@@ -79,11 +79,8 @@ TIPO_ESTRUTURADO: key_set TIPO
 BLOCO: chaves_esquerda INSTRUCOES chaves_direita 
 ;
 
-INSTRUCOES: INSTRUCAO INSTRUCOES2
-;
-
-INSTRUCOES2: INSTRUCOES 
-| %empty
+INSTRUCOES: INSTRUCAO 
+| INSTRUCAO INSTRUCOES
 ;
 
 INSTRUCAO: INSTRUCAO_DECLARACAO
@@ -95,18 +92,18 @@ INSTRUCAO: INSTRUCAO_DECLARACAO
 |  INSTRUCAO_SAIDA
 |  INSTRUCAO_CHAMADA_FUNCAO
 |  BLOCO 
-|  EXP
+|  EXP ponto_virgula
 ;
 
-INSTRUCAO_DECLARACAO: TTipo LISTA_IDENTIFICADORES
+INSTRUCAO_DECLARACAO: TIPO LISTA_IDENTIFICADORES
 ;
 
 LISTA_IDENTIFICADORES: id
 | id virgula LISTA_IDENTIFICADORES
 ;
 
-INSTRUCAO_INICIALIZACAO: TTIPO id assign EXP ponto_virgula
-| TTipo id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
+INSTRUCAO_INICIALIZACAO: TIPO id assign EXP ponto_virgula
+| TIPO id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
 ;
 
 INSTRUCAO_ATRIBUICAO: CLVALUE OPERADORES_ATRIBUICAO EXP ponto_virgula
@@ -124,11 +121,12 @@ LVALUE: id
 CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita
 ;
 
-INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda LISTA_EXPRESSOES |  %empty parenteses_direita
+INSTRUCAO_CHAMADA_FUNCAO: id parenteses_esquerda LISTA_EXPRESSOES parenteses_direita ponto_virgula
 ;
 
 LISTA_EXPRESSOES: EXP
-| EXP virgula LISTA_EXPRESSOES
+| EXP virgula LISTA_EXPRESSOES 
+| %empty
 ;
 
 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO
@@ -140,7 +138,8 @@ INSTRUCAO_REPETICAO: LACO_PARA
 |  LACO_ENQUANTO
 ;
 
-LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO | INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO 
+| INSTRUCAO_ATRIBUICAO ponto_virgula EXP ponto_virgula INSTRUCAO_ATRIBUICAO parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
 ;
 
 LACO_PARA_CONJUNTO:  key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO
@@ -166,7 +165,6 @@ OPERADORES_ATRIBUICAO: assign
 |  assign_set_union 
 |  assign_set_intersection
 ;
-
 
 EXP: id EXP_ID
 | inteiro

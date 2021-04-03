@@ -50,7 +50,7 @@ LISTA_PARAMETROS_FUNCAO_2: virgula LISTA_PARAMETROS_FUNCAO
 | empty
 ;
 
-TIPO_FUNCAO -> TIPO
+TIPO_FUNCAO: TIPO
 | key_return_nothing
 ;
 
@@ -68,12 +68,71 @@ TIPO_PRIMITIVO: TIPO_NUMERICO
 
 TIPO_NUMERICO: key_int
 | key_real
-| key_booleano
+| key_bool
 ;
 
 TIPO_ESTRUTURADO: key_set TIPO
 | key_register id
 | key_vetor TIPO colchetes_esquerda colchetes_direita
+;
+
+BLOCO: chaves_esquerda INSTRUCOES chaves_direita 
+;
+
+INSTRUCOES: INSTRUCAO INSTRUCOES2
+;
+
+INSTRUCOES2: INSTRUCOES 
+| %empty
+;
+
+INSTRUCAO: INSTRUCAO_DECLARACAO_INICIALIZACAO 
+|  INSTRUCAO_ATRIBUICAO_CASTING ponto_virgula
+|  INSTRUCAO_CHAMADA_ID ponto_virgula
+|  INSTRUCAO_CONDICIONAL
+|  INSTRUCAO_REPETICAO
+|  INSTRUCAO_IO
+|  INSTRUCAO_SAIDA
+|  BLOCO 
+;
+
+INSTRUCAO_DECLARACAO_INICIALIZACAO: %empty
+;
+
+INSTRUCAO_ATRIBUICAO_CASTING: %empty
+;
+
+INSTRUCAO_CHAMADA_ID: %empty
+;
+
+INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO INSTRUCAO_CONDICIONAL2 
+;
+
+INSTRUCAO_CONDICIONAL2: key_else INSTRUCAO 
+|  ponto_virgula 
+;
+
+INSTRUCAO_REPETICAO: LACO_PARA 
+|  LACO_PARA_CONJUNTO 
+|  LACO_ENQUANTO
+;
+
+LACO_PARA:  key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
+;
+
+LACO_PARA_CONJUNTO:  key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO
+;
+
+LACO_ENQUANTO:  key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO 
+;
+
+INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita ponto_virgula 
+| key_write parenteses_esquerda EXP parenteses_direita ponto_virgula
+;
+
+INSTRUCAO_SAIDA:  key_return EXP ponto_virgula 
+|  key_break ponto_virgula 
+|  key_continue ponto_virgula
 ;
 
 EXP: id EXP_ID

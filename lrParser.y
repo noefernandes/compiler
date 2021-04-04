@@ -27,7 +27,6 @@ PROGRAM: DEF PROGRAM eof
 ;
 
 DEF: key_def DEFINICAO_FUNCAO
-| DEFINICAO_FUNCAO
 | DEFINICAO_REGISTRO
 | INSTRUCAO
 ;
@@ -83,7 +82,7 @@ INSTRUCOES: INSTRUCAO
 ;
 
 INSTRUCAO: INSTRUCAO_DECLARACAO
-|  INSTRUCAO_INICIALIZACAO 
+|  INSTRUCAO_INICIALIZACAO ponto_virgula
 |  INSTRUCAO_CHAMADA_ID ponto_virgula
 |  INSTRUCAO_ATRIBUICAO_CASTING ponto_virgula
 |  INSTRUCAO_CONDICIONAL
@@ -101,8 +100,8 @@ LISTA_IDENTIFICADORES: id
 | id virgula LISTA_IDENTIFICADORES
 ;
 
-INSTRUCAO_INICIALIZACAO: TIPO id assign EXP ponto_virgula
-| TIPO id assign chaves_esquerda LISTA_EXPRESSOES chaves_direita ponto_virgula
+INSTRUCAO_INICIALIZACAO: TIPO id assign EXP
+| TIPO id assign colchetes_esquerda LISTA_EXPRESSOES colchetes_direita
 ;
 
 INSTRUCAO_CHAMADA_ID: id CHAMADA_FUNCAO_OU_ATRIBUICAO
@@ -134,8 +133,8 @@ INSTRUCAO_REPETICAO: LACO_PARA
 |  LACO_ENQUANTO
 ;
 
-LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
-| key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita chaves_esquerda INSTRUCAO chaves_direita
+LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita BLOCO
+| key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita BLOCO
 ;
 
 LACO_PARA_CONJUNTO:  key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO

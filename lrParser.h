@@ -165,8 +165,7 @@ extern int yydebug;
     TDef = 370,
     TDefinicaoRegistro = 371,
     TListaAtributos = 372,
-    TListaAtributos2 = 373,
-    matched_if = 374
+    TListaAtributos2 = 373
   };
 #endif
 

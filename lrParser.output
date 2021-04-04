@@ -318,110 +318,109 @@ Terminals, with rules where they appear
     TDefinicaoRegistro (371)
     TListaAtributos (372)
     TListaAtributos2 (373)
-    matched_if (374)
 
 
 Nonterminals, with rules where they appear
 
-    $accept (120)
+    $accept (119)
         on left: 0
-    PROGRAM (121)
+    PROGRAM (120)
         on left: 1 2
         on right: 0 1
-    DEF (122)
+    DEF (121)
         on left: 3 4 5
         on right: 1
-    DEFINICAO_REGISTRO (123)
+    DEFINICAO_REGISTRO (122)
         on left: 6
         on right: 4
-    LISTA_ATRIBUTOS (124)
+    LISTA_ATRIBUTOS (123)
         on left: 7 8
         on right: 6 8
-    DEFINICAO_FUNCAO (125)
+    DEFINICAO_FUNCAO (124)
         on left: 9
         on right: 3
-    LISTA_PARAMETROS_FUNCAO (126)
+    LISTA_PARAMETROS_FUNCAO (125)
         on left: 10 11 12
         on right: 9 11
-    TIPO_FUNCAO (127)
+    TIPO_FUNCAO (126)
         on left: 13 14
         on right: 9
-    PARAMETRO_FUNCAO (128)
+    PARAMETRO_FUNCAO (127)
         on left: 15
         on right: 10 11
-    TIPO (129)
+    TIPO (128)
         on left: 16 17
         on right: 13 15 24 26 38 39
-    TIPO_PRIMITIVO (130)
+    TIPO_PRIMITIVO (129)
         on left: 18 19 20
         on right: 16 47
-    TIPO_NUMERICO (131)
+    TIPO_NUMERICO (130)
         on left: 21 22 23
         on right: 18 59
-    TIPO_ESTRUTURADO (132)
+    TIPO_ESTRUTURADO (131)
         on left: 24 25 26
         on right: 17
-    BLOCO (133)
+    BLOCO (132)
         on left: 27
         on right: 9 37
-    INSTRUCOES (134)
+    INSTRUCOES (133)
         on left: 28 29
         on right: 27 29
-    INSTRUCAO (135)
+    INSTRUCAO (134)
         on left: 30 31 32 33 34 35 36 37
         on right: 5 28 29 54 55 59 60 61
-    INSTRUCAO_DECLARACAO_INICIALIZACAO (136)
+    INSTRUCAO_DECLARACAO_INICIALIZACAO (135)
         on left: 38 39
         on right: 7 8 30
-    INSTRUCAO_DECLARACAO_INICIALIZACAO_2 (137)
+    INSTRUCAO_DECLARACAO_INICIALIZACAO_2 (136)
         on left: 40 41
         on right: 39
-    LISTA_IDENTIFICADORES (138)
+    LISTA_IDENTIFICADORES (137)
         on left: 42 43
         on right: 38 43
-    INSTRUCAO_CHAMADA_ID (139)
+    INSTRUCAO_CHAMADA_ID (138)
         on left: 44
         on right: 31 59
-    CHAMADA_FUNCAO_OU_ATRIBUICAO (140)
+    CHAMADA_FUNCAO_OU_ATRIBUICAO (139)
         on left: 45 46
         on right: 44
-    INSTRUCAO_ATRIBUICAO_CASTING (141)
+    INSTRUCAO_ATRIBUICAO_CASTING (140)
         on left: 47
         on right: 32
-    LVALUE (142)
+    LVALUE (141)
         on left: 48 49 50
         on right: 46 47
-    LISTA_EXPRESSOES (143)
+    LISTA_EXPRESSOES (142)
         on left: 51 52 53
         on right: 40 41 45 52
-    INSTRUCAO_CONDICIONAL (144)
+    INSTRUCAO_CONDICIONAL (143)
         on left: 54 55
         on right: 33
-    INSTRUCAO_REPETICAO (145)
+    INSTRUCAO_REPETICAO (144)
         on left: 56 57 58
         on right: 34
-    LACO_PARA (146)
+    LACO_PARA (145)
         on left: 59
         on right: 56
-    LACO_PARA_CONJUNTO (147)
+    LACO_PARA_CONJUNTO (146)
         on left: 60
         on right: 57
-    LACO_ENQUANTO (148)
+    LACO_ENQUANTO (147)
         on left: 61
         on right: 58
-    INSTRUCAO_SAIDA (149)
+    INSTRUCAO_SAIDA (148)
         on left: 62 63 64
         on right: 36
-    INSTRUCAO_IO (150)
+    INSTRUCAO_IO (149)
         on left: 65 66
         on right: 35
-    OPERADORES_ATRIBUICAO (151)
+    OPERADORES_ATRIBUICAO (150)
         on left: 67 68 69 70 71 72 73
         on right: 39 46 47
-    EXP (152)
+    EXP (151)
         on left: 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
         on right: 46 47 48 51 52 54 55 59 60 61 62 66 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 102 103
-    EXP_ID (153)
+    EXP_ID (152)
         on left: 100 101 102 103
         on right: 74
 

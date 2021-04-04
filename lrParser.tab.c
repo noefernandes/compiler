@@ -237,8 +237,7 @@ extern int yydebug;
     TDef = 370,
     TDefinicaoRegistro = 371,
     TListaAtributos = 372,
-    TListaAtributos2 = 373,
-    matched_if = 374
+    TListaAtributos2 = 373
   };
 #endif
 
@@ -563,7 +562,7 @@ union yyalloc
 #define YYLAST   580
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  120
+#define YYNTOKENS  119
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  34
 /* YYNRULES -- Number of rules.  */
@@ -572,7 +571,7 @@ union yyalloc
 #define YYNSTATES  214
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   374
+#define YYMAXUTOK   373
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -621,24 +620,24 @@ static const yytype_int8 yytranslate[] =
       85,    86,    87,    88,    89,    90,    91,    92,    93,    94,
       95,    96,    97,    98,    99,   100,   101,   102,   103,   104,
      105,   106,   107,   108,   109,   110,   111,   112,   113,   114,
-     115,   116,   117,   118,   119
+     115,   116,   117,   118
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    27,    27,    28,    31,    32,    33,    36,    39,    40,
-      43,    46,    47,    48,    51,    52,    55,    58,    59,    62,
-      63,    64,    67,    68,    69,    72,    73,    74,    77,    80,
-      81,    84,    85,    86,    87,    88,    89,    90,    91,    94,
-      95,    98,    99,   102,   103,   106,   109,   110,   113,   116,
-     117,   118,   121,   122,   123,   126,   127,   130,   131,   132,
-     135,   138,   141,   144,   145,   146,   149,   150,   153,   154,
-     155,   156,   157,   158,   159,   162,   163,   164,   165,   166,
-     167,   168,   169,   170,   171,   172,   173,   174,   175,   176,
-     177,   178,   179,   180,   181,   182,   183,   184,   185,   186,
-     187,   190,   191,   192,   193
+       0,    25,    25,    26,    29,    30,    31,    34,    37,    38,
+      41,    44,    45,    46,    49,    50,    53,    56,    57,    60,
+      61,    62,    65,    66,    67,    70,    71,    72,    75,    78,
+      79,    82,    83,    84,    85,    86,    87,    88,    89,    92,
+      93,    96,    97,   100,   101,   104,   107,   108,   111,   114,
+     115,   116,   119,   120,   121,   124,   125,   128,   129,   130,
+     133,   136,   139,   142,   143,   144,   147,   148,   151,   152,
+     153,   154,   155,   156,   157,   160,   161,   162,   163,   164,
+     165,   166,   167,   168,   169,   170,   171,   172,   173,   174,
+     175,   176,   177,   178,   179,   180,   181,   182,   183,   184,
+     185,   188,   189,   190,   191
 };
 #endif
 
@@ -675,10 +674,10 @@ static const char *const yytname[] =
   "TListaParametrosFuncao2", "TTipoFuncao", "TParametroFuncao", "TTipo",
   "TTipoPrimitivo", "TTipoNumerico", "TTipoEstruturado", "TPrograma",
   "TDef", "TDefinicaoRegistro", "TListaAtributos", "TListaAtributos2",
-  "matched_if", "$accept", "PROGRAM", "DEF", "DEFINICAO_REGISTRO",
-  "LISTA_ATRIBUTOS", "DEFINICAO_FUNCAO", "LISTA_PARAMETROS_FUNCAO",
-  "TIPO_FUNCAO", "PARAMETRO_FUNCAO", "TIPO", "TIPO_PRIMITIVO",
-  "TIPO_NUMERICO", "TIPO_ESTRUTURADO", "BLOCO", "INSTRUCOES", "INSTRUCAO",
+  "$accept", "PROGRAM", "DEF", "DEFINICAO_REGISTRO", "LISTA_ATRIBUTOS",
+  "DEFINICAO_FUNCAO", "LISTA_PARAMETROS_FUNCAO", "TIPO_FUNCAO",
+  "PARAMETRO_FUNCAO", "TIPO", "TIPO_PRIMITIVO", "TIPO_NUMERICO",
+  "TIPO_ESTRUTURADO", "BLOCO", "INSTRUCOES", "INSTRUCAO",
   "INSTRUCAO_DECLARACAO_INICIALIZACAO",
   "INSTRUCAO_DECLARACAO_INICIALIZACAO_2", "LISTA_IDENTIFICADORES",
   "INSTRUCAO_CHAMADA_ID", "CHAMADA_FUNCAO_OU_ATRIBUICAO",
@@ -705,7 +704,7 @@ static const yytype_int16 yytoknum[] =
      335,   336,   337,   338,   339,   340,   341,   342,   343,   344,
      345,   346,   347,   348,   349,   350,   351,   352,   353,   354,
      355,   356,   357,   358,   359,   360,   361,   362,   363,   364,
-     365,   366,   367,   368,   369,   370,   371,   372,   373,   374
+     365,   366,   367,   368,   369,   370,   371,   372,   373
 };
 # endif
 
@@ -929,42 +928,42 @@ static const yytype_uint8 yystos[] =
 {
        0,    20,    30,    31,    32,    33,    34,    35,    36,    37,
       38,    39,    40,    42,    43,    44,    46,    47,    48,    50,
-      51,    57,    62,   121,   122,   123,   129,   130,   131,   132,
-     133,   135,   136,   139,   141,   144,   145,   146,   147,   148,
-     149,   150,   130,   129,   129,    61,    20,    20,    20,    20,
+      51,    57,    62,   120,   121,   122,   128,   129,   130,   131,
+     132,   134,   135,   138,   140,   143,   144,   145,   146,   147,
+     148,   149,   129,   128,   128,    61,    20,    20,    20,    20,
       20,    61,    20,    57,    10,    20,    24,    25,    52,    53,
-      54,    55,    56,    57,   152,    49,   125,   127,   129,    47,
-      20,    27,    58,   140,   142,   134,   135,     0,   121,    57,
-     138,    61,    61,    21,    58,   152,   152,    57,   131,    57,
-     152,   152,   152,   152,   152,    20,    27,    58,   153,    11,
+      54,    55,    56,    57,   151,    49,   124,   126,   128,    47,
+      20,    27,    58,   139,   141,   133,   134,     0,   120,    57,
+     137,    61,    61,    21,    58,   151,   151,    57,   130,    57,
+     151,   151,   151,   151,   151,    20,    27,    58,   152,    11,
       12,    13,    14,    15,    16,    17,    18,    19,    22,    23,
-      24,    25,    28,    29,    60,    61,    57,    57,   143,   152,
-      57,   152,     3,     4,     5,     6,     7,     8,     9,   151,
-      63,   134,     0,    26,   151,    61,    57,    59,    21,    21,
-      21,    57,    41,    21,    21,   152,    57,   152,   152,   152,
-     152,   152,   152,   152,   152,   152,   152,   152,   152,   152,
-     152,   152,   152,   152,    20,    62,    21,    26,    59,   152,
-      57,   138,    58,   137,   143,   142,   135,    61,    61,     3,
-     152,   135,    21,    59,   126,   128,   129,   124,   136,   143,
-     143,    61,   151,   152,    21,    45,    61,    21,    26,    57,
-      63,   124,    59,   152,    61,   135,   135,   133,   126,   152,
-      61,   139,    21,   135
+      24,    25,    28,    29,    60,    61,    57,    57,   142,   151,
+      57,   151,     3,     4,     5,     6,     7,     8,     9,   150,
+      63,   133,     0,    26,   150,    61,    57,    59,    21,    21,
+      21,    57,    41,    21,    21,   151,    57,   151,   151,   151,
+     151,   151,   151,   151,   151,   151,   151,   151,   151,   151,
+     151,   151,   151,   151,    20,    62,    21,    26,    59,   151,
+      57,   137,    58,   136,   142,   141,   134,    61,    61,     3,
+     151,   134,    21,    59,   125,   127,   128,   123,   135,   142,
+     142,    61,   150,   151,    21,    45,    61,    21,    26,    57,
+      63,   123,    59,   151,    61,   134,   134,   132,   125,   151,
+      61,   138,    21,   134
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,   120,   121,   121,   122,   122,   122,   123,   124,   124,
-     125,   126,   126,   126,   127,   127,   128,   129,   129,   130,
-     130,   130,   131,   131,   131,   132,   132,   132,   133,   134,
-     134,   135,   135,   135,   135,   135,   135,   135,   135,   136,
-     136,   137,   137,   138,   138,   139,   140,   140,   141,   142,
-     142,   142,   143,   143,   143,   144,   144,   145,   145,   145,
-     146,   147,   148,   149,   149,   149,   150,   150,   151,   151,
-     151,   151,   151,   151,   151,   152,   152,   152,   152,   152,
-     152,   152,   152,   152,   152,   152,   152,   152,   152,   152,
-     152,   152,   152,   152,   152,   152,   152,   152,   152,   152,
-     152,   153,   153,   153,   153
+       0,   119,   120,   120,   121,   121,   121,   122,   123,   123,
+     124,   125,   125,   125,   126,   126,   127,   128,   128,   129,
+     129,   129,   130,   130,   130,   131,   131,   131,   132,   133,
+     133,   134,   134,   134,   134,   134,   134,   134,   134,   135,
+     135,   136,   136,   137,   137,   138,   139,   139,   140,   141,
+     141,   141,   142,   142,   142,   143,   143,   144,   144,   144,
+     145,   146,   147,   148,   148,   148,   149,   149,   150,   150,
+     150,   150,   150,   150,   150,   151,   151,   151,   151,   151,
+     151,   151,   151,   151,   151,   151,   151,   151,   151,   151,
+     151,   151,   151,   151,   151,   151,   151,   151,   151,   151,
+     151,   152,   152,   152,   152
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1072,367 +1071,367 @@ yy_symbol_value_print (FILE *yyo, int yytype, YYSTYPE const * const yyvaluep)
     case 3: /* assign  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1076 "lrParser.tab.c"
+#line 1075 "lrParser.tab.c"
         break;
 
     case 4: /* assign_sum  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1082 "lrParser.tab.c"
+#line 1081 "lrParser.tab.c"
         break;
 
     case 5: /* assign_sub  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1088 "lrParser.tab.c"
+#line 1087 "lrParser.tab.c"
         break;
 
     case 6: /* assign_mult  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1094 "lrParser.tab.c"
+#line 1093 "lrParser.tab.c"
         break;
 
     case 7: /* assign_div  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1100 "lrParser.tab.c"
+#line 1099 "lrParser.tab.c"
         break;
 
     case 8: /* assign_set_union  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1106 "lrParser.tab.c"
+#line 1105 "lrParser.tab.c"
         break;
 
     case 9: /* assign_set_intersection  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1112 "lrParser.tab.c"
+#line 1111 "lrParser.tab.c"
         break;
 
     case 10: /* op_not  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1118 "lrParser.tab.c"
+#line 1117 "lrParser.tab.c"
         break;
 
     case 11: /* op_or  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1124 "lrParser.tab.c"
+#line 1123 "lrParser.tab.c"
         break;
 
     case 12: /* op_and  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1130 "lrParser.tab.c"
+#line 1129 "lrParser.tab.c"
         break;
 
     case 13: /* op_gt  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1136 "lrParser.tab.c"
+#line 1135 "lrParser.tab.c"
         break;
 
     case 14: /* op_lt  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1142 "lrParser.tab.c"
+#line 1141 "lrParser.tab.c"
         break;
 
     case 15: /* op_lte  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1148 "lrParser.tab.c"
+#line 1147 "lrParser.tab.c"
         break;
 
     case 16: /* op_gte  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1154 "lrParser.tab.c"
+#line 1153 "lrParser.tab.c"
         break;
 
     case 17: /* op_equal  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1160 "lrParser.tab.c"
+#line 1159 "lrParser.tab.c"
         break;
 
     case 18: /* op_diff  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1166 "lrParser.tab.c"
+#line 1165 "lrParser.tab.c"
         break;
 
     case 19: /* op_mod  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1172 "lrParser.tab.c"
+#line 1171 "lrParser.tab.c"
         break;
 
     case 20: /* parenteses_esquerda  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1178 "lrParser.tab.c"
+#line 1177 "lrParser.tab.c"
         break;
 
     case 21: /* parenteses_direita  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1184 "lrParser.tab.c"
+#line 1183 "lrParser.tab.c"
         break;
 
     case 22: /* op_mult  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1190 "lrParser.tab.c"
+#line 1189 "lrParser.tab.c"
         break;
 
     case 23: /* op_div  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1196 "lrParser.tab.c"
+#line 1195 "lrParser.tab.c"
         break;
 
     case 24: /* op_sum  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1202 "lrParser.tab.c"
+#line 1201 "lrParser.tab.c"
         break;
 
     case 25: /* op_sub  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1208 "lrParser.tab.c"
+#line 1207 "lrParser.tab.c"
         break;
 
     case 26: /* virgula  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1214 "lrParser.tab.c"
+#line 1213 "lrParser.tab.c"
         break;
 
     case 27: /* ponto  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1220 "lrParser.tab.c"
+#line 1219 "lrParser.tab.c"
         break;
 
     case 28: /* set_intersection  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1226 "lrParser.tab.c"
+#line 1225 "lrParser.tab.c"
         break;
 
     case 29: /* set_union  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1232 "lrParser.tab.c"
+#line 1231 "lrParser.tab.c"
         break;
 
     case 30: /* key_bool  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1238 "lrParser.tab.c"
+#line 1237 "lrParser.tab.c"
         break;
 
     case 31: /* key_caractere  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1244 "lrParser.tab.c"
+#line 1243 "lrParser.tab.c"
         break;
 
     case 32: /* key_set  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1250 "lrParser.tab.c"
+#line 1249 "lrParser.tab.c"
         break;
 
     case 33: /* key_vetor  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1256 "lrParser.tab.c"
+#line 1255 "lrParser.tab.c"
         break;
 
     case 34: /* key_continue  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1262 "lrParser.tab.c"
+#line 1261 "lrParser.tab.c"
         break;
 
     case 35: /* key_while  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1268 "lrParser.tab.c"
+#line 1267 "lrParser.tab.c"
         break;
 
     case 36: /* key_write  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1274 "lrParser.tab.c"
+#line 1273 "lrParser.tab.c"
         break;
 
     case 37: /* key_int  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1280 "lrParser.tab.c"
+#line 1279 "lrParser.tab.c"
         break;
 
     case 38: /* key_read  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1286 "lrParser.tab.c"
+#line 1285 "lrParser.tab.c"
         break;
 
     case 39: /* key_for  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1292 "lrParser.tab.c"
+#line 1291 "lrParser.tab.c"
         break;
 
     case 40: /* key_for_set  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1298 "lrParser.tab.c"
+#line 1297 "lrParser.tab.c"
         break;
 
     case 41: /* key_in  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1304 "lrParser.tab.c"
+#line 1303 "lrParser.tab.c"
         break;
 
     case 42: /* key_break  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1310 "lrParser.tab.c"
+#line 1309 "lrParser.tab.c"
         break;
 
     case 43: /* key_string  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1316 "lrParser.tab.c"
+#line 1315 "lrParser.tab.c"
         break;
 
     case 44: /* key_if  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1322 "lrParser.tab.c"
+#line 1321 "lrParser.tab.c"
         break;
 
     case 45: /* key_else  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1328 "lrParser.tab.c"
+#line 1327 "lrParser.tab.c"
         break;
 
     case 46: /* key_real  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1334 "lrParser.tab.c"
+#line 1333 "lrParser.tab.c"
         break;
 
     case 47: /* key_register  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1340 "lrParser.tab.c"
+#line 1339 "lrParser.tab.c"
         break;
 
     case 48: /* key_return  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1346 "lrParser.tab.c"
+#line 1345 "lrParser.tab.c"
         break;
 
     case 49: /* key_return_nothing  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1352 "lrParser.tab.c"
+#line 1351 "lrParser.tab.c"
         break;
 
     case 50: /* key_def  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1358 "lrParser.tab.c"
+#line 1357 "lrParser.tab.c"
         break;
 
     case 51: /* key_deftipo  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1364 "lrParser.tab.c"
+#line 1363 "lrParser.tab.c"
         break;
 
     case 52: /* booleano  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1370 "lrParser.tab.c"
+#line 1369 "lrParser.tab.c"
         break;
 
     case 53: /* inteiro  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1376 "lrParser.tab.c"
+#line 1375 "lrParser.tab.c"
         break;
 
     case 54: /* real  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1382 "lrParser.tab.c"
+#line 1381 "lrParser.tab.c"
         break;
 
     case 55: /* caractere  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1388 "lrParser.tab.c"
+#line 1387 "lrParser.tab.c"
         break;
 
     case 56: /* palavra  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1394 "lrParser.tab.c"
+#line 1393 "lrParser.tab.c"
         break;
 
     case 57: /* id  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1400 "lrParser.tab.c"
+#line 1399 "lrParser.tab.c"
         break;
 
     case 58: /* colchetes_esquerda  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1406 "lrParser.tab.c"
+#line 1405 "lrParser.tab.c"
         break;
 
     case 59: /* colchetes_direita  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1412 "lrParser.tab.c"
+#line 1411 "lrParser.tab.c"
         break;
 
     case 60: /* circunflexo  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1418 "lrParser.tab.c"
+#line 1417 "lrParser.tab.c"
         break;
 
     case 61: /* ponto_virgula  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1424 "lrParser.tab.c"
+#line 1423 "lrParser.tab.c"
         break;
 
     case 62: /* chaves_esquerda  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1430 "lrParser.tab.c"
+#line 1429 "lrParser.tab.c"
         break;
 
     case 63: /* chaves_direita  */
 #line 12 "lrParser.y"
          { printToken((*yyvaluep)); }
-#line 1436 "lrParser.tab.c"
+#line 1435 "lrParser.tab.c"
         break;
 
       default:
@@ -2046,7 +2045,7 @@ yyreduce:
   switch (yyn)
     {
 
-#line 2050 "lrParser.tab.c"
+#line 2049 "lrParser.tab.c"
 
       default: break;
     }
@@ -2278,7 +2277,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 195 "lrParser.y"
+#line 193 "lrParser.y"
 
 
 void yyerror(char const *s) {

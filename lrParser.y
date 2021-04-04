@@ -21,8 +21,6 @@
 %left op_mult op_div op_mod
 %right circunflexo
 
-%precedence matched_if
-
 %%
 PROGRAM: DEF PROGRAM eof
 | %empty
@@ -124,7 +122,7 @@ LISTA_EXPRESSOES: EXP
 ;
 
 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO ponto_virgula
-|  key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO %prec matched_if
+|  key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
 ;
 
 INSTRUCAO_REPETICAO: LACO_PARA 

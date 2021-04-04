@@ -89,8 +89,7 @@ INSTRUCAO: INSTRUCAO_DECLARACAO
 |  INSTRUCAO_REPETICAO
 |  INSTRUCAO_IO
 |  INSTRUCAO_SAIDA
-|  BLOCO 
-|  EXP ponto_virgula
+|  BLOCO
 ;
 
 INSTRUCAO_DECLARACAO: TIPO LISTA_IDENTIFICADORES ponto_virgula
@@ -133,8 +132,8 @@ INSTRUCAO_REPETICAO: LACO_PARA
 |  LACO_ENQUANTO
 ;
 
-LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita BLOCO
-| key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita BLOCO
+LACO_PARA:  key_for parenteses_esquerda INSTRUCAO_INICIALIZACAO ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
+| key_for parenteses_esquerda INSTRUCAO_CHAMADA_ID ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 ;
 
 LACO_PARA_CONJUNTO:  key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO

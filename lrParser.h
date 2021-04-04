@@ -38,7 +38,7 @@
 # define YY_YY_LRPARSER_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -165,7 +165,8 @@ extern int yydebug;
     TDef = 370,
     TDefinicaoRegistro = 371,
     TListaAtributos = 372,
-    TListaAtributos2 = 373
+    TListaAtributos2 = 373,
+    matched_if = 374
   };
 #endif
 

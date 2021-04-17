@@ -100,12 +100,12 @@ deftipo			{return key_deftipo;}
 vetor       		{return key_vetor;}
 paraconj   		{return key_for_set;}
 
-{BOOL}      {return booleano;}
-{INT}       {return inteiro;}
-{REAL}      {return real;}
-{CARACTERE} {return caractere;}
-{STRING}    {return palavra;}
-{ID}        {return id;}
+{BOOL}      {yylval.sValue = strdup(yytext); return booleano;}
+{INT}       {yylval.sValue = strdup(yytext); return inteiro;}
+{REAL}      {yylval.sValue = strdup(yytext); return real;}
+{CARACTERE} {yylval.sValue = strdup(yytext); return caractere;}
+{STRING}    {yylval.sValue = strdup(yytext); return palavra;}
+{ID}        {yylval.sValue = strdup(yytext); return id;}
 
  /* Ignora comentários e espaços em branco */
 \/\/[^\n]*  {}

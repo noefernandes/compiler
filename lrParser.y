@@ -2,8 +2,16 @@
   #include <stdio.h>
   #include "lex.yy.c"
   #include "tokens.h"
+  #include <string.h>
+
+  char* concat(int arg_count, ...);
   void yyerror (char const *);
 %}
+
+%union{
+    int iValue;     // integer value
+    char* sValue;     // string value
+}
 
 %define parse.error verbose
 %defines "lrParser.h"
@@ -11,8 +19,11 @@
 %define parse.trace
 %printer { printToken($$); } assign assign_sum assign_sub assign_mult assign_div assign_set_union assign_set_intersection op_not op_or op_and op_gt op_lt op_lte op_gte op_equal op_diff op_mod parenteses_esquerda parenteses_direita op_mult op_div op_sum op_sub virgula ponto set_intersection set_union key_bool key_caractere key_set key_vetor key_continue key_while key_write key_int key_read key_for key_for_set key_in key_break key_string key_if key_else key_real key_register key_return key_return_nothing key_def key_deftipo booleano inteiro real caractere palavra id colchetes_esquerda colchetes_direita circunflexo ponto_virgula chaves_esquerda chaves_direita
 
-%token eof 0
-%token assign assign_sum assign_sub assign_mult assign_div assign_set_union assign_set_intersection op_not op_or op_and op_gt op_lt op_lte op_gte op_equal op_diff op_mod parenteses_esquerda parenteses_direita op_mult op_div op_sum op_sub virgula ponto set_intersection set_union key_bool key_caractere key_set key_vetor key_continue key_while key_write key_int key_read key_for key_for_set key_in key_break key_string key_if key_else key_real key_register key_return key_return_nothing key_def key_deftipo booleano inteiro real caractere palavra id colchetes_esquerda colchetes_direita circunflexo ponto_virgula chaves_esquerda chaves_direita empty TExpressao TExp1 TTLogico TTLogico1 TFLogico TExpRel TExpRel2 TExpA TExpA1 TTermo TTermo1 TFator TFator2 TExpUnaria TExpBase TExpId TInstrucoes TInstrucoes2 TInstrucao TInstrucaoDeclaracaoInicializacao TInstrucaoDeclaracaoInicializacao2 TInstrucaoDeclaracaoInicializacao3 TInstrucaoAtribuicaoCasting TInstrucaoChamadaId TChamadaFuncaoOuAtribuicao TLvalueId TOperadoresAtribuicao TListaIdentificadores TListaIdentificadores2 TListaExpressoes TListaExpressoes2 TInstrucaoCondicional TInstrucaoCondicional2 TInstrucaoRepeticao TLacoPara TLacoParaConjunto TLacoEnquanto TInstrucaoSaida TInstrucaoIO TBloco TDefinicaoFuncao TListaParametrosFuncao TListaParametrosFuncao2 TTipoFuncao TParametroFuncao TTipo TTipoPrimitivo TTipoNumerico TTipoEstruturado TPrograma TDef TDefinicaoRegistro TListaAtributos TListaAtributos2
+%token <iValue> eof 0
+%token <iValue> assign assign_sum assign_sub assign_mult assign_div assign_set_union assign_set_intersection op_not op_or op_and op_gt op_lt op_lte op_gte op_equal op_diff op_mod parenteses_esquerda parenteses_direita op_mult op_div op_sum op_sub virgula ponto set_intersection set_union key_bool key_caractere key_set key_vetor key_continue key_while key_write key_int key_read key_for key_for_set key_in key_break key_string key_if key_else key_real key_register key_return key_return_nothing key_def key_deftipo colchetes_esquerda colchetes_direita circunflexo ponto_virgula chaves_esquerda chaves_direita empty TExpressao TExp1 TTLogico TTLogico1 TFLogico TExpRel TExpRel2 TExpA TExpA1 TTermo TTermo1 TFator TFator2 TExpUnaria TExpBase TExpId TInstrucoes TInstrucoes2 TInstrucao TInstrucaoDeclaracaoInicializacao TInstrucaoDeclaracaoInicializacao2 TInstrucaoDeclaracaoInicializacao3 TInstrucaoAtribuicaoCasting TInstrucaoChamadaId TChamadaFuncaoOuAtribuicao TLvalueId TOperadoresAtribuicao TListaIdentificadores TListaIdentificadores2 TListaExpressoes TListaExpressoes2 TInstrucaoCondicional TInstrucaoCondicional2 TInstrucaoRepeticao TLacoPara TLacoParaConjunto TLacoEnquanto TInstrucaoSaida TInstrucaoIO TBloco TDefinicaoFuncao TListaParametrosFuncao TListaParametrosFuncao2 TTipoFuncao TParametroFuncao TTipo TTipoPrimitivo TTipoNumerico TTipoEstruturado TPrograma TDef TDefinicaoRegistro TListaAtributos TListaAtributos2
+
+%token <sValue> booleano inteiro real caractere palavra id
+
 %left op_or
 %left op_and
 %left op_not
@@ -21,8 +32,13 @@
 %left op_mult op_div op_mod
 %right circunflexo
 
+%token <sValue>
+
+%nterm <sValue> PROGRAM DEF DEFINICAO_FUNCAO DEFINICAO_REGISTRO INSTRUCAO LISTA_ATRIBUTOS INSTRUCAO_DECLARACAO_INICIALIZACAO TIPO_FUNCAO LISTA_PARAMETROS_FUNCAO BLOCO PARAMETRO_FUNCAO TIPO TIPO_PRIMITIVO TIPO_ESTRUTURADO TIPO_NUMERICO INSTRUCOES INSTRUCAO INSTRUCAO_CHAMADA_ID INSTRUCAO_ATRIBUICAO_CASTING INSTRUCAO_CONDICIONAL INSTRUCAO_REPETICAO INSTRUCAO_IO INSTRUCAO_SAIDA LISTA_IDENTIFICADORES OPERADORES_ATRIBUICAO INSTRUCAO_DECLARACAO_INICIALIZACAO_2 LISTA_EXPRESSOES CHAMADA_FUNCAO_OU_ATRIBUICAO LVALUE EXP LACO_PARA LACO_PARA_CONJUNTO LACO_ENQUANTO EXP_ID
+
 %%
-PROGRAM: DEF PROGRAM eof
+
+PROGRAM: DEF PROGRAM eof                         { $$ = concat($1, $2); printf("%s", $$); }
 | %empty
 ;
 
@@ -157,40 +173,56 @@ OPERADORES_ATRIBUICAO: assign
 |  assign_set_intersection
 ;
 
-EXP: id EXP_ID
-| inteiro
-| real
-| caractere
-| palavra
-| booleano
-| parenteses_esquerda EXP parenteses_direita
-| EXP op_or EXP
-| EXP op_and EXP
-| op_not EXP
-| op_sub EXP
-| op_sum EXP
-| EXP op_sub EXP
-| EXP op_sum EXP
-| EXP set_intersection EXP
-| EXP set_union EXP
-| EXP op_mult EXP
-| EXP op_div EXP
-| EXP op_mod EXP
-| EXP circunflexo EXP
-| EXP op_diff EXP
-| EXP op_equal EXP
-| EXP op_gte EXP
-| EXP op_lte EXP
-| EXP op_gt EXP
-| EXP op_lt EXP
+EXP: id EXP_ID                                  { $$ = concat(2, $1, $2); }
+| inteiro                                  		{ $$ = $1; }
+| key_real                                      { $$ = $1; }
+| caractere                                     { $$ = $1; }
+| palavra	                                    { $$ = $1; }
+| booleano                                      { $$ = $1; }
+| parenteses_esquerda EXP parenteses_direita    { $$ = concat(3, "{", $2, "}"); }
+| EXP op_or EXP                                 { $$ = concat(3, $1, "||", $3); }
+| EXP op_and EXP                                { $$ = concat(3, $1, "&&", $3); }
+| op_not EXP                                    { $$ = concat(2, "!", $2); }
+| op_sub EXP                                    { $$ = concat(2, "-", $2); }
+| op_sum EXP                                    { $$ = concat(2, "+", $2); }
+| EXP op_sub EXP                                { $$ = concat(3, $1, "-", $3); }
+| EXP op_sum EXP                                { $$ = concat(3, $1, "+", $3); }
+| EXP set_intersection EXP                      { $$ = concat(3, $1, "problema", $3); }
+| EXP set_union EXP                             { $$ = concat(3, $1, "problema", $3); }
+| EXP op_mult EXP                               { $$ = concat(3, $1, "*", $3); }
+| EXP op_div EXP                                { $$ = concat(3, $1, "/", $3); }
+| EXP op_mod EXP                                { $$ = concat(3, $1, "%", $3); }
+| EXP circunflexo EXP                           { $$ = concat(3, "pow(", $1, ",", $3, ")"); }
+| EXP op_diff EXP                               { $$ = concat(3, $1, "!=", $3); }
+| EXP op_equal EXP                              { $$ = concat(3, $1, "==", $3); }
+| EXP op_gte EXP                                { $$ = concat(3, $1, ">=", $3); }
+| EXP op_lte EXP                                { $$ = concat(3, $1, "<=", $3); }
+| EXP op_gt EXP                                 { $$ = concat(3, $1, ">", $3); }
+| EXP op_lt EXP                                 { $$ = concat(3, $1, "<", $3); }
 ;
 
-EXP_ID: %empty
-| ponto id
-| colchetes_esquerda EXP colchetes_direita
-| parenteses_esquerda EXP parenteses_direita
+EXP_ID: %empty                                  { $$ = ""; }
+| ponto id                                      { $$ = concat(2, ".", $2); }
+| colchetes_esquerda EXP colchetes_direita      { $$ = concat(3, "[", $2, "]"); }
+| parenteses_esquerda EXP parenteses_direita    { $$ = concat(3, "(", $2, ")"); }
 
 %%
+
+char* concat(int arg_count, ...){
+	va_list ap;
+    va_start(ap, arg_count);
+    
+    char* begin = va_arg(ap, char*);
+    
+    for (int i = 2; i <= arg_count; i++) {
+        char* tmp;
+        tmp = va_arg(ap, char*);
+        strcat(begin, tmp);
+    }
+    
+    va_end(ap);
+    return begin;
+}
 
 void yyerror(char const *s) {
   fprintf(stderr, "%s\n", s);

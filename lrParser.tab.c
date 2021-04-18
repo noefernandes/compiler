@@ -1832,7 +1832,7 @@ yyreduce:
 
   case 25:
 #line 87 "lrParser.y"
-                               { (yyval.sValue) = (yyvsp[0].sValue); }
+                               { (yyval.sValue) = concat(2, (yyvsp[0].sValue), "[]"); }
 #line 1837 "lrParser.tab.c"
     break;
 
@@ -1844,7 +1844,7 @@ yyreduce:
 
   case 27:
 #line 89 "lrParser.y"
-                                                      { (yyval.sValue) = concat(2, (yyvsp[-3].iValue), "[]"); }
+                                                      { (yyval.sValue) = concat(2, (yyvsp[-2].sValue), "[]"); }
 #line 1849 "lrParser.tab.c"
     break;
 
@@ -1934,7 +1934,7 @@ yyreduce:
 
   case 42:
 #line 114 "lrParser.y"
-                                                        { (yyval.sValue) = concat(3, "[", (yyvsp[-1].sValue), "]"); }
+                                                        { (yyval.sValue) = concat(3, "{", (yyvsp[-1].sValue), "}"); }
 #line 1939 "lrParser.tab.c"
     break;
 
@@ -2042,7 +2042,7 @@ yyreduce:
 
   case 60:
 #line 150 "lrParser.y"
-                                                                                                                                                     { (yyval.sValue) = concat(11, "for (", (yyvsp[-9].sValue), (yyvsp[-8].sValue), (yyvsp[-7].iValue), (yyvsp[-6].sValue), ";", (yyvsp[-4].sValue), ";", (yyvsp[-2].sValue), ")", (yyvsp[0].sValue)); }
+                                                                                                                                                     { (yyval.sValue) = concat(11, "for (", (yyvsp[-9].sValue), (yyvsp[-8].sValue), "=", (yyvsp[-6].sValue), ";", (yyvsp[-4].sValue), ";", (yyvsp[-2].sValue), ")", (yyvsp[0].sValue)); }
 #line 2047 "lrParser.tab.c"
     break;
 
@@ -2555,7 +2555,7 @@ char* updateFunctionName(char* functionName){
 }
 
 void append(char subject[], const char insert[], int pos) {
-    char buf[500] = {}; 
+    char buf[1000] = {}; 
     strncpy(buf, subject, pos); 
     int len = strlen(buf);
     strcpy(buf+len, insert); 
@@ -2597,11 +2597,9 @@ char* concat(int arg_count, ...){
       size += strlen(tmp);
     }
     va_end(ap_count);
-    
-    int real_size = sizeof(char)*size*2;
-    
+        
     char* result;
-    result = (char*) malloc(real_size);
+    result = (char*) malloc(sizeof(char)*size*2);
     result[0]='\0';
     char* begin;
     begin = va_arg(ap, char*);
@@ -2609,8 +2607,8 @@ char* concat(int arg_count, ...){
     strcat(result, begin);
 
     for (int i = 2; i <= arg_count; i++) {
-        char tmp [real_size];
-        strcpy(tmp, va_arg(ap, char*));
+        char* tmp;
+        tmp = va_arg(ap, char*);
 
         strcat(result, " ");
         strcat(result, tmp);
@@ -2621,5 +2619,5 @@ char* concat(int arg_count, ...){
 }
 
 void yyerror(char const *s) {
-  fprintf(stderr, "%s", s);
+  fprintf(stderr, "%s\n", s);
 }

@@ -84,9 +84,9 @@ TIPO_NUMERICO: key_int { $$ = "int"; }
 | key_bool { $$ = "int"; }
 ;
 
-TIPO_ESTRUTURADO: key_set TIPO { $$ = $2; }
+TIPO_ESTRUTURADO: key_set TIPO { $$ = concat(2, $2, "[]"); }
 | key_register id { $$ = concat(2, "struct ", $2); }
-| key_vetor TIPO colchetes_esquerda colchetes_direita { $$ = concat(2, $1, "[]"); }
+| key_vetor TIPO colchetes_esquerda colchetes_direita { $$ = concat(2, $2, "[]"); }
 ;
 
 BLOCO: chaves_esquerda INSTRUCOES chaves_direita { $$ = concat(3, "{", $2, "}"); }
@@ -111,7 +111,7 @@ INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO LISTA_IDENTIFICADORES ponto_virgula { $
 ;
 
 INSTRUCAO_DECLARACAO_INICIALIZACAO_2: LISTA_EXPRESSOES { $$ = $1; }
-| colchetes_esquerda LISTA_EXPRESSOES colchetes_direita { $$ = concat(3, "[", $2, "]"); }
+| colchetes_esquerda LISTA_EXPRESSOES colchetes_direita { $$ = concat(3, "{", $2, "}"); }
 ;
 
 LISTA_IDENTIFICADORES: id { $$ = $1; }
@@ -218,7 +218,7 @@ char* updateFunctionName(char* functionName){
 }
 
 void append(char subject[], const char insert[], int pos) {
-    char buf[500] = {}; 
+    char buf[1000] = {}; 
     strncpy(buf, subject, pos); 
     int len = strlen(buf);
     strcpy(buf+len, insert); 
@@ -260,11 +260,9 @@ char* concat(int arg_count, ...){
       size += strlen(tmp);
     }
     va_end(ap_count);
-    
-    int real_size = sizeof(char)*size*2;
-    
+        
     char* result;
-    result = (char*) malloc(real_size);
+    result = (char*) malloc(sizeof(char)*size*2);
     result[0]='\0';
     char* begin;
     begin = va_arg(ap, char*);
@@ -272,8 +270,8 @@ char* concat(int arg_count, ...){
     strcat(result, begin);
 
     for (int i = 2; i <= arg_count; i++) {
-        char tmp [real_size];
-        strcpy(tmp, va_arg(ap, char*));
+        char* tmp;
+        tmp = va_arg(ap, char*);
 
         strcat(result, " ");
         strcat(result, tmp);
@@ -284,5 +282,5 @@ char* concat(int arg_count, ...){
 }
 
 void yyerror(char const *s) {
-  fprintf(stderr, "%s", s);
+  fprintf(stderr, "%s\n", s);
 }

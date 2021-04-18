@@ -145,7 +145,7 @@ INSTRUCAO_REPETICAO: LACO_PARA { $$ = $1; }
 |  LACO_ENQUANTO { $$ = $1; }
 ;
 
-LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO { $$ = concat(11, "for (", $3, $4, $5, $6, ";", $8, ";", $10, ")", $12); }
+LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO { $$ = concat(11, "for (", $3, $4, "=", $6, ";", $8, ";", $10, ")", $12); }
 ;
 
 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO { $$ = "problema"; }

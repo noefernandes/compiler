@@ -82,9 +82,9 @@ TIPO_NUMERICO: key_int { $$ = "int"; }
 | key_bool { $$ = "int"; }
 ;
 
-TIPO_ESTRUTURADO: key_set TIPO { $$ = $2; }
+TIPO_ESTRUTURADO: key_set TIPO { $$ = concat(2, $2, "[]"); }
 | key_register id { $$ = concat(2, "struct ", $2); }
-| key_vetor TIPO colchetes_esquerda colchetes_direita { $$ = concat(2, $1, "[]"); }
+| key_vetor TIPO colchetes_esquerda colchetes_direita { $$ = concat(2, $2, "[]"); }
 ;
 
 BLOCO: chaves_esquerda INSTRUCOES chaves_direita { $$ = concat(3, "{", $2, "}"); }
@@ -109,7 +109,7 @@ INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO LISTA_IDENTIFICADORES ponto_virgula { $
 ;
 
 INSTRUCAO_DECLARACAO_INICIALIZACAO_2: LISTA_EXPRESSOES { $$ = $1; }
-| colchetes_esquerda LISTA_EXPRESSOES colchetes_direita { $$ = concat(3, "[", $2, "]"); }
+| colchetes_esquerda LISTA_EXPRESSOES colchetes_direita { $$ = concat(3, "{", $2, "}"); }
 ;
 
 LISTA_IDENTIFICADORES: id { $$ = $1; }

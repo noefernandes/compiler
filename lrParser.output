@@ -1,4 +1,4 @@
-Terminals unused in grammar
+Terminais sem uso na gramática
 
     empty
     TExpressao
@@ -55,9 +55,10 @@ Terminals unused in grammar
     TDefinicaoRegistro
     TListaAtributos
     TListaAtributos2
+    real
 
 
-Grammar
+Gramática
 
     0 $accept: PROGRAM eof
 
@@ -167,7 +168,7 @@ Grammar
 
    74 EXP: id EXP_ID
    75    | inteiro
-   76    | real
+   76    | key_real
    77    | caractere
    78    | palavra
    79    | booleano
@@ -198,961 +199,961 @@ Grammar
   103       | parenteses_esquerda EXP parenteses_direita
 
 
-Terminals, with rules where they appear
+Terminais, com as regras onde eles aparecem
 
-    eof (0) 0 1
+    eof <iValue> (0) 0 1
     error (256)
-    assign (258) 59 67
-    assign_sum (259) 68
-    assign_sub (260) 69
-    assign_mult (261) 70
-    assign_div (262) 71
-    assign_set_union (263) 72
-    assign_set_intersection (264) 73
-    op_not (265) 83
-    op_or (266) 81
-    op_and (267) 82
-    op_gt (268) 98
-    op_lt (269) 99
-    op_lte (270) 97
-    op_gte (271) 96
-    op_equal (272) 95
-    op_diff (273) 94
-    op_mod (274) 92
-    parenteses_esquerda (275) 9 45 47 54 55 59 60 61 65 66 80 103
-    parenteses_direita (276) 9 45 47 54 55 59 60 61 65 66 80 103
-    op_mult (277) 90
-    op_div (278) 91
-    op_sum (279) 85 87
-    op_sub (280) 84 86
-    virgula (281) 11 43 52
-    ponto (282) 49 101
-    set_intersection (283) 88
-    set_union (284) 89
-    key_bool (285) 23
-    key_caractere (286) 19
-    key_set (287) 24
-    key_vetor (288) 26
-    key_continue (289) 64
-    key_while (290) 61
-    key_write (291) 66
-    key_int (292) 21
-    key_read (293) 65
-    key_for (294) 59
-    key_for_set (295) 60
-    key_in (296) 60
-    key_break (297) 63
-    key_string (298) 20
-    key_if (299) 54 55
-    key_else (300) 55
-    key_real (301) 22
-    key_register (302) 6 25
-    key_return (303) 62
-    key_return_nothing (304) 14
-    key_def (305) 3
-    key_deftipo (306) 6
-    booleano (307) 79
-    inteiro (308) 75
-    real (309) 76
-    caractere (310) 77
-    palavra (311) 78
-    id (312) 6 9 15 25 39 42 43 44 47 49 59 60 65 74 101
-    colchetes_esquerda (313) 26 41 48 102
-    colchetes_direita (314) 26 41 48 102
-    circunflexo (315) 93
-    ponto_virgula (316) 31 32 38 39 54 59 62 63 64 65 66
-    chaves_esquerda (317) 6 27
-    chaves_direita (318) 6 27
-    empty (319)
-    TExpressao (320)
-    TExp1 (321)
-    TTLogico (322)
-    TTLogico1 (323)
-    TFLogico (324)
-    TExpRel (325)
-    TExpRel2 (326)
-    TExpA (327)
-    TExpA1 (328)
-    TTermo (329)
-    TTermo1 (330)
-    TFator (331)
-    TFator2 (332)
-    TExpUnaria (333)
-    TExpBase (334)
-    TExpId (335)
-    TInstrucoes (336)
-    TInstrucoes2 (337)
-    TInstrucao (338)
-    TInstrucaoDeclaracaoInicializacao (339)
-    TInstrucaoDeclaracaoInicializacao2 (340)
-    TInstrucaoDeclaracaoInicializacao3 (341)
-    TInstrucaoAtribuicaoCasting (342)
-    TInstrucaoChamadaId (343)
-    TChamadaFuncaoOuAtribuicao (344)
-    TLvalueId (345)
-    TOperadoresAtribuicao (346)
-    TListaIdentificadores (347)
-    TListaIdentificadores2 (348)
-    TListaExpressoes (349)
-    TListaExpressoes2 (350)
-    TInstrucaoCondicional (351)
-    TInstrucaoCondicional2 (352)
-    TInstrucaoRepeticao (353)
-    TLacoPara (354)
-    TLacoParaConjunto (355)
-    TLacoEnquanto (356)
-    TInstrucaoSaida (357)
-    TInstrucaoIO (358)
-    TBloco (359)
-    TDefinicaoFuncao (360)
-    TListaParametrosFuncao (361)
-    TListaParametrosFuncao2 (362)
-    TTipoFuncao (363)
-    TParametroFuncao (364)
-    TTipo (365)
-    TTipoPrimitivo (366)
-    TTipoNumerico (367)
-    TTipoEstruturado (368)
-    TPrograma (369)
-    TDef (370)
-    TDefinicaoRegistro (371)
-    TListaAtributos (372)
-    TListaAtributos2 (373)
+    assign <iValue> (258) 59 67
+    assign_sum <iValue> (259) 68
+    assign_sub <iValue> (260) 69
+    assign_mult <iValue> (261) 70
+    assign_div <iValue> (262) 71
+    assign_set_union <iValue> (263) 72
+    assign_set_intersection <iValue> (264) 73
+    op_not <iValue> (265) 83
+    op_or <iValue> (266) 81
+    op_and <iValue> (267) 82
+    op_gt <iValue> (268) 98
+    op_lt <iValue> (269) 99
+    op_lte <iValue> (270) 97
+    op_gte <iValue> (271) 96
+    op_equal <iValue> (272) 95
+    op_diff <iValue> (273) 94
+    op_mod <iValue> (274) 92
+    parenteses_esquerda <iValue> (275) 9 45 47 54 55 59 60 61 65 66 80 103
+    parenteses_direita <iValue> (276) 9 45 47 54 55 59 60 61 65 66 80 103
+    op_mult <iValue> (277) 90
+    op_div <iValue> (278) 91
+    op_sum <iValue> (279) 85 87
+    op_sub <iValue> (280) 84 86
+    virgula <iValue> (281) 11 43 52
+    ponto <iValue> (282) 49 101
+    set_intersection <iValue> (283) 88
+    set_union <iValue> (284) 89
+    key_bool <iValue> (285) 23
+    key_caractere <iValue> (286) 19
+    key_set <iValue> (287) 24
+    key_vetor <iValue> (288) 26
+    key_continue <iValue> (289) 64
+    key_while <iValue> (290) 61
+    key_write <iValue> (291) 66
+    key_int <iValue> (292) 21
+    key_read <iValue> (293) 65
+    key_for <iValue> (294) 59
+    key_for_set <iValue> (295) 60
+    key_in <iValue> (296) 60
+    key_break <iValue> (297) 63
+    key_string <iValue> (298) 20
+    key_if <iValue> (299) 54 55
+    key_else <iValue> (300) 55
+    key_real <iValue> (301) 22 76
+    key_register <iValue> (302) 6 25
+    key_return <iValue> (303) 62
+    key_return_nothing <iValue> (304) 14
+    key_def <iValue> (305) 3
+    key_deftipo <iValue> (306) 6
+    colchetes_esquerda <iValue> (307) 26 41 48 102
+    colchetes_direita <iValue> (308) 26 41 48 102
+    circunflexo <iValue> (309) 93
+    ponto_virgula <iValue> (310) 31 32 38 39 54 59 62 63 64 65 66
+    chaves_esquerda <iValue> (311) 6 27
+    chaves_direita <iValue> (312) 6 27
+    empty <iValue> (313)
+    TExpressao <iValue> (314)
+    TExp1 <iValue> (315)
+    TTLogico <iValue> (316)
+    TTLogico1 <iValue> (317)
+    TFLogico <iValue> (318)
+    TExpRel <iValue> (319)
+    TExpRel2 <iValue> (320)
+    TExpA <iValue> (321)
+    TExpA1 <iValue> (322)
+    TTermo <iValue> (323)
+    TTermo1 <iValue> (324)
+    TFator <iValue> (325)
+    TFator2 <iValue> (326)
+    TExpUnaria <iValue> (327)
+    TExpBase <iValue> (328)
+    TExpId <iValue> (329)
+    TInstrucoes <iValue> (330)
+    TInstrucoes2 <iValue> (331)
+    TInstrucao <iValue> (332)
+    TInstrucaoDeclaracaoInicializacao <iValue> (333)
+    TInstrucaoDeclaracaoInicializacao2 <iValue> (334)
+    TInstrucaoDeclaracaoInicializacao3 <iValue> (335)
+    TInstrucaoAtribuicaoCasting <iValue> (336)
+    TInstrucaoChamadaId <iValue> (337)
+    TChamadaFuncaoOuAtribuicao <iValue> (338)
+    TLvalueId <iValue> (339)
+    TOperadoresAtribuicao <iValue> (340)
+    TListaIdentificadores <iValue> (341)
+    TListaIdentificadores2 <iValue> (342)
+    TListaExpressoes <iValue> (343)
+    TListaExpressoes2 <iValue> (344)
+    TInstrucaoCondicional <iValue> (345)
+    TInstrucaoCondicional2 <iValue> (346)
+    TInstrucaoRepeticao <iValue> (347)
+    TLacoPara <iValue> (348)
+    TLacoParaConjunto <iValue> (349)
+    TLacoEnquanto <iValue> (350)
+    TInstrucaoSaida <iValue> (351)
+    TInstrucaoIO <iValue> (352)
+    TBloco <iValue> (353)
+    TDefinicaoFuncao <iValue> (354)
+    TListaParametrosFuncao <iValue> (355)
+    TListaParametrosFuncao2 <iValue> (356)
+    TTipoFuncao <iValue> (357)
+    TParametroFuncao <iValue> (358)
+    TTipo <iValue> (359)
+    TTipoPrimitivo <iValue> (360)
+    TTipoNumerico <iValue> (361)
+    TTipoEstruturado <iValue> (362)
+    TPrograma <iValue> (363)
+    TDef <iValue> (364)
+    TDefinicaoRegistro <iValue> (365)
+    TListaAtributos <iValue> (366)
+    TListaAtributos2 <iValue> (367)
+    booleano <sValue> (368) 79
+    inteiro <sValue> (369) 75
+    real <sValue> (370)
+    caractere <sValue> (371) 77
+    palavra <sValue> (372) 78
+    id <sValue> (373) 6 9 15 25 39 42 43 44 47 49 59 60 65 74 101
 
 
-Nonterminals, with rules where they appear
+Não terminais com as regras onde eles aparecem
 
     $accept (119)
-        on left: 0
-    PROGRAM (120)
-        on left: 1 2
-        on right: 0 1
-    DEF (121)
-        on left: 3 4 5
-        on right: 1
-    DEFINICAO_REGISTRO (122)
-        on left: 6
-        on right: 4
-    LISTA_ATRIBUTOS (123)
-        on left: 7 8
-        on right: 6 8
-    DEFINICAO_FUNCAO (124)
-        on left: 9
-        on right: 3
-    LISTA_PARAMETROS_FUNCAO (125)
-        on left: 10 11 12
-        on right: 9 11
-    TIPO_FUNCAO (126)
-        on left: 13 14
-        on right: 9
-    PARAMETRO_FUNCAO (127)
-        on left: 15
-        on right: 10 11
-    TIPO (128)
-        on left: 16 17
-        on right: 13 15 24 26 38 39
-    TIPO_PRIMITIVO (129)
-        on left: 18 19 20
-        on right: 16 47
-    TIPO_NUMERICO (130)
-        on left: 21 22 23
-        on right: 18 59
-    TIPO_ESTRUTURADO (131)
-        on left: 24 25 26
-        on right: 17
-    BLOCO (132)
-        on left: 27
-        on right: 9 37
-    INSTRUCOES (133)
-        on left: 28 29
-        on right: 27 29
-    INSTRUCAO (134)
-        on left: 30 31 32 33 34 35 36 37
-        on right: 5 28 29 54 55 59 60 61
-    INSTRUCAO_DECLARACAO_INICIALIZACAO (135)
-        on left: 38 39
-        on right: 7 8 30
-    INSTRUCAO_DECLARACAO_INICIALIZACAO_2 (136)
-        on left: 40 41
-        on right: 39
-    LISTA_IDENTIFICADORES (137)
-        on left: 42 43
-        on right: 38 43
-    INSTRUCAO_CHAMADA_ID (138)
-        on left: 44
-        on right: 31 59
-    CHAMADA_FUNCAO_OU_ATRIBUICAO (139)
-        on left: 45 46
-        on right: 44
-    INSTRUCAO_ATRIBUICAO_CASTING (140)
-        on left: 47
-        on right: 32
-    LVALUE (141)
-        on left: 48 49 50
-        on right: 46 47
-    LISTA_EXPRESSOES (142)
-        on left: 51 52 53
-        on right: 40 41 45 52
-    INSTRUCAO_CONDICIONAL (143)
-        on left: 54 55
-        on right: 33
-    INSTRUCAO_REPETICAO (144)
-        on left: 56 57 58
-        on right: 34
-    LACO_PARA (145)
-        on left: 59
-        on right: 56
-    LACO_PARA_CONJUNTO (146)
-        on left: 60
-        on right: 57
-    LACO_ENQUANTO (147)
-        on left: 61
-        on right: 58
-    INSTRUCAO_SAIDA (148)
-        on left: 62 63 64
-        on right: 36
-    INSTRUCAO_IO (149)
-        on left: 65 66
-        on right: 35
-    OPERADORES_ATRIBUICAO (150)
-        on left: 67 68 69 70 71 72 73
-        on right: 39 46 47
-    EXP (151)
-        on left: 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
-        on right: 46 47 48 51 52 54 55 59 60 61 62 66 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 102 103
-    EXP_ID (152)
-        on left: 100 101 102 103
-        on right: 74
+        à esquerda: 0
+    PROGRAM <sValue> (120)
+        à esquerda: 1 2
+        à direita: 0 1
+    DEF <sValue> (121)
+        à esquerda: 3 4 5
+        à direita: 1
+    DEFINICAO_FUNCAO <sValue> (122)
+        à esquerda: 9
+        à direita: 3
+    DEFINICAO_REGISTRO <sValue> (123)
+        à esquerda: 6
+        à direita: 4
+    INSTRUCAO <sValue> (124)
+        à esquerda: 30 31 32 33 34 35 36 37
+        à direita: 5 28 29 54 55 59 60 61
+    LISTA_ATRIBUTOS <sValue> (125)
+        à esquerda: 7 8
+        à direita: 6 8
+    INSTRUCAO_DECLARACAO_INICIALIZACAO <sValue> (126)
+        à esquerda: 38 39
+        à direita: 7 8 30
+    TIPO_FUNCAO <sValue> (127)
+        à esquerda: 13 14
+        à direita: 9
+    LISTA_PARAMETROS_FUNCAO <sValue> (128)
+        à esquerda: 10 11 12
+        à direita: 9 11
+    BLOCO <sValue> (129)
+        à esquerda: 27
+        à direita: 9 37
+    PARAMETRO_FUNCAO <sValue> (130)
+        à esquerda: 15
+        à direita: 10 11
+    TIPO <sValue> (131)
+        à esquerda: 16 17
+        à direita: 13 15 24 26 38 39
+    TIPO_PRIMITIVO <sValue> (132)
+        à esquerda: 18 19 20
+        à direita: 16 47
+    TIPO_ESTRUTURADO <sValue> (133)
+        à esquerda: 24 25 26
+        à direita: 17
+    TIPO_NUMERICO <sValue> (134)
+        à esquerda: 21 22 23
+        à direita: 18 59
+    INSTRUCOES <sValue> (135)
+        à esquerda: 28 29
+        à direita: 27 29
+    INSTRUCAO_CHAMADA_ID <sValue> (136)
+        à esquerda: 44
+        à direita: 31 59
+    INSTRUCAO_ATRIBUICAO_CASTING <sValue> (137)
+        à esquerda: 47
+        à direita: 32
+    INSTRUCAO_CONDICIONAL <sValue> (138)
+        à esquerda: 54 55
+        à direita: 33
+    INSTRUCAO_REPETICAO <sValue> (139)
+        à esquerda: 56 57 58
+        à direita: 34
+    INSTRUCAO_IO <sValue> (140)
+        à esquerda: 65 66
+        à direita: 35
+    INSTRUCAO_SAIDA <sValue> (141)
+        à esquerda: 62 63 64
+        à direita: 36
+    LISTA_IDENTIFICADORES <sValue> (142)
+        à esquerda: 42 43
+        à direita: 38 43
+    OPERADORES_ATRIBUICAO <sValue> (143)
+        à esquerda: 67 68 69 70 71 72 73
+        à direita: 39 46 47
+    INSTRUCAO_DECLARACAO_INICIALIZACAO_2 <sValue> (144)
+        à esquerda: 40 41
+        à direita: 39
+    LISTA_EXPRESSOES <sValue> (145)
+        à esquerda: 51 52 53
+        à direita: 40 41 45 52
+    CHAMADA_FUNCAO_OU_ATRIBUICAO <sValue> (146)
+        à esquerda: 45 46
+        à direita: 44
+    LVALUE <sValue> (147)
+        à esquerda: 48 49 50
+        à direita: 46 47
+    EXP <sValue> (148)
+        à esquerda: 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99
+        à direita: 46 47 48 51 52 54 55 59 60 61 62 66 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 102 103
+    LACO_PARA <sValue> (149)
+        à esquerda: 59
+        à direita: 56
+    LACO_PARA_CONJUNTO <sValue> (150)
+        à esquerda: 60
+        à direita: 57
+    LACO_ENQUANTO <sValue> (151)
+        à esquerda: 61
+        à direita: 58
+    EXP_ID <sValue> (152)
+        à esquerda: 100 101 102 103
+        à direita: 74
 
 
-State 0
+Estado 0
 
     0 $accept: . PROGRAM eof
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    key_def              shift, and go to state 19
-    key_deftipo          shift, and go to state 20
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    key_def              deslocar, e ir ao estado 19
+    key_deftipo          deslocar, e ir ao estado 20
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    $default  reduce using rule 2 (PROGRAM)
+    $padrão  reduzir usando a regra 2 (PROGRAM)
 
-    PROGRAM                             go to state 23
-    DEF                                 go to state 24
-    DEFINICAO_REGISTRO                  go to state 25
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCAO                           go to state 31
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    PROGRAM                             ir ao estado 23
+    DEF                                 ir ao estado 24
+    DEFINICAO_REGISTRO                  ir ao estado 25
+    INSTRUCAO                           ir ao estado 26
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 1
+Estado 1
 
    47 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda . TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP
 
-    key_bool       shift, and go to state 2
-    key_caractere  shift, and go to state 3
-    key_int        shift, and go to state 9
-    key_string     shift, and go to state 14
-    key_real       shift, and go to state 16
+    key_bool       deslocar, e ir ao estado 2
+    key_caractere  deslocar, e ir ao estado 3
+    key_int        deslocar, e ir ao estado 9
+    key_string     deslocar, e ir ao estado 14
+    key_real       deslocar, e ir ao estado 16
 
-    TIPO_PRIMITIVO  go to state 42
-    TIPO_NUMERICO   go to state 28
+    TIPO_PRIMITIVO  ir ao estado 42
+    TIPO_NUMERICO   ir ao estado 32
 
 
-State 2
+Estado 2
 
    23 TIPO_NUMERICO: key_bool .
 
-    $default  reduce using rule 23 (TIPO_NUMERICO)
+    $padrão  reduzir usando a regra 23 (TIPO_NUMERICO)
 
 
-State 3
+Estado 3
 
    19 TIPO_PRIMITIVO: key_caractere .
 
-    $default  reduce using rule 19 (TIPO_PRIMITIVO)
+    $padrão  reduzir usando a regra 19 (TIPO_PRIMITIVO)
 
 
-State 4
+Estado 4
 
    24 TIPO_ESTRUTURADO: key_set . TIPO
 
-    key_bool       shift, and go to state 2
-    key_caractere  shift, and go to state 3
-    key_set        shift, and go to state 4
-    key_vetor      shift, and go to state 5
-    key_int        shift, and go to state 9
-    key_string     shift, and go to state 14
-    key_real       shift, and go to state 16
-    key_register   shift, and go to state 17
+    key_bool       deslocar, e ir ao estado 2
+    key_caractere  deslocar, e ir ao estado 3
+    key_set        deslocar, e ir ao estado 4
+    key_vetor      deslocar, e ir ao estado 5
+    key_int        deslocar, e ir ao estado 9
+    key_string     deslocar, e ir ao estado 14
+    key_real       deslocar, e ir ao estado 16
+    key_register   deslocar, e ir ao estado 17
 
-    TIPO              go to state 43
-    TIPO_PRIMITIVO    go to state 27
-    TIPO_NUMERICO     go to state 28
-    TIPO_ESTRUTURADO  go to state 29
+    TIPO              ir ao estado 43
+    TIPO_PRIMITIVO    ir ao estado 30
+    TIPO_ESTRUTURADO  ir ao estado 31
+    TIPO_NUMERICO     ir ao estado 32
 
 
-State 5
+Estado 5
 
    26 TIPO_ESTRUTURADO: key_vetor . TIPO colchetes_esquerda colchetes_direita
 
-    key_bool       shift, and go to state 2
-    key_caractere  shift, and go to state 3
-    key_set        shift, and go to state 4
-    key_vetor      shift, and go to state 5
-    key_int        shift, and go to state 9
-    key_string     shift, and go to state 14
-    key_real       shift, and go to state 16
-    key_register   shift, and go to state 17
+    key_bool       deslocar, e ir ao estado 2
+    key_caractere  deslocar, e ir ao estado 3
+    key_set        deslocar, e ir ao estado 4
+    key_vetor      deslocar, e ir ao estado 5
+    key_int        deslocar, e ir ao estado 9
+    key_string     deslocar, e ir ao estado 14
+    key_real       deslocar, e ir ao estado 16
+    key_register   deslocar, e ir ao estado 17
 
-    TIPO              go to state 44
-    TIPO_PRIMITIVO    go to state 27
-    TIPO_NUMERICO     go to state 28
-    TIPO_ESTRUTURADO  go to state 29
+    TIPO              ir ao estado 44
+    TIPO_PRIMITIVO    ir ao estado 30
+    TIPO_ESTRUTURADO  ir ao estado 31
+    TIPO_NUMERICO     ir ao estado 32
 
 
-State 6
+Estado 6
 
    64 INSTRUCAO_SAIDA: key_continue . ponto_virgula
 
-    ponto_virgula  shift, and go to state 45
+    ponto_virgula  deslocar, e ir ao estado 45
 
 
-State 7
+Estado 7
 
    61 LACO_ENQUANTO: key_while . parenteses_esquerda EXP parenteses_direita INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 46
+    parenteses_esquerda  deslocar, e ir ao estado 46
 
 
-State 8
+Estado 8
 
    66 INSTRUCAO_IO: key_write . parenteses_esquerda EXP parenteses_direita ponto_virgula
 
-    parenteses_esquerda  shift, and go to state 47
+    parenteses_esquerda  deslocar, e ir ao estado 47
 
 
-State 9
+Estado 9
 
    21 TIPO_NUMERICO: key_int .
 
-    $default  reduce using rule 21 (TIPO_NUMERICO)
+    $padrão  reduzir usando a regra 21 (TIPO_NUMERICO)
 
 
-State 10
+Estado 10
 
    65 INSTRUCAO_IO: key_read . parenteses_esquerda id parenteses_direita ponto_virgula
 
-    parenteses_esquerda  shift, and go to state 48
+    parenteses_esquerda  deslocar, e ir ao estado 48
 
 
-State 11
+Estado 11
 
    59 LACO_PARA: key_for . parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 49
+    parenteses_esquerda  deslocar, e ir ao estado 49
 
 
-State 12
+Estado 12
 
    60 LACO_PARA_CONJUNTO: key_for_set . parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 50
+    parenteses_esquerda  deslocar, e ir ao estado 50
 
 
-State 13
+Estado 13
 
    63 INSTRUCAO_SAIDA: key_break . ponto_virgula
 
-    ponto_virgula  shift, and go to state 51
+    ponto_virgula  deslocar, e ir ao estado 51
 
 
-State 14
+Estado 14
 
    20 TIPO_PRIMITIVO: key_string .
 
-    $default  reduce using rule 20 (TIPO_PRIMITIVO)
+    $padrão  reduzir usando a regra 20 (TIPO_PRIMITIVO)
 
 
-State 15
+Estado 15
 
    54 INSTRUCAO_CONDICIONAL: key_if . parenteses_esquerda EXP parenteses_direita INSTRUCAO ponto_virgula
    55                      | key_if . parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 52
+    parenteses_esquerda  deslocar, e ir ao estado 52
 
 
-State 16
+Estado 16
 
    22 TIPO_NUMERICO: key_real .
 
-    $default  reduce using rule 22 (TIPO_NUMERICO)
+    $padrão  reduzir usando a regra 22 (TIPO_NUMERICO)
 
 
-State 17
+Estado 17
 
    25 TIPO_ESTRUTURADO: key_register . id
 
-    id  shift, and go to state 53
+    id  deslocar, e ir ao estado 53
 
 
-State 18
+Estado 18
 
    62 INSTRUCAO_SAIDA: key_return . EXP ponto_virgula
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 64
+    EXP  ir ao estado 64
 
 
-State 19
+Estado 19
 
     3 DEF: key_def . DEFINICAO_FUNCAO
 
-    key_bool            shift, and go to state 2
-    key_caractere       shift, and go to state 3
-    key_set             shift, and go to state 4
-    key_vetor           shift, and go to state 5
-    key_int             shift, and go to state 9
-    key_string          shift, and go to state 14
-    key_real            shift, and go to state 16
-    key_register        shift, and go to state 17
-    key_return_nothing  shift, and go to state 65
+    key_bool            deslocar, e ir ao estado 2
+    key_caractere       deslocar, e ir ao estado 3
+    key_set             deslocar, e ir ao estado 4
+    key_vetor           deslocar, e ir ao estado 5
+    key_int             deslocar, e ir ao estado 9
+    key_string          deslocar, e ir ao estado 14
+    key_real            deslocar, e ir ao estado 16
+    key_register        deslocar, e ir ao estado 17
+    key_return_nothing  deslocar, e ir ao estado 65
 
-    DEFINICAO_FUNCAO  go to state 66
-    TIPO_FUNCAO       go to state 67
-    TIPO              go to state 68
-    TIPO_PRIMITIVO    go to state 27
-    TIPO_NUMERICO     go to state 28
-    TIPO_ESTRUTURADO  go to state 29
+    DEFINICAO_FUNCAO  ir ao estado 66
+    TIPO_FUNCAO       ir ao estado 67
+    TIPO              ir ao estado 68
+    TIPO_PRIMITIVO    ir ao estado 30
+    TIPO_ESTRUTURADO  ir ao estado 31
+    TIPO_NUMERICO     ir ao estado 32
 
 
-State 20
+Estado 20
 
     6 DEFINICAO_REGISTRO: key_deftipo . key_register id chaves_esquerda LISTA_ATRIBUTOS chaves_direita
 
-    key_register  shift, and go to state 69
+    key_register  deslocar, e ir ao estado 69
 
 
-State 21
-
-   44 INSTRUCAO_CHAMADA_ID: id . CHAMADA_FUNCAO_OU_ATRIBUICAO
-
-    parenteses_esquerda  shift, and go to state 70
-    ponto                shift, and go to state 71
-    colchetes_esquerda   shift, and go to state 72
-
-    $default  reduce using rule 50 (LVALUE)
-
-    CHAMADA_FUNCAO_OU_ATRIBUICAO  go to state 73
-    LVALUE                        go to state 74
-
-
-State 22
+Estado 21
 
    27 BLOCO: chaves_esquerda . INSTRUCOES chaves_direita
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCOES                          go to state 75
-    INSTRUCAO                           go to state 76
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    INSTRUCAO                           ir ao estado 70
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCOES                          ir ao estado 71
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 23
+Estado 22
+
+   44 INSTRUCAO_CHAMADA_ID: id . CHAMADA_FUNCAO_OU_ATRIBUICAO
+
+    parenteses_esquerda  deslocar, e ir ao estado 72
+    ponto                deslocar, e ir ao estado 73
+    colchetes_esquerda   deslocar, e ir ao estado 74
+
+    $padrão  reduzir usando a regra 50 (LVALUE)
+
+    CHAMADA_FUNCAO_OU_ATRIBUICAO  ir ao estado 75
+    LVALUE                        ir ao estado 76
+
+
+Estado 23
 
     0 $accept: PROGRAM . eof
 
-    eof  shift, and go to state 77
+    eof  deslocar, e ir ao estado 77
 
 
-State 24
+Estado 24
 
     1 PROGRAM: DEF . PROGRAM eof
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    key_def              shift, and go to state 19
-    key_deftipo          shift, and go to state 20
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    key_def              deslocar, e ir ao estado 19
+    key_deftipo          deslocar, e ir ao estado 20
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    $default  reduce using rule 2 (PROGRAM)
+    $padrão  reduzir usando a regra 2 (PROGRAM)
 
-    PROGRAM                             go to state 78
-    DEF                                 go to state 24
-    DEFINICAO_REGISTRO                  go to state 25
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCAO                           go to state 31
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    PROGRAM                             ir ao estado 78
+    DEF                                 ir ao estado 24
+    DEFINICAO_REGISTRO                  ir ao estado 25
+    INSTRUCAO                           ir ao estado 26
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 25
+Estado 25
 
     4 DEF: DEFINICAO_REGISTRO .
 
-    $default  reduce using rule 4 (DEF)
+    $padrão  reduzir usando a regra 4 (DEF)
 
 
-State 26
+Estado 26
+
+    5 DEF: INSTRUCAO .
+
+    $padrão  reduzir usando a regra 5 (DEF)
+
+
+Estado 27
+
+   30 INSTRUCAO: INSTRUCAO_DECLARACAO_INICIALIZACAO .
+
+    $padrão  reduzir usando a regra 30 (INSTRUCAO)
+
+
+Estado 28
+
+   37 INSTRUCAO: BLOCO .
+
+    $padrão  reduzir usando a regra 37 (INSTRUCAO)
+
+
+Estado 29
 
    38 INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO . LISTA_IDENTIFICADORES ponto_virgula
    39                                   | TIPO . id OPERADORES_ATRIBUICAO INSTRUCAO_DECLARACAO_INICIALIZACAO_2 ponto_virgula
 
-    id  shift, and go to state 79
+    id  deslocar, e ir ao estado 79
 
-    LISTA_IDENTIFICADORES  go to state 80
+    LISTA_IDENTIFICADORES  ir ao estado 80
 
 
-State 27
+Estado 30
 
    16 TIPO: TIPO_PRIMITIVO .
 
-    $default  reduce using rule 16 (TIPO)
+    $padrão  reduzir usando a regra 16 (TIPO)
 
 
-State 28
-
-   18 TIPO_PRIMITIVO: TIPO_NUMERICO .
-
-    $default  reduce using rule 18 (TIPO_PRIMITIVO)
-
-
-State 29
+Estado 31
 
    17 TIPO: TIPO_ESTRUTURADO .
 
-    $default  reduce using rule 17 (TIPO)
+    $padrão  reduzir usando a regra 17 (TIPO)
 
 
-State 30
+Estado 32
 
-   37 INSTRUCAO: BLOCO .
+   18 TIPO_PRIMITIVO: TIPO_NUMERICO .
 
-    $default  reduce using rule 37 (INSTRUCAO)
-
-
-State 31
-
-    5 DEF: INSTRUCAO .
-
-    $default  reduce using rule 5 (DEF)
+    $padrão  reduzir usando a regra 18 (TIPO_PRIMITIVO)
 
 
-State 32
-
-   30 INSTRUCAO: INSTRUCAO_DECLARACAO_INICIALIZACAO .
-
-    $default  reduce using rule 30 (INSTRUCAO)
-
-
-State 33
+Estado 33
 
    31 INSTRUCAO: INSTRUCAO_CHAMADA_ID . ponto_virgula
 
-    ponto_virgula  shift, and go to state 81
+    ponto_virgula  deslocar, e ir ao estado 81
 
 
-State 34
+Estado 34
 
    32 INSTRUCAO: INSTRUCAO_ATRIBUICAO_CASTING . ponto_virgula
 
-    ponto_virgula  shift, and go to state 82
+    ponto_virgula  deslocar, e ir ao estado 82
 
 
-State 35
+Estado 35
 
    33 INSTRUCAO: INSTRUCAO_CONDICIONAL .
 
-    $default  reduce using rule 33 (INSTRUCAO)
+    $padrão  reduzir usando a regra 33 (INSTRUCAO)
 
 
-State 36
+Estado 36
 
    34 INSTRUCAO: INSTRUCAO_REPETICAO .
 
-    $default  reduce using rule 34 (INSTRUCAO)
+    $padrão  reduzir usando a regra 34 (INSTRUCAO)
 
 
-State 37
-
-   56 INSTRUCAO_REPETICAO: LACO_PARA .
-
-    $default  reduce using rule 56 (INSTRUCAO_REPETICAO)
-
-
-State 38
-
-   57 INSTRUCAO_REPETICAO: LACO_PARA_CONJUNTO .
-
-    $default  reduce using rule 57 (INSTRUCAO_REPETICAO)
-
-
-State 39
-
-   58 INSTRUCAO_REPETICAO: LACO_ENQUANTO .
-
-    $default  reduce using rule 58 (INSTRUCAO_REPETICAO)
-
-
-State 40
-
-   36 INSTRUCAO: INSTRUCAO_SAIDA .
-
-    $default  reduce using rule 36 (INSTRUCAO)
-
-
-State 41
+Estado 37
 
    35 INSTRUCAO: INSTRUCAO_IO .
 
-    $default  reduce using rule 35 (INSTRUCAO)
+    $padrão  reduzir usando a regra 35 (INSTRUCAO)
 
 
-State 42
+Estado 38
+
+   36 INSTRUCAO: INSTRUCAO_SAIDA .
+
+    $padrão  reduzir usando a regra 36 (INSTRUCAO)
+
+
+Estado 39
+
+   56 INSTRUCAO_REPETICAO: LACO_PARA .
+
+    $padrão  reduzir usando a regra 56 (INSTRUCAO_REPETICAO)
+
+
+Estado 40
+
+   57 INSTRUCAO_REPETICAO: LACO_PARA_CONJUNTO .
+
+    $padrão  reduzir usando a regra 57 (INSTRUCAO_REPETICAO)
+
+
+Estado 41
+
+   58 INSTRUCAO_REPETICAO: LACO_ENQUANTO .
+
+    $padrão  reduzir usando a regra 58 (INSTRUCAO_REPETICAO)
+
+
+Estado 42
 
    47 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO . parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP
 
-    parenteses_direita  shift, and go to state 83
+    parenteses_direita  deslocar, e ir ao estado 83
 
 
-State 43
+Estado 43
 
    24 TIPO_ESTRUTURADO: key_set TIPO .
 
-    $default  reduce using rule 24 (TIPO_ESTRUTURADO)
+    $padrão  reduzir usando a regra 24 (TIPO_ESTRUTURADO)
 
 
-State 44
+Estado 44
 
    26 TIPO_ESTRUTURADO: key_vetor TIPO . colchetes_esquerda colchetes_direita
 
-    colchetes_esquerda  shift, and go to state 84
+    colchetes_esquerda  deslocar, e ir ao estado 84
 
 
-State 45
+Estado 45
 
    64 INSTRUCAO_SAIDA: key_continue ponto_virgula .
 
-    $default  reduce using rule 64 (INSTRUCAO_SAIDA)
+    $padrão  reduzir usando a regra 64 (INSTRUCAO_SAIDA)
 
 
-State 46
+Estado 46
 
    61 LACO_ENQUANTO: key_while parenteses_esquerda . EXP parenteses_direita INSTRUCAO
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 85
+    EXP  ir ao estado 85
 
 
-State 47
+Estado 47
 
    66 INSTRUCAO_IO: key_write parenteses_esquerda . EXP parenteses_direita ponto_virgula
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 86
+    EXP  ir ao estado 86
 
 
-State 48
+Estado 48
 
    65 INSTRUCAO_IO: key_read parenteses_esquerda . id parenteses_direita ponto_virgula
 
-    id  shift, and go to state 87
+    id  deslocar, e ir ao estado 87
 
 
-State 49
+Estado 49
 
    59 LACO_PARA: key_for parenteses_esquerda . TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 
-    key_bool  shift, and go to state 2
-    key_int   shift, and go to state 9
-    key_real  shift, and go to state 16
+    key_bool  deslocar, e ir ao estado 2
+    key_int   deslocar, e ir ao estado 9
+    key_real  deslocar, e ir ao estado 16
 
-    TIPO_NUMERICO  go to state 88
+    TIPO_NUMERICO  ir ao estado 88
 
 
-State 50
+Estado 50
 
    60 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda . id key_in EXP parenteses_direita INSTRUCAO
 
-    id  shift, and go to state 89
+    id  deslocar, e ir ao estado 89
 
 
-State 51
+Estado 51
 
    63 INSTRUCAO_SAIDA: key_break ponto_virgula .
 
-    $default  reduce using rule 63 (INSTRUCAO_SAIDA)
+    $padrão  reduzir usando a regra 63 (INSTRUCAO_SAIDA)
 
 
-State 52
+Estado 52
 
    54 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda . EXP parenteses_direita INSTRUCAO ponto_virgula
    55                      | key_if parenteses_esquerda . EXP parenteses_direita INSTRUCAO key_else INSTRUCAO
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 90
+    EXP  ir ao estado 90
 
 
-State 53
+Estado 53
 
    25 TIPO_ESTRUTURADO: key_register id .
 
-    $default  reduce using rule 25 (TIPO_ESTRUTURADO)
+    $padrão  reduzir usando a regra 25 (TIPO_ESTRUTURADO)
 
 
-State 54
+Estado 54
 
    83 EXP: op_not . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 91
+    EXP  ir ao estado 91
 
 
-State 55
+Estado 55
 
    80 EXP: parenteses_esquerda . EXP parenteses_direita
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 92
+    EXP  ir ao estado 92
 
 
-State 56
+Estado 56
 
    85 EXP: op_sum . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 93
+    EXP  ir ao estado 93
 
 
-State 57
+Estado 57
 
    84 EXP: op_sub . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 94
+    EXP  ir ao estado 94
 
 
-State 58
+Estado 58
+
+   76 EXP: key_real .
+
+    $padrão  reduzir usando a regra 76 (EXP)
+
+
+Estado 59
 
    79 EXP: booleano .
 
-    $default  reduce using rule 79 (EXP)
+    $padrão  reduzir usando a regra 79 (EXP)
 
 
-State 59
+Estado 60
 
    75 EXP: inteiro .
 
-    $default  reduce using rule 75 (EXP)
+    $padrão  reduzir usando a regra 75 (EXP)
 
 
-State 60
-
-   76 EXP: real .
-
-    $default  reduce using rule 76 (EXP)
-
-
-State 61
+Estado 61
 
    77 EXP: caractere .
 
-    $default  reduce using rule 77 (EXP)
+    $padrão  reduzir usando a regra 77 (EXP)
 
 
-State 62
+Estado 62
 
    78 EXP: palavra .
 
-    $default  reduce using rule 78 (EXP)
+    $padrão  reduzir usando a regra 78 (EXP)
 
 
-State 63
+Estado 63
 
    74 EXP: id . EXP_ID
 
-    parenteses_esquerda  shift, and go to state 95
-    ponto                shift, and go to state 96
-    colchetes_esquerda   shift, and go to state 97
+    parenteses_esquerda  deslocar, e ir ao estado 95
+    ponto                deslocar, e ir ao estado 96
+    colchetes_esquerda   deslocar, e ir ao estado 97
 
-    $default  reduce using rule 100 (EXP_ID)
+    $padrão  reduzir usando a regra 100 (EXP_ID)
 
-    EXP_ID  go to state 98
+    EXP_ID  ir ao estado 98
 
 
-State 64
+Estado 64
 
    62 INSTRUCAO_SAIDA: key_return EXP . ponto_virgula
    81 EXP: EXP . op_or EXP
@@ -1172,252 +1173,252 @@ State 64
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 99
-    op_and            shift, and go to state 100
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
-    ponto_virgula     shift, and go to state 115
+    op_or             deslocar, e ir ao estado 99
+    op_and            deslocar, e ir ao estado 100
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
+    ponto_virgula     deslocar, e ir ao estado 115
 
 
-State 65
+Estado 65
 
    14 TIPO_FUNCAO: key_return_nothing .
 
-    $default  reduce using rule 14 (TIPO_FUNCAO)
+    $padrão  reduzir usando a regra 14 (TIPO_FUNCAO)
 
 
-State 66
+Estado 66
 
     3 DEF: key_def DEFINICAO_FUNCAO .
 
-    $default  reduce using rule 3 (DEF)
+    $padrão  reduzir usando a regra 3 (DEF)
 
 
-State 67
+Estado 67
 
     9 DEFINICAO_FUNCAO: TIPO_FUNCAO . id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
 
-    id  shift, and go to state 116
+    id  deslocar, e ir ao estado 116
 
 
-State 68
+Estado 68
 
    13 TIPO_FUNCAO: TIPO .
 
-    $default  reduce using rule 13 (TIPO_FUNCAO)
+    $padrão  reduzir usando a regra 13 (TIPO_FUNCAO)
 
 
-State 69
+Estado 69
 
     6 DEFINICAO_REGISTRO: key_deftipo key_register . id chaves_esquerda LISTA_ATRIBUTOS chaves_direita
 
-    id  shift, and go to state 117
+    id  deslocar, e ir ao estado 117
 
 
-State 70
-
-   45 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda . LISTA_EXPRESSOES parenteses_direita
-
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
-
-    $default  reduce using rule 53 (LISTA_EXPRESSOES)
-
-    LISTA_EXPRESSOES  go to state 118
-    EXP               go to state 119
-
-
-State 71
-
-   49 LVALUE: ponto . id
-
-    id  shift, and go to state 120
-
-
-State 72
-
-   48 LVALUE: colchetes_esquerda . EXP colchetes_direita
-
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
-
-    EXP  go to state 121
-
-
-State 73
-
-   44 INSTRUCAO_CHAMADA_ID: id CHAMADA_FUNCAO_OU_ATRIBUICAO .
-
-    $default  reduce using rule 44 (INSTRUCAO_CHAMADA_ID)
-
-
-State 74
-
-   46 CHAMADA_FUNCAO_OU_ATRIBUICAO: LVALUE . OPERADORES_ATRIBUICAO EXP
-
-    assign                   shift, and go to state 122
-    assign_sum               shift, and go to state 123
-    assign_sub               shift, and go to state 124
-    assign_mult              shift, and go to state 125
-    assign_div               shift, and go to state 126
-    assign_set_union         shift, and go to state 127
-    assign_set_intersection  shift, and go to state 128
-
-    OPERADORES_ATRIBUICAO  go to state 129
-
-
-State 75
-
-   27 BLOCO: chaves_esquerda INSTRUCOES . chaves_direita
-
-    chaves_direita  shift, and go to state 130
-
-
-State 76
+Estado 70
 
    28 INSTRUCOES: INSTRUCAO .
    29           | INSTRUCAO . INSTRUCOES
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    $default  reduce using rule 28 (INSTRUCOES)
+    $padrão  reduzir usando a regra 28 (INSTRUCOES)
 
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCOES                          go to state 131
-    INSTRUCAO                           go to state 76
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    INSTRUCAO                           ir ao estado 70
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCOES                          ir ao estado 118
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 77
+Estado 71
+
+   27 BLOCO: chaves_esquerda INSTRUCOES . chaves_direita
+
+    chaves_direita  deslocar, e ir ao estado 119
+
+
+Estado 72
+
+   45 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda . LISTA_EXPRESSOES parenteses_direita
+
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
+
+    $padrão  reduzir usando a regra 53 (LISTA_EXPRESSOES)
+
+    LISTA_EXPRESSOES  ir ao estado 120
+    EXP               ir ao estado 121
+
+
+Estado 73
+
+   49 LVALUE: ponto . id
+
+    id  deslocar, e ir ao estado 122
+
+
+Estado 74
+
+   48 LVALUE: colchetes_esquerda . EXP colchetes_direita
+
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
+
+    EXP  ir ao estado 123
+
+
+Estado 75
+
+   44 INSTRUCAO_CHAMADA_ID: id CHAMADA_FUNCAO_OU_ATRIBUICAO .
+
+    $padrão  reduzir usando a regra 44 (INSTRUCAO_CHAMADA_ID)
+
+
+Estado 76
+
+   46 CHAMADA_FUNCAO_OU_ATRIBUICAO: LVALUE . OPERADORES_ATRIBUICAO EXP
+
+    assign                   deslocar, e ir ao estado 124
+    assign_sum               deslocar, e ir ao estado 125
+    assign_sub               deslocar, e ir ao estado 126
+    assign_mult              deslocar, e ir ao estado 127
+    assign_div               deslocar, e ir ao estado 128
+    assign_set_union         deslocar, e ir ao estado 129
+    assign_set_intersection  deslocar, e ir ao estado 130
+
+    OPERADORES_ATRIBUICAO  ir ao estado 131
+
+
+Estado 77
 
     0 $accept: PROGRAM eof .
 
-    $default  accept
+    $padrão  aceitar
 
 
-State 78
+Estado 78
 
     1 PROGRAM: DEF PROGRAM . eof
 
-    eof  shift, and go to state 132
+    eof  deslocar, e ir ao estado 132
 
 
-State 79
+Estado 79
 
    39 INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO id . OPERADORES_ATRIBUICAO INSTRUCAO_DECLARACAO_INICIALIZACAO_2 ponto_virgula
    42 LISTA_IDENTIFICADORES: id .
    43                      | id . virgula LISTA_IDENTIFICADORES
 
-    assign                   shift, and go to state 122
-    assign_sum               shift, and go to state 123
-    assign_sub               shift, and go to state 124
-    assign_mult              shift, and go to state 125
-    assign_div               shift, and go to state 126
-    assign_set_union         shift, and go to state 127
-    assign_set_intersection  shift, and go to state 128
-    virgula                  shift, and go to state 133
+    assign                   deslocar, e ir ao estado 124
+    assign_sum               deslocar, e ir ao estado 125
+    assign_sub               deslocar, e ir ao estado 126
+    assign_mult              deslocar, e ir ao estado 127
+    assign_div               deslocar, e ir ao estado 128
+    assign_set_union         deslocar, e ir ao estado 129
+    assign_set_intersection  deslocar, e ir ao estado 130
+    virgula                  deslocar, e ir ao estado 133
 
-    $default  reduce using rule 42 (LISTA_IDENTIFICADORES)
+    $padrão  reduzir usando a regra 42 (LISTA_IDENTIFICADORES)
 
-    OPERADORES_ATRIBUICAO  go to state 134
+    OPERADORES_ATRIBUICAO  ir ao estado 134
 
 
-State 80
+Estado 80
 
    38 INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO LISTA_IDENTIFICADORES . ponto_virgula
 
-    ponto_virgula  shift, and go to state 135
+    ponto_virgula  deslocar, e ir ao estado 135
 
 
-State 81
+Estado 81
 
    31 INSTRUCAO: INSTRUCAO_CHAMADA_ID ponto_virgula .
 
-    $default  reduce using rule 31 (INSTRUCAO)
+    $padrão  reduzir usando a regra 31 (INSTRUCAO)
 
 
-State 82
+Estado 82
 
    32 INSTRUCAO: INSTRUCAO_ATRIBUICAO_CASTING ponto_virgula .
 
-    $default  reduce using rule 32 (INSTRUCAO)
+    $padrão  reduzir usando a regra 32 (INSTRUCAO)
 
 
-State 83
+Estado 83
 
    47 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita . id LVALUE OPERADORES_ATRIBUICAO EXP
 
-    id  shift, and go to state 136
+    id  deslocar, e ir ao estado 136
 
 
-State 84
+Estado 84
 
    26 TIPO_ESTRUTURADO: key_vetor TIPO colchetes_esquerda . colchetes_direita
 
-    colchetes_direita  shift, and go to state 137
+    colchetes_direita  deslocar, e ir ao estado 137
 
 
-State 85
+Estado 85
 
    61 LACO_ENQUANTO: key_while parenteses_esquerda EXP . parenteses_direita INSTRUCAO
    81 EXP: EXP . op_or EXP
@@ -1437,26 +1438,26 @@ State 85
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or               shift, and go to state 99
-    op_and              shift, and go to state 100
-    op_gt               shift, and go to state 101
-    op_lt               shift, and go to state 102
-    op_lte              shift, and go to state 103
-    op_gte              shift, and go to state 104
-    op_equal            shift, and go to state 105
-    op_diff             shift, and go to state 106
-    op_mod              shift, and go to state 107
-    parenteses_direita  shift, and go to state 138
-    op_mult             shift, and go to state 108
-    op_div              shift, and go to state 109
-    op_sum              shift, and go to state 110
-    op_sub              shift, and go to state 111
-    set_intersection    shift, and go to state 112
-    set_union           shift, and go to state 113
-    circunflexo         shift, and go to state 114
+    op_or               deslocar, e ir ao estado 99
+    op_and              deslocar, e ir ao estado 100
+    op_gt               deslocar, e ir ao estado 101
+    op_lt               deslocar, e ir ao estado 102
+    op_lte              deslocar, e ir ao estado 103
+    op_gte              deslocar, e ir ao estado 104
+    op_equal            deslocar, e ir ao estado 105
+    op_diff             deslocar, e ir ao estado 106
+    op_mod              deslocar, e ir ao estado 107
+    parenteses_direita  deslocar, e ir ao estado 138
+    op_mult             deslocar, e ir ao estado 108
+    op_div              deslocar, e ir ao estado 109
+    op_sum              deslocar, e ir ao estado 110
+    op_sub              deslocar, e ir ao estado 111
+    set_intersection    deslocar, e ir ao estado 112
+    set_union           deslocar, e ir ao estado 113
+    circunflexo         deslocar, e ir ao estado 114
 
 
-State 86
+Estado 86
 
    66 INSTRUCAO_IO: key_write parenteses_esquerda EXP . parenteses_direita ponto_virgula
    81 EXP: EXP . op_or EXP
@@ -1476,47 +1477,47 @@ State 86
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or               shift, and go to state 99
-    op_and              shift, and go to state 100
-    op_gt               shift, and go to state 101
-    op_lt               shift, and go to state 102
-    op_lte              shift, and go to state 103
-    op_gte              shift, and go to state 104
-    op_equal            shift, and go to state 105
-    op_diff             shift, and go to state 106
-    op_mod              shift, and go to state 107
-    parenteses_direita  shift, and go to state 139
-    op_mult             shift, and go to state 108
-    op_div              shift, and go to state 109
-    op_sum              shift, and go to state 110
-    op_sub              shift, and go to state 111
-    set_intersection    shift, and go to state 112
-    set_union           shift, and go to state 113
-    circunflexo         shift, and go to state 114
+    op_or               deslocar, e ir ao estado 99
+    op_and              deslocar, e ir ao estado 100
+    op_gt               deslocar, e ir ao estado 101
+    op_lt               deslocar, e ir ao estado 102
+    op_lte              deslocar, e ir ao estado 103
+    op_gte              deslocar, e ir ao estado 104
+    op_equal            deslocar, e ir ao estado 105
+    op_diff             deslocar, e ir ao estado 106
+    op_mod              deslocar, e ir ao estado 107
+    parenteses_direita  deslocar, e ir ao estado 139
+    op_mult             deslocar, e ir ao estado 108
+    op_div              deslocar, e ir ao estado 109
+    op_sum              deslocar, e ir ao estado 110
+    op_sub              deslocar, e ir ao estado 111
+    set_intersection    deslocar, e ir ao estado 112
+    set_union           deslocar, e ir ao estado 113
+    circunflexo         deslocar, e ir ao estado 114
 
 
-State 87
+Estado 87
 
    65 INSTRUCAO_IO: key_read parenteses_esquerda id . parenteses_direita ponto_virgula
 
-    parenteses_direita  shift, and go to state 140
+    parenteses_direita  deslocar, e ir ao estado 140
 
 
-State 88
+Estado 88
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO . id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 
-    id  shift, and go to state 141
+    id  deslocar, e ir ao estado 141
 
 
-State 89
+Estado 89
 
    60 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id . key_in EXP parenteses_direita INSTRUCAO
 
-    key_in  shift, and go to state 142
+    key_in  deslocar, e ir ao estado 142
 
 
-State 90
+Estado 90
 
    54 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP . parenteses_direita INSTRUCAO ponto_virgula
    55                      | key_if parenteses_esquerda EXP . parenteses_direita INSTRUCAO key_else INSTRUCAO
@@ -1537,26 +1538,26 @@ State 90
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or               shift, and go to state 99
-    op_and              shift, and go to state 100
-    op_gt               shift, and go to state 101
-    op_lt               shift, and go to state 102
-    op_lte              shift, and go to state 103
-    op_gte              shift, and go to state 104
-    op_equal            shift, and go to state 105
-    op_diff             shift, and go to state 106
-    op_mod              shift, and go to state 107
-    parenteses_direita  shift, and go to state 143
-    op_mult             shift, and go to state 108
-    op_div              shift, and go to state 109
-    op_sum              shift, and go to state 110
-    op_sub              shift, and go to state 111
-    set_intersection    shift, and go to state 112
-    set_union           shift, and go to state 113
-    circunflexo         shift, and go to state 114
+    op_or               deslocar, e ir ao estado 99
+    op_and              deslocar, e ir ao estado 100
+    op_gt               deslocar, e ir ao estado 101
+    op_lt               deslocar, e ir ao estado 102
+    op_lte              deslocar, e ir ao estado 103
+    op_gte              deslocar, e ir ao estado 104
+    op_equal            deslocar, e ir ao estado 105
+    op_diff             deslocar, e ir ao estado 106
+    op_mod              deslocar, e ir ao estado 107
+    parenteses_direita  deslocar, e ir ao estado 143
+    op_mult             deslocar, e ir ao estado 108
+    op_div              deslocar, e ir ao estado 109
+    op_sum              deslocar, e ir ao estado 110
+    op_sub              deslocar, e ir ao estado 111
+    set_intersection    deslocar, e ir ao estado 112
+    set_union           deslocar, e ir ao estado 113
+    circunflexo         deslocar, e ir ao estado 114
 
 
-State 91
+Estado 91
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -1576,25 +1577,25 @@ State 91
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    $default  reduce using rule 83 (EXP)
+    $padrão  reduzir usando a regra 83 (EXP)
 
 
-State 92
+Estado 92
 
    80 EXP: parenteses_esquerda EXP . parenteses_direita
    81    | EXP . op_or EXP
@@ -1614,26 +1615,26 @@ State 92
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or               shift, and go to state 99
-    op_and              shift, and go to state 100
-    op_gt               shift, and go to state 101
-    op_lt               shift, and go to state 102
-    op_lte              shift, and go to state 103
-    op_gte              shift, and go to state 104
-    op_equal            shift, and go to state 105
-    op_diff             shift, and go to state 106
-    op_mod              shift, and go to state 107
-    parenteses_direita  shift, and go to state 144
-    op_mult             shift, and go to state 108
-    op_div              shift, and go to state 109
-    op_sum              shift, and go to state 110
-    op_sub              shift, and go to state 111
-    set_intersection    shift, and go to state 112
-    set_union           shift, and go to state 113
-    circunflexo         shift, and go to state 114
+    op_or               deslocar, e ir ao estado 99
+    op_and              deslocar, e ir ao estado 100
+    op_gt               deslocar, e ir ao estado 101
+    op_lt               deslocar, e ir ao estado 102
+    op_lte              deslocar, e ir ao estado 103
+    op_gte              deslocar, e ir ao estado 104
+    op_equal            deslocar, e ir ao estado 105
+    op_diff             deslocar, e ir ao estado 106
+    op_mod              deslocar, e ir ao estado 107
+    parenteses_direita  deslocar, e ir ao estado 144
+    op_mult             deslocar, e ir ao estado 108
+    op_div              deslocar, e ir ao estado 109
+    op_sum              deslocar, e ir ao estado 110
+    op_sub              deslocar, e ir ao estado 111
+    set_intersection    deslocar, e ir ao estado 112
+    set_union           deslocar, e ir ao estado 113
+    circunflexo         deslocar, e ir ao estado 114
 
 
-State 93
+Estado 93
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -1653,15 +1654,15 @@ State 93
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod       shift, and go to state 107
-    op_mult      shift, and go to state 108
-    op_div       shift, and go to state 109
-    circunflexo  shift, and go to state 114
+    op_mod       deslocar, e ir ao estado 107
+    op_mult      deslocar, e ir ao estado 108
+    op_div       deslocar, e ir ao estado 109
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 85 (EXP)
+    $padrão  reduzir usando a regra 85 (EXP)
 
 
-State 94
+Estado 94
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -1681,381 +1682,395 @@ State 94
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod       shift, and go to state 107
-    op_mult      shift, and go to state 108
-    op_div       shift, and go to state 109
-    circunflexo  shift, and go to state 114
+    op_mod       deslocar, e ir ao estado 107
+    op_mult      deslocar, e ir ao estado 108
+    op_div       deslocar, e ir ao estado 109
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 84 (EXP)
+    $padrão  reduzir usando a regra 84 (EXP)
 
 
-State 95
+Estado 95
 
   103 EXP_ID: parenteses_esquerda . EXP parenteses_direita
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 145
+    EXP  ir ao estado 145
 
 
-State 96
+Estado 96
 
   101 EXP_ID: ponto . id
 
-    id  shift, and go to state 146
+    id  deslocar, e ir ao estado 146
 
 
-State 97
+Estado 97
 
   102 EXP_ID: colchetes_esquerda . EXP colchetes_direita
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 147
+    EXP  ir ao estado 147
 
 
-State 98
+Estado 98
 
    74 EXP: id EXP_ID .
 
-    $default  reduce using rule 74 (EXP)
+    $padrão  reduzir usando a regra 74 (EXP)
 
 
-State 99
+Estado 99
 
    81 EXP: EXP op_or . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 148
+    EXP  ir ao estado 148
 
 
-State 100
+Estado 100
 
    82 EXP: EXP op_and . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 149
+    EXP  ir ao estado 149
 
 
-State 101
+Estado 101
 
    98 EXP: EXP op_gt . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 150
+    EXP  ir ao estado 150
 
 
-State 102
+Estado 102
 
    99 EXP: EXP op_lt . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 151
+    EXP  ir ao estado 151
 
 
-State 103
+Estado 103
 
    97 EXP: EXP op_lte . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 152
+    EXP  ir ao estado 152
 
 
-State 104
+Estado 104
 
    96 EXP: EXP op_gte . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 153
+    EXP  ir ao estado 153
 
 
-State 105
+Estado 105
 
    95 EXP: EXP op_equal . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 154
+    EXP  ir ao estado 154
 
 
-State 106
+Estado 106
 
    94 EXP: EXP op_diff . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 155
+    EXP  ir ao estado 155
 
 
-State 107
+Estado 107
 
    92 EXP: EXP op_mod . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 156
+    EXP  ir ao estado 156
 
 
-State 108
+Estado 108
 
    90 EXP: EXP op_mult . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 157
+    EXP  ir ao estado 157
 
 
-State 109
+Estado 109
 
    91 EXP: EXP op_div . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 158
+    EXP  ir ao estado 158
 
 
-State 110
+Estado 110
 
    87 EXP: EXP op_sum . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 159
+    EXP  ir ao estado 159
 
 
-State 111
+Estado 111
 
    86 EXP: EXP op_sub . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 160
+    EXP  ir ao estado 160
 
 
-State 112
+Estado 112
 
    88 EXP: EXP set_intersection . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 161
+    EXP  ir ao estado 161
 
 
-State 113
+Estado 113
 
    89 EXP: EXP set_union . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 162
+    EXP  ir ao estado 162
 
 
-State 114
+Estado 114
 
    93 EXP: EXP circunflexo . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 163
+    EXP  ir ao estado 163
 
 
-State 115
+Estado 115
 
    62 INSTRUCAO_SAIDA: key_return EXP ponto_virgula .
 
-    $default  reduce using rule 62 (INSTRUCAO_SAIDA)
+    $padrão  reduzir usando a regra 62 (INSTRUCAO_SAIDA)
 
 
-State 116
+Estado 116
 
     9 DEFINICAO_FUNCAO: TIPO_FUNCAO id . parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
 
-    parenteses_esquerda  shift, and go to state 164
+    parenteses_esquerda  deslocar, e ir ao estado 164
 
 
-State 117
+Estado 117
 
     6 DEFINICAO_REGISTRO: key_deftipo key_register id . chaves_esquerda LISTA_ATRIBUTOS chaves_direita
 
-    chaves_esquerda  shift, and go to state 165
+    chaves_esquerda  deslocar, e ir ao estado 165
 
 
-State 118
+Estado 118
+
+   29 INSTRUCOES: INSTRUCAO INSTRUCOES .
+
+    $padrão  reduzir usando a regra 29 (INSTRUCOES)
+
+
+Estado 119
+
+   27 BLOCO: chaves_esquerda INSTRUCOES chaves_direita .
+
+    $padrão  reduzir usando a regra 27 (BLOCO)
+
+
+Estado 120
 
    45 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda LISTA_EXPRESSOES . parenteses_direita
 
-    parenteses_direita  shift, and go to state 166
+    parenteses_direita  deslocar, e ir ao estado 166
 
 
-State 119
+Estado 121
 
    51 LISTA_EXPRESSOES: EXP .
    52                 | EXP . virgula LISTA_EXPRESSOES
@@ -2076,35 +2091,35 @@ State 119
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 99
-    op_and            shift, and go to state 100
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    virgula           shift, and go to state 167
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_or             deslocar, e ir ao estado 99
+    op_and            deslocar, e ir ao estado 100
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    virgula           deslocar, e ir ao estado 167
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    $default  reduce using rule 51 (LISTA_EXPRESSOES)
+    $padrão  reduzir usando a regra 51 (LISTA_EXPRESSOES)
 
 
-State 120
+Estado 122
 
    49 LVALUE: ponto id .
 
-    $default  reduce using rule 49 (LVALUE)
+    $padrão  reduzir usando a regra 49 (LVALUE)
 
 
-State 121
+Estado 123
 
    48 LVALUE: colchetes_esquerda EXP . colchetes_direita
    81 EXP: EXP . op_or EXP
@@ -2124,305 +2139,291 @@ State 121
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or              shift, and go to state 99
-    op_and             shift, and go to state 100
-    op_gt              shift, and go to state 101
-    op_lt              shift, and go to state 102
-    op_lte             shift, and go to state 103
-    op_gte             shift, and go to state 104
-    op_equal           shift, and go to state 105
-    op_diff            shift, and go to state 106
-    op_mod             shift, and go to state 107
-    op_mult            shift, and go to state 108
-    op_div             shift, and go to state 109
-    op_sum             shift, and go to state 110
-    op_sub             shift, and go to state 111
-    set_intersection   shift, and go to state 112
-    set_union          shift, and go to state 113
-    colchetes_direita  shift, and go to state 168
-    circunflexo        shift, and go to state 114
+    op_or              deslocar, e ir ao estado 99
+    op_and             deslocar, e ir ao estado 100
+    op_gt              deslocar, e ir ao estado 101
+    op_lt              deslocar, e ir ao estado 102
+    op_lte             deslocar, e ir ao estado 103
+    op_gte             deslocar, e ir ao estado 104
+    op_equal           deslocar, e ir ao estado 105
+    op_diff            deslocar, e ir ao estado 106
+    op_mod             deslocar, e ir ao estado 107
+    op_mult            deslocar, e ir ao estado 108
+    op_div             deslocar, e ir ao estado 109
+    op_sum             deslocar, e ir ao estado 110
+    op_sub             deslocar, e ir ao estado 111
+    set_intersection   deslocar, e ir ao estado 112
+    set_union          deslocar, e ir ao estado 113
+    colchetes_direita  deslocar, e ir ao estado 168
+    circunflexo        deslocar, e ir ao estado 114
 
 
-State 122
+Estado 124
 
    67 OPERADORES_ATRIBUICAO: assign .
 
-    $default  reduce using rule 67 (OPERADORES_ATRIBUICAO)
+    $padrão  reduzir usando a regra 67 (OPERADORES_ATRIBUICAO)
 
 
-State 123
+Estado 125
 
    68 OPERADORES_ATRIBUICAO: assign_sum .
 
-    $default  reduce using rule 68 (OPERADORES_ATRIBUICAO)
+    $padrão  reduzir usando a regra 68 (OPERADORES_ATRIBUICAO)
 
 
-State 124
+Estado 126
 
    69 OPERADORES_ATRIBUICAO: assign_sub .
 
-    $default  reduce using rule 69 (OPERADORES_ATRIBUICAO)
+    $padrão  reduzir usando a regra 69 (OPERADORES_ATRIBUICAO)
 
 
-State 125
+Estado 127
 
    70 OPERADORES_ATRIBUICAO: assign_mult .
 
-    $default  reduce using rule 70 (OPERADORES_ATRIBUICAO)
+    $padrão  reduzir usando a regra 70 (OPERADORES_ATRIBUICAO)
 
 
-State 126
+Estado 128
 
    71 OPERADORES_ATRIBUICAO: assign_div .
 
-    $default  reduce using rule 71 (OPERADORES_ATRIBUICAO)
+    $padrão  reduzir usando a regra 71 (OPERADORES_ATRIBUICAO)
 
 
-State 127
+Estado 129
 
    72 OPERADORES_ATRIBUICAO: assign_set_union .
 
-    $default  reduce using rule 72 (OPERADORES_ATRIBUICAO)
+    $padrão  reduzir usando a regra 72 (OPERADORES_ATRIBUICAO)
 
 
-State 128
+Estado 130
 
    73 OPERADORES_ATRIBUICAO: assign_set_intersection .
 
-    $default  reduce using rule 73 (OPERADORES_ATRIBUICAO)
+    $padrão  reduzir usando a regra 73 (OPERADORES_ATRIBUICAO)
 
 
-State 129
+Estado 131
 
    46 CHAMADA_FUNCAO_OU_ATRIBUICAO: LVALUE OPERADORES_ATRIBUICAO . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 169
-
-
-State 130
-
-   27 BLOCO: chaves_esquerda INSTRUCOES chaves_direita .
-
-    $default  reduce using rule 27 (BLOCO)
+    EXP  ir ao estado 169
 
 
-State 131
-
-   29 INSTRUCOES: INSTRUCAO INSTRUCOES .
-
-    $default  reduce using rule 29 (INSTRUCOES)
-
-
-State 132
+Estado 132
 
     1 PROGRAM: DEF PROGRAM eof .
 
-    $default  reduce using rule 1 (PROGRAM)
+    $padrão  reduzir usando a regra 1 (PROGRAM)
 
 
-State 133
+Estado 133
 
    43 LISTA_IDENTIFICADORES: id virgula . LISTA_IDENTIFICADORES
 
-    id  shift, and go to state 170
+    id  deslocar, e ir ao estado 170
 
-    LISTA_IDENTIFICADORES  go to state 171
+    LISTA_IDENTIFICADORES  ir ao estado 171
 
 
-State 134
+Estado 134
 
    39 INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO id OPERADORES_ATRIBUICAO . INSTRUCAO_DECLARACAO_INICIALIZACAO_2 ponto_virgula
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
-    colchetes_esquerda   shift, and go to state 172
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    colchetes_esquerda   deslocar, e ir ao estado 172
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    $default  reduce using rule 53 (LISTA_EXPRESSOES)
+    $padrão  reduzir usando a regra 53 (LISTA_EXPRESSOES)
 
-    INSTRUCAO_DECLARACAO_INICIALIZACAO_2  go to state 173
-    LISTA_EXPRESSOES                      go to state 174
-    EXP                                   go to state 119
+    INSTRUCAO_DECLARACAO_INICIALIZACAO_2  ir ao estado 173
+    LISTA_EXPRESSOES                      ir ao estado 174
+    EXP                                   ir ao estado 121
 
 
-State 135
+Estado 135
 
    38 INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO LISTA_IDENTIFICADORES ponto_virgula .
 
-    $default  reduce using rule 38 (INSTRUCAO_DECLARACAO_INICIALIZACAO)
+    $padrão  reduzir usando a regra 38 (INSTRUCAO_DECLARACAO_INICIALIZACAO)
 
 
-State 136
+Estado 136
 
    47 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id . LVALUE OPERADORES_ATRIBUICAO EXP
 
-    ponto               shift, and go to state 71
-    colchetes_esquerda  shift, and go to state 72
+    ponto               deslocar, e ir ao estado 73
+    colchetes_esquerda  deslocar, e ir ao estado 74
 
-    $default  reduce using rule 50 (LVALUE)
+    $padrão  reduzir usando a regra 50 (LVALUE)
 
-    LVALUE  go to state 175
+    LVALUE  ir ao estado 175
 
 
-State 137
+Estado 137
 
    26 TIPO_ESTRUTURADO: key_vetor TIPO colchetes_esquerda colchetes_direita .
 
-    $default  reduce using rule 26 (TIPO_ESTRUTURADO)
+    $padrão  reduzir usando a regra 26 (TIPO_ESTRUTURADO)
 
 
-State 138
+Estado 138
 
    61 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita . INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCAO                           go to state 176
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    INSTRUCAO                           ir ao estado 176
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 139
+Estado 139
 
    66 INSTRUCAO_IO: key_write parenteses_esquerda EXP parenteses_direita . ponto_virgula
 
-    ponto_virgula  shift, and go to state 177
+    ponto_virgula  deslocar, e ir ao estado 177
 
 
-State 140
+Estado 140
 
    65 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita . ponto_virgula
 
-    ponto_virgula  shift, and go to state 178
+    ponto_virgula  deslocar, e ir ao estado 178
 
 
-State 141
+Estado 141
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id . assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 
-    assign  shift, and go to state 179
+    assign  deslocar, e ir ao estado 179
 
 
-State 142
+Estado 142
 
    60 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in . EXP parenteses_direita INSTRUCAO
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 180
+    EXP  ir ao estado 180
 
 
-State 143
+Estado 143
 
    54 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita . INSTRUCAO ponto_virgula
    55                      | key_if parenteses_esquerda EXP parenteses_direita . INSTRUCAO key_else INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCAO                           go to state 181
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    INSTRUCAO                           ir ao estado 181
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 144
+Estado 144
 
    80 EXP: parenteses_esquerda EXP parenteses_direita .
 
-    $default  reduce using rule 80 (EXP)
+    $padrão  reduzir usando a regra 80 (EXP)
 
 
-State 145
+Estado 145
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2442,33 +2443,33 @@ State 145
    99    | EXP . op_lt EXP
   103 EXP_ID: parenteses_esquerda EXP . parenteses_direita
 
-    op_or               shift, and go to state 99
-    op_and              shift, and go to state 100
-    op_gt               shift, and go to state 101
-    op_lt               shift, and go to state 102
-    op_lte              shift, and go to state 103
-    op_gte              shift, and go to state 104
-    op_equal            shift, and go to state 105
-    op_diff             shift, and go to state 106
-    op_mod              shift, and go to state 107
-    parenteses_direita  shift, and go to state 182
-    op_mult             shift, and go to state 108
-    op_div              shift, and go to state 109
-    op_sum              shift, and go to state 110
-    op_sub              shift, and go to state 111
-    set_intersection    shift, and go to state 112
-    set_union           shift, and go to state 113
-    circunflexo         shift, and go to state 114
+    op_or               deslocar, e ir ao estado 99
+    op_and              deslocar, e ir ao estado 100
+    op_gt               deslocar, e ir ao estado 101
+    op_lt               deslocar, e ir ao estado 102
+    op_lte              deslocar, e ir ao estado 103
+    op_gte              deslocar, e ir ao estado 104
+    op_equal            deslocar, e ir ao estado 105
+    op_diff             deslocar, e ir ao estado 106
+    op_mod              deslocar, e ir ao estado 107
+    parenteses_direita  deslocar, e ir ao estado 182
+    op_mult             deslocar, e ir ao estado 108
+    op_div              deslocar, e ir ao estado 109
+    op_sum              deslocar, e ir ao estado 110
+    op_sub              deslocar, e ir ao estado 111
+    set_intersection    deslocar, e ir ao estado 112
+    set_union           deslocar, e ir ao estado 113
+    circunflexo         deslocar, e ir ao estado 114
 
 
-State 146
+Estado 146
 
   101 EXP_ID: ponto id .
 
-    $default  reduce using rule 101 (EXP_ID)
+    $padrão  reduzir usando a regra 101 (EXP_ID)
 
 
-State 147
+Estado 147
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2488,26 +2489,26 @@ State 147
    99    | EXP . op_lt EXP
   102 EXP_ID: colchetes_esquerda EXP . colchetes_direita
 
-    op_or              shift, and go to state 99
-    op_and             shift, and go to state 100
-    op_gt              shift, and go to state 101
-    op_lt              shift, and go to state 102
-    op_lte             shift, and go to state 103
-    op_gte             shift, and go to state 104
-    op_equal           shift, and go to state 105
-    op_diff            shift, and go to state 106
-    op_mod             shift, and go to state 107
-    op_mult            shift, and go to state 108
-    op_div             shift, and go to state 109
-    op_sum             shift, and go to state 110
-    op_sub             shift, and go to state 111
-    set_intersection   shift, and go to state 112
-    set_union          shift, and go to state 113
-    colchetes_direita  shift, and go to state 183
-    circunflexo        shift, and go to state 114
+    op_or              deslocar, e ir ao estado 99
+    op_and             deslocar, e ir ao estado 100
+    op_gt              deslocar, e ir ao estado 101
+    op_lt              deslocar, e ir ao estado 102
+    op_lte             deslocar, e ir ao estado 103
+    op_gte             deslocar, e ir ao estado 104
+    op_equal           deslocar, e ir ao estado 105
+    op_diff            deslocar, e ir ao estado 106
+    op_mod             deslocar, e ir ao estado 107
+    op_mult            deslocar, e ir ao estado 108
+    op_div             deslocar, e ir ao estado 109
+    op_sum             deslocar, e ir ao estado 110
+    op_sub             deslocar, e ir ao estado 111
+    set_intersection   deslocar, e ir ao estado 112
+    set_union          deslocar, e ir ao estado 113
+    colchetes_direita  deslocar, e ir ao estado 183
+    circunflexo        deslocar, e ir ao estado 114
 
 
-State 148
+Estado 148
 
    81 EXP: EXP . op_or EXP
    81    | EXP op_or EXP .
@@ -2527,26 +2528,26 @@ State 148
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_and            shift, and go to state 100
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_and            deslocar, e ir ao estado 100
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    $default  reduce using rule 81 (EXP)
+    $padrão  reduzir usando a regra 81 (EXP)
 
 
-State 149
+Estado 149
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2566,25 +2567,25 @@ State 149
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    $default  reduce using rule 82 (EXP)
+    $padrão  reduzir usando a regra 82 (EXP)
 
 
-State 150
+Estado 150
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2604,26 +2605,26 @@ State 150
    98    | EXP op_gt EXP .
    99    | EXP . op_lt EXP
 
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    op_gt     error (nonassociative)
-    op_lt     error (nonassociative)
-    op_lte    error (nonassociative)
-    op_gte    error (nonassociative)
-    op_equal  error (nonassociative)
-    op_diff   error (nonassociative)
+    op_gt     erro (não associativo)
+    op_lt     erro (não associativo)
+    op_lte    erro (não associativo)
+    op_gte    erro (não associativo)
+    op_equal  erro (não associativo)
+    op_diff   erro (não associativo)
 
-    $default  reduce using rule 98 (EXP)
+    $padrão  reduzir usando a regra 98 (EXP)
 
 
-State 151
+Estado 151
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2643,26 +2644,26 @@ State 151
    99    | EXP . op_lt EXP
    99    | EXP op_lt EXP .
 
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    op_gt     error (nonassociative)
-    op_lt     error (nonassociative)
-    op_lte    error (nonassociative)
-    op_gte    error (nonassociative)
-    op_equal  error (nonassociative)
-    op_diff   error (nonassociative)
+    op_gt     erro (não associativo)
+    op_lt     erro (não associativo)
+    op_lte    erro (não associativo)
+    op_gte    erro (não associativo)
+    op_equal  erro (não associativo)
+    op_diff   erro (não associativo)
 
-    $default  reduce using rule 99 (EXP)
+    $padrão  reduzir usando a regra 99 (EXP)
 
 
-State 152
+Estado 152
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2682,26 +2683,26 @@ State 152
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    op_gt     error (nonassociative)
-    op_lt     error (nonassociative)
-    op_lte    error (nonassociative)
-    op_gte    error (nonassociative)
-    op_equal  error (nonassociative)
-    op_diff   error (nonassociative)
+    op_gt     erro (não associativo)
+    op_lt     erro (não associativo)
+    op_lte    erro (não associativo)
+    op_gte    erro (não associativo)
+    op_equal  erro (não associativo)
+    op_diff   erro (não associativo)
 
-    $default  reduce using rule 97 (EXP)
+    $padrão  reduzir usando a regra 97 (EXP)
 
 
-State 153
+Estado 153
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2721,26 +2722,26 @@ State 153
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    op_gt     error (nonassociative)
-    op_lt     error (nonassociative)
-    op_lte    error (nonassociative)
-    op_gte    error (nonassociative)
-    op_equal  error (nonassociative)
-    op_diff   error (nonassociative)
+    op_gt     erro (não associativo)
+    op_lt     erro (não associativo)
+    op_lte    erro (não associativo)
+    op_gte    erro (não associativo)
+    op_equal  erro (não associativo)
+    op_diff   erro (não associativo)
 
-    $default  reduce using rule 96 (EXP)
+    $padrão  reduzir usando a regra 96 (EXP)
 
 
-State 154
+Estado 154
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2760,26 +2761,26 @@ State 154
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    op_gt     error (nonassociative)
-    op_lt     error (nonassociative)
-    op_lte    error (nonassociative)
-    op_gte    error (nonassociative)
-    op_equal  error (nonassociative)
-    op_diff   error (nonassociative)
+    op_gt     erro (não associativo)
+    op_lt     erro (não associativo)
+    op_lte    erro (não associativo)
+    op_gte    erro (não associativo)
+    op_equal  erro (não associativo)
+    op_diff   erro (não associativo)
 
-    $default  reduce using rule 95 (EXP)
+    $padrão  reduzir usando a regra 95 (EXP)
 
 
-State 155
+Estado 155
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2799,26 +2800,26 @@ State 155
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    op_gt     error (nonassociative)
-    op_lt     error (nonassociative)
-    op_lte    error (nonassociative)
-    op_gte    error (nonassociative)
-    op_equal  error (nonassociative)
-    op_diff   error (nonassociative)
+    op_gt     erro (não associativo)
+    op_lt     erro (não associativo)
+    op_lte    erro (não associativo)
+    op_gte    erro (não associativo)
+    op_equal  erro (não associativo)
+    op_diff   erro (não associativo)
 
-    $default  reduce using rule 94 (EXP)
+    $padrão  reduzir usando a regra 94 (EXP)
 
 
-State 156
+Estado 156
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2838,12 +2839,12 @@ State 156
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    circunflexo  shift, and go to state 114
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 92 (EXP)
+    $padrão  reduzir usando a regra 92 (EXP)
 
 
-State 157
+Estado 157
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2863,12 +2864,12 @@ State 157
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    circunflexo  shift, and go to state 114
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 90 (EXP)
+    $padrão  reduzir usando a regra 90 (EXP)
 
 
-State 158
+Estado 158
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2888,12 +2889,12 @@ State 158
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    circunflexo  shift, and go to state 114
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 91 (EXP)
+    $padrão  reduzir usando a regra 91 (EXP)
 
 
-State 159
+Estado 159
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2913,15 +2914,15 @@ State 159
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod       shift, and go to state 107
-    op_mult      shift, and go to state 108
-    op_div       shift, and go to state 109
-    circunflexo  shift, and go to state 114
+    op_mod       deslocar, e ir ao estado 107
+    op_mult      deslocar, e ir ao estado 108
+    op_div       deslocar, e ir ao estado 109
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 87 (EXP)
+    $padrão  reduzir usando a regra 87 (EXP)
 
 
-State 160
+Estado 160
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2941,15 +2942,15 @@ State 160
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod       shift, and go to state 107
-    op_mult      shift, and go to state 108
-    op_div       shift, and go to state 109
-    circunflexo  shift, and go to state 114
+    op_mod       deslocar, e ir ao estado 107
+    op_mult      deslocar, e ir ao estado 108
+    op_div       deslocar, e ir ao estado 109
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 86 (EXP)
+    $padrão  reduzir usando a regra 86 (EXP)
 
 
-State 161
+Estado 161
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2969,15 +2970,15 @@ State 161
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod       shift, and go to state 107
-    op_mult      shift, and go to state 108
-    op_div       shift, and go to state 109
-    circunflexo  shift, and go to state 114
+    op_mod       deslocar, e ir ao estado 107
+    op_mult      deslocar, e ir ao estado 108
+    op_div       deslocar, e ir ao estado 109
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 88 (EXP)
+    $padrão  reduzir usando a regra 88 (EXP)
 
 
-State 162
+Estado 162
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -2997,15 +2998,15 @@ State 162
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_mod       shift, and go to state 107
-    op_mult      shift, and go to state 108
-    op_div       shift, and go to state 109
-    circunflexo  shift, and go to state 114
+    op_mod       deslocar, e ir ao estado 107
+    op_mult      deslocar, e ir ao estado 108
+    op_div       deslocar, e ir ao estado 109
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 89 (EXP)
+    $padrão  reduzir usando a regra 89 (EXP)
 
 
-State 163
+Estado 163
 
    81 EXP: EXP . op_or EXP
    82    | EXP . op_and EXP
@@ -3025,91 +3026,91 @@ State 163
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    circunflexo  shift, and go to state 114
+    circunflexo  deslocar, e ir ao estado 114
 
-    $default  reduce using rule 93 (EXP)
+    $padrão  reduzir usando a regra 93 (EXP)
 
 
-State 164
+Estado 164
 
     9 DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda . LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO
 
-    key_bool       shift, and go to state 2
-    key_caractere  shift, and go to state 3
-    key_set        shift, and go to state 4
-    key_vetor      shift, and go to state 5
-    key_int        shift, and go to state 9
-    key_string     shift, and go to state 14
-    key_real       shift, and go to state 16
-    key_register   shift, and go to state 17
+    key_bool       deslocar, e ir ao estado 2
+    key_caractere  deslocar, e ir ao estado 3
+    key_set        deslocar, e ir ao estado 4
+    key_vetor      deslocar, e ir ao estado 5
+    key_int        deslocar, e ir ao estado 9
+    key_string     deslocar, e ir ao estado 14
+    key_real       deslocar, e ir ao estado 16
+    key_register   deslocar, e ir ao estado 17
 
-    $default  reduce using rule 12 (LISTA_PARAMETROS_FUNCAO)
+    $padrão  reduzir usando a regra 12 (LISTA_PARAMETROS_FUNCAO)
 
-    LISTA_PARAMETROS_FUNCAO  go to state 184
-    PARAMETRO_FUNCAO         go to state 185
-    TIPO                     go to state 186
-    TIPO_PRIMITIVO           go to state 27
-    TIPO_NUMERICO            go to state 28
-    TIPO_ESTRUTURADO         go to state 29
+    LISTA_PARAMETROS_FUNCAO  ir ao estado 184
+    PARAMETRO_FUNCAO         ir ao estado 185
+    TIPO                     ir ao estado 186
+    TIPO_PRIMITIVO           ir ao estado 30
+    TIPO_ESTRUTURADO         ir ao estado 31
+    TIPO_NUMERICO            ir ao estado 32
 
 
-State 165
+Estado 165
 
     6 DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda . LISTA_ATRIBUTOS chaves_direita
 
-    key_bool       shift, and go to state 2
-    key_caractere  shift, and go to state 3
-    key_set        shift, and go to state 4
-    key_vetor      shift, and go to state 5
-    key_int        shift, and go to state 9
-    key_string     shift, and go to state 14
-    key_real       shift, and go to state 16
-    key_register   shift, and go to state 17
+    key_bool       deslocar, e ir ao estado 2
+    key_caractere  deslocar, e ir ao estado 3
+    key_set        deslocar, e ir ao estado 4
+    key_vetor      deslocar, e ir ao estado 5
+    key_int        deslocar, e ir ao estado 9
+    key_string     deslocar, e ir ao estado 14
+    key_real       deslocar, e ir ao estado 16
+    key_register   deslocar, e ir ao estado 17
 
-    LISTA_ATRIBUTOS                     go to state 187
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 188
+    LISTA_ATRIBUTOS                     ir ao estado 187
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 188
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
 
 
-State 166
+Estado 166
 
    45 CHAMADA_FUNCAO_OU_ATRIBUICAO: parenteses_esquerda LISTA_EXPRESSOES parenteses_direita .
 
-    $default  reduce using rule 45 (CHAMADA_FUNCAO_OU_ATRIBUICAO)
+    $padrão  reduzir usando a regra 45 (CHAMADA_FUNCAO_OU_ATRIBUICAO)
 
 
-State 167
+Estado 167
 
    52 LISTA_EXPRESSOES: EXP virgula . LISTA_EXPRESSOES
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    $default  reduce using rule 53 (LISTA_EXPRESSOES)
+    $padrão  reduzir usando a regra 53 (LISTA_EXPRESSOES)
 
-    LISTA_EXPRESSOES  go to state 189
-    EXP               go to state 119
+    LISTA_EXPRESSOES  ir ao estado 189
+    EXP               ir ao estado 121
 
 
-State 168
+Estado 168
 
    48 LVALUE: colchetes_esquerda EXP colchetes_direita .
 
-    $default  reduce using rule 48 (LVALUE)
+    $padrão  reduzir usando a regra 48 (LVALUE)
 
 
-State 169
+Estado 169
 
    46 CHAMADA_FUNCAO_OU_ATRIBUICAO: LVALUE OPERADORES_ATRIBUICAO EXP .
    81 EXP: EXP . op_or EXP
@@ -3129,133 +3130,133 @@ State 169
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 99
-    op_and            shift, and go to state 100
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_or             deslocar, e ir ao estado 99
+    op_and            deslocar, e ir ao estado 100
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    $default  reduce using rule 46 (CHAMADA_FUNCAO_OU_ATRIBUICAO)
+    $padrão  reduzir usando a regra 46 (CHAMADA_FUNCAO_OU_ATRIBUICAO)
 
 
-State 170
+Estado 170
 
    42 LISTA_IDENTIFICADORES: id .
    43                      | id . virgula LISTA_IDENTIFICADORES
 
-    virgula  shift, and go to state 133
+    virgula  deslocar, e ir ao estado 133
 
-    $default  reduce using rule 42 (LISTA_IDENTIFICADORES)
+    $padrão  reduzir usando a regra 42 (LISTA_IDENTIFICADORES)
 
 
-State 171
+Estado 171
 
    43 LISTA_IDENTIFICADORES: id virgula LISTA_IDENTIFICADORES .
 
-    $default  reduce using rule 43 (LISTA_IDENTIFICADORES)
+    $padrão  reduzir usando a regra 43 (LISTA_IDENTIFICADORES)
 
 
-State 172
+Estado 172
 
    41 INSTRUCAO_DECLARACAO_INICIALIZACAO_2: colchetes_esquerda . LISTA_EXPRESSOES colchetes_direita
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    $default  reduce using rule 53 (LISTA_EXPRESSOES)
+    $padrão  reduzir usando a regra 53 (LISTA_EXPRESSOES)
 
-    LISTA_EXPRESSOES  go to state 190
-    EXP               go to state 119
+    LISTA_EXPRESSOES  ir ao estado 190
+    EXP               ir ao estado 121
 
 
-State 173
+Estado 173
 
    39 INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO id OPERADORES_ATRIBUICAO INSTRUCAO_DECLARACAO_INICIALIZACAO_2 . ponto_virgula
 
-    ponto_virgula  shift, and go to state 191
+    ponto_virgula  deslocar, e ir ao estado 191
 
 
-State 174
+Estado 174
 
    40 INSTRUCAO_DECLARACAO_INICIALIZACAO_2: LISTA_EXPRESSOES .
 
-    $default  reduce using rule 40 (INSTRUCAO_DECLARACAO_INICIALIZACAO_2)
+    $padrão  reduzir usando a regra 40 (INSTRUCAO_DECLARACAO_INICIALIZACAO_2)
 
 
-State 175
+Estado 175
 
    47 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE . OPERADORES_ATRIBUICAO EXP
 
-    assign                   shift, and go to state 122
-    assign_sum               shift, and go to state 123
-    assign_sub               shift, and go to state 124
-    assign_mult              shift, and go to state 125
-    assign_div               shift, and go to state 126
-    assign_set_union         shift, and go to state 127
-    assign_set_intersection  shift, and go to state 128
+    assign                   deslocar, e ir ao estado 124
+    assign_sum               deslocar, e ir ao estado 125
+    assign_sub               deslocar, e ir ao estado 126
+    assign_mult              deslocar, e ir ao estado 127
+    assign_div               deslocar, e ir ao estado 128
+    assign_set_union         deslocar, e ir ao estado 129
+    assign_set_intersection  deslocar, e ir ao estado 130
 
-    OPERADORES_ATRIBUICAO  go to state 192
+    OPERADORES_ATRIBUICAO  ir ao estado 192
 
 
-State 176
+Estado 176
 
    61 LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO .
 
-    $default  reduce using rule 61 (LACO_ENQUANTO)
+    $padrão  reduzir usando a regra 61 (LACO_ENQUANTO)
 
 
-State 177
+Estado 177
 
    66 INSTRUCAO_IO: key_write parenteses_esquerda EXP parenteses_direita ponto_virgula .
 
-    $default  reduce using rule 66 (INSTRUCAO_IO)
+    $padrão  reduzir usando a regra 66 (INSTRUCAO_IO)
 
 
-State 178
+Estado 178
 
    65 INSTRUCAO_IO: key_read parenteses_esquerda id parenteses_direita ponto_virgula .
 
-    $default  reduce using rule 65 (INSTRUCAO_IO)
+    $padrão  reduzir usando a regra 65 (INSTRUCAO_IO)
 
 
-State 179
+Estado 179
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign . EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 193
+    EXP  ir ao estado 193
 
 
-State 180
+Estado 180
 
    60 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP . parenteses_direita INSTRUCAO
    81 EXP: EXP . op_or EXP
@@ -3275,143 +3276,143 @@ State 180
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or               shift, and go to state 99
-    op_and              shift, and go to state 100
-    op_gt               shift, and go to state 101
-    op_lt               shift, and go to state 102
-    op_lte              shift, and go to state 103
-    op_gte              shift, and go to state 104
-    op_equal            shift, and go to state 105
-    op_diff             shift, and go to state 106
-    op_mod              shift, and go to state 107
-    parenteses_direita  shift, and go to state 194
-    op_mult             shift, and go to state 108
-    op_div              shift, and go to state 109
-    op_sum              shift, and go to state 110
-    op_sub              shift, and go to state 111
-    set_intersection    shift, and go to state 112
-    set_union           shift, and go to state 113
-    circunflexo         shift, and go to state 114
+    op_or               deslocar, e ir ao estado 99
+    op_and              deslocar, e ir ao estado 100
+    op_gt               deslocar, e ir ao estado 101
+    op_lt               deslocar, e ir ao estado 102
+    op_lte              deslocar, e ir ao estado 103
+    op_gte              deslocar, e ir ao estado 104
+    op_equal            deslocar, e ir ao estado 105
+    op_diff             deslocar, e ir ao estado 106
+    op_mod              deslocar, e ir ao estado 107
+    parenteses_direita  deslocar, e ir ao estado 194
+    op_mult             deslocar, e ir ao estado 108
+    op_div              deslocar, e ir ao estado 109
+    op_sum              deslocar, e ir ao estado 110
+    op_sub              deslocar, e ir ao estado 111
+    set_intersection    deslocar, e ir ao estado 112
+    set_union           deslocar, e ir ao estado 113
+    circunflexo         deslocar, e ir ao estado 114
 
 
-State 181
+Estado 181
 
    54 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO . ponto_virgula
    55                      | key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO . key_else INSTRUCAO
 
-    key_else       shift, and go to state 195
-    ponto_virgula  shift, and go to state 196
+    key_else       deslocar, e ir ao estado 195
+    ponto_virgula  deslocar, e ir ao estado 196
 
 
-State 182
+Estado 182
 
   103 EXP_ID: parenteses_esquerda EXP parenteses_direita .
 
-    $default  reduce using rule 103 (EXP_ID)
+    $padrão  reduzir usando a regra 103 (EXP_ID)
 
 
-State 183
+Estado 183
 
   102 EXP_ID: colchetes_esquerda EXP colchetes_direita .
 
-    $default  reduce using rule 102 (EXP_ID)
+    $padrão  reduzir usando a regra 102 (EXP_ID)
 
 
-State 184
+Estado 184
 
     9 DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO . parenteses_direita BLOCO
 
-    parenteses_direita  shift, and go to state 197
+    parenteses_direita  deslocar, e ir ao estado 197
 
 
-State 185
+Estado 185
 
    10 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO .
    11                        | PARAMETRO_FUNCAO . virgula LISTA_PARAMETROS_FUNCAO
 
-    virgula  shift, and go to state 198
+    virgula  deslocar, e ir ao estado 198
 
-    $default  reduce using rule 10 (LISTA_PARAMETROS_FUNCAO)
+    $padrão  reduzir usando a regra 10 (LISTA_PARAMETROS_FUNCAO)
 
 
-State 186
+Estado 186
 
    15 PARAMETRO_FUNCAO: TIPO . id
 
-    id  shift, and go to state 199
+    id  deslocar, e ir ao estado 199
 
 
-State 187
+Estado 187
 
     6 DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda LISTA_ATRIBUTOS . chaves_direita
 
-    chaves_direita  shift, and go to state 200
+    chaves_direita  deslocar, e ir ao estado 200
 
 
-State 188
+Estado 188
 
     7 LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO_INICIALIZACAO .
     8                | INSTRUCAO_DECLARACAO_INICIALIZACAO . LISTA_ATRIBUTOS
 
-    key_bool       shift, and go to state 2
-    key_caractere  shift, and go to state 3
-    key_set        shift, and go to state 4
-    key_vetor      shift, and go to state 5
-    key_int        shift, and go to state 9
-    key_string     shift, and go to state 14
-    key_real       shift, and go to state 16
-    key_register   shift, and go to state 17
+    key_bool       deslocar, e ir ao estado 2
+    key_caractere  deslocar, e ir ao estado 3
+    key_set        deslocar, e ir ao estado 4
+    key_vetor      deslocar, e ir ao estado 5
+    key_int        deslocar, e ir ao estado 9
+    key_string     deslocar, e ir ao estado 14
+    key_real       deslocar, e ir ao estado 16
+    key_register   deslocar, e ir ao estado 17
 
-    $default  reduce using rule 7 (LISTA_ATRIBUTOS)
+    $padrão  reduzir usando a regra 7 (LISTA_ATRIBUTOS)
 
-    LISTA_ATRIBUTOS                     go to state 201
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 188
+    LISTA_ATRIBUTOS                     ir ao estado 201
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 188
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
 
 
-State 189
+Estado 189
 
    52 LISTA_EXPRESSOES: EXP virgula LISTA_EXPRESSOES .
 
-    $default  reduce using rule 52 (LISTA_EXPRESSOES)
+    $padrão  reduzir usando a regra 52 (LISTA_EXPRESSOES)
 
 
-State 190
+Estado 190
 
    41 INSTRUCAO_DECLARACAO_INICIALIZACAO_2: colchetes_esquerda LISTA_EXPRESSOES . colchetes_direita
 
-    colchetes_direita  shift, and go to state 202
+    colchetes_direita  deslocar, e ir ao estado 202
 
 
-State 191
+Estado 191
 
    39 INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO id OPERADORES_ATRIBUICAO INSTRUCAO_DECLARACAO_INICIALIZACAO_2 ponto_virgula .
 
-    $default  reduce using rule 39 (INSTRUCAO_DECLARACAO_INICIALIZACAO)
+    $padrão  reduzir usando a regra 39 (INSTRUCAO_DECLARACAO_INICIALIZACAO)
 
 
-State 192
+Estado 192
 
    47 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO . EXP
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 203
+    EXP  ir ao estado 203
 
 
-State 193
+Estado 193
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP . ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
    81 EXP: EXP . op_or EXP
@@ -3431,179 +3432,179 @@ State 193
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 99
-    op_and            shift, and go to state 100
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
-    ponto_virgula     shift, and go to state 204
+    op_or             deslocar, e ir ao estado 99
+    op_and            deslocar, e ir ao estado 100
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
+    ponto_virgula     deslocar, e ir ao estado 204
 
 
-State 194
+Estado 194
 
    60 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita . INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCAO                           go to state 205
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    INSTRUCAO                           ir ao estado 205
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 195
+Estado 195
 
    55 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else . INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCAO                           go to state 206
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    INSTRUCAO                           ir ao estado 206
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 196
+Estado 196
 
    54 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO ponto_virgula .
 
-    $default  reduce using rule 54 (INSTRUCAO_CONDICIONAL)
+    $padrão  reduzir usando a regra 54 (INSTRUCAO_CONDICIONAL)
 
 
-State 197
+Estado 197
 
     9 DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita . BLOCO
 
-    chaves_esquerda  shift, and go to state 22
+    chaves_esquerda  deslocar, e ir ao estado 21
 
-    BLOCO  go to state 207
+    BLOCO  ir ao estado 207
 
 
-State 198
+Estado 198
 
    11 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO virgula . LISTA_PARAMETROS_FUNCAO
 
-    key_bool       shift, and go to state 2
-    key_caractere  shift, and go to state 3
-    key_set        shift, and go to state 4
-    key_vetor      shift, and go to state 5
-    key_int        shift, and go to state 9
-    key_string     shift, and go to state 14
-    key_real       shift, and go to state 16
-    key_register   shift, and go to state 17
+    key_bool       deslocar, e ir ao estado 2
+    key_caractere  deslocar, e ir ao estado 3
+    key_set        deslocar, e ir ao estado 4
+    key_vetor      deslocar, e ir ao estado 5
+    key_int        deslocar, e ir ao estado 9
+    key_string     deslocar, e ir ao estado 14
+    key_real       deslocar, e ir ao estado 16
+    key_register   deslocar, e ir ao estado 17
 
-    $default  reduce using rule 12 (LISTA_PARAMETROS_FUNCAO)
+    $padrão  reduzir usando a regra 12 (LISTA_PARAMETROS_FUNCAO)
 
-    LISTA_PARAMETROS_FUNCAO  go to state 208
-    PARAMETRO_FUNCAO         go to state 185
-    TIPO                     go to state 186
-    TIPO_PRIMITIVO           go to state 27
-    TIPO_NUMERICO            go to state 28
-    TIPO_ESTRUTURADO         go to state 29
+    LISTA_PARAMETROS_FUNCAO  ir ao estado 208
+    PARAMETRO_FUNCAO         ir ao estado 185
+    TIPO                     ir ao estado 186
+    TIPO_PRIMITIVO           ir ao estado 30
+    TIPO_ESTRUTURADO         ir ao estado 31
+    TIPO_NUMERICO            ir ao estado 32
 
 
-State 199
+Estado 199
 
    15 PARAMETRO_FUNCAO: TIPO id .
 
-    $default  reduce using rule 15 (PARAMETRO_FUNCAO)
+    $padrão  reduzir usando a regra 15 (PARAMETRO_FUNCAO)
 
 
-State 200
+Estado 200
 
     6 DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda LISTA_ATRIBUTOS chaves_direita .
 
-    $default  reduce using rule 6 (DEFINICAO_REGISTRO)
+    $padrão  reduzir usando a regra 6 (DEFINICAO_REGISTRO)
 
 
-State 201
+Estado 201
 
     8 LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO_INICIALIZACAO LISTA_ATRIBUTOS .
 
-    $default  reduce using rule 8 (LISTA_ATRIBUTOS)
+    $padrão  reduzir usando a regra 8 (LISTA_ATRIBUTOS)
 
 
-State 202
+Estado 202
 
    41 INSTRUCAO_DECLARACAO_INICIALIZACAO_2: colchetes_esquerda LISTA_EXPRESSOES colchetes_direita .
 
-    $default  reduce using rule 41 (INSTRUCAO_DECLARACAO_INICIALIZACAO_2)
+    $padrão  reduzir usando a regra 41 (INSTRUCAO_DECLARACAO_INICIALIZACAO_2)
 
 
-State 203
+Estado 203
 
    47 INSTRUCAO_ATRIBUICAO_CASTING: parenteses_esquerda TIPO_PRIMITIVO parenteses_direita id LVALUE OPERADORES_ATRIBUICAO EXP .
    81 EXP: EXP . op_or EXP
@@ -3623,73 +3624,73 @@ State 203
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 99
-    op_and            shift, and go to state 100
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
+    op_or             deslocar, e ir ao estado 99
+    op_and            deslocar, e ir ao estado 100
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
 
-    $default  reduce using rule 47 (INSTRUCAO_ATRIBUICAO_CASTING)
+    $padrão  reduzir usando a regra 47 (INSTRUCAO_ATRIBUICAO_CASTING)
 
 
-State 204
+Estado 204
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula . EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 
-    op_not               shift, and go to state 54
-    parenteses_esquerda  shift, and go to state 55
-    op_sum               shift, and go to state 56
-    op_sub               shift, and go to state 57
-    booleano             shift, and go to state 58
-    inteiro              shift, and go to state 59
-    real                 shift, and go to state 60
-    caractere            shift, and go to state 61
-    palavra              shift, and go to state 62
-    id                   shift, and go to state 63
+    op_not               deslocar, e ir ao estado 54
+    parenteses_esquerda  deslocar, e ir ao estado 55
+    op_sum               deslocar, e ir ao estado 56
+    op_sub               deslocar, e ir ao estado 57
+    key_real             deslocar, e ir ao estado 58
+    booleano             deslocar, e ir ao estado 59
+    inteiro              deslocar, e ir ao estado 60
+    caractere            deslocar, e ir ao estado 61
+    palavra              deslocar, e ir ao estado 62
+    id                   deslocar, e ir ao estado 63
 
-    EXP  go to state 209
+    EXP  ir ao estado 209
 
 
-State 205
+Estado 205
 
    60 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO .
 
-    $default  reduce using rule 60 (LACO_PARA_CONJUNTO)
+    $padrão  reduzir usando a regra 60 (LACO_PARA_CONJUNTO)
 
 
-State 206
+Estado 206
 
    55 INSTRUCAO_CONDICIONAL: key_if parenteses_esquerda EXP parenteses_direita INSTRUCAO key_else INSTRUCAO .
 
-    $default  reduce using rule 55 (INSTRUCAO_CONDICIONAL)
+    $padrão  reduzir usando a regra 55 (INSTRUCAO_CONDICIONAL)
 
 
-State 207
+Estado 207
 
     9 DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO .
 
-    $default  reduce using rule 9 (DEFINICAO_FUNCAO)
+    $padrão  reduzir usando a regra 9 (DEFINICAO_FUNCAO)
 
 
-State 208
+Estado 208
 
    11 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO virgula LISTA_PARAMETROS_FUNCAO .
 
-    $default  reduce using rule 11 (LISTA_PARAMETROS_FUNCAO)
+    $padrão  reduzir usando a regra 11 (LISTA_PARAMETROS_FUNCAO)
 
 
-State 209
+Estado 209
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP . ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
    81 EXP: EXP . op_or EXP
@@ -3709,86 +3710,86 @@ State 209
    98    | EXP . op_gt EXP
    99    | EXP . op_lt EXP
 
-    op_or             shift, and go to state 99
-    op_and            shift, and go to state 100
-    op_gt             shift, and go to state 101
-    op_lt             shift, and go to state 102
-    op_lte            shift, and go to state 103
-    op_gte            shift, and go to state 104
-    op_equal          shift, and go to state 105
-    op_diff           shift, and go to state 106
-    op_mod            shift, and go to state 107
-    op_mult           shift, and go to state 108
-    op_div            shift, and go to state 109
-    op_sum            shift, and go to state 110
-    op_sub            shift, and go to state 111
-    set_intersection  shift, and go to state 112
-    set_union         shift, and go to state 113
-    circunflexo       shift, and go to state 114
-    ponto_virgula     shift, and go to state 210
+    op_or             deslocar, e ir ao estado 99
+    op_and            deslocar, e ir ao estado 100
+    op_gt             deslocar, e ir ao estado 101
+    op_lt             deslocar, e ir ao estado 102
+    op_lte            deslocar, e ir ao estado 103
+    op_gte            deslocar, e ir ao estado 104
+    op_equal          deslocar, e ir ao estado 105
+    op_diff           deslocar, e ir ao estado 106
+    op_mod            deslocar, e ir ao estado 107
+    op_mult           deslocar, e ir ao estado 108
+    op_div            deslocar, e ir ao estado 109
+    op_sum            deslocar, e ir ao estado 110
+    op_sub            deslocar, e ir ao estado 111
+    set_intersection  deslocar, e ir ao estado 112
+    set_union         deslocar, e ir ao estado 113
+    circunflexo       deslocar, e ir ao estado 114
+    ponto_virgula     deslocar, e ir ao estado 210
 
 
-State 210
+Estado 210
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula . INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO
 
-    id  shift, and go to state 21
+    id  deslocar, e ir ao estado 22
 
-    INSTRUCAO_CHAMADA_ID  go to state 211
+    INSTRUCAO_CHAMADA_ID  ir ao estado 211
 
 
-State 211
+Estado 211
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID . parenteses_direita INSTRUCAO
 
-    parenteses_direita  shift, and go to state 212
+    parenteses_direita  deslocar, e ir ao estado 212
 
 
-State 212
+Estado 212
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita . INSTRUCAO
 
-    parenteses_esquerda  shift, and go to state 1
-    key_bool             shift, and go to state 2
-    key_caractere        shift, and go to state 3
-    key_set              shift, and go to state 4
-    key_vetor            shift, and go to state 5
-    key_continue         shift, and go to state 6
-    key_while            shift, and go to state 7
-    key_write            shift, and go to state 8
-    key_int              shift, and go to state 9
-    key_read             shift, and go to state 10
-    key_for              shift, and go to state 11
-    key_for_set          shift, and go to state 12
-    key_break            shift, and go to state 13
-    key_string           shift, and go to state 14
-    key_if               shift, and go to state 15
-    key_real             shift, and go to state 16
-    key_register         shift, and go to state 17
-    key_return           shift, and go to state 18
-    id                   shift, and go to state 21
-    chaves_esquerda      shift, and go to state 22
+    parenteses_esquerda  deslocar, e ir ao estado 1
+    key_bool             deslocar, e ir ao estado 2
+    key_caractere        deslocar, e ir ao estado 3
+    key_set              deslocar, e ir ao estado 4
+    key_vetor            deslocar, e ir ao estado 5
+    key_continue         deslocar, e ir ao estado 6
+    key_while            deslocar, e ir ao estado 7
+    key_write            deslocar, e ir ao estado 8
+    key_int              deslocar, e ir ao estado 9
+    key_read             deslocar, e ir ao estado 10
+    key_for              deslocar, e ir ao estado 11
+    key_for_set          deslocar, e ir ao estado 12
+    key_break            deslocar, e ir ao estado 13
+    key_string           deslocar, e ir ao estado 14
+    key_if               deslocar, e ir ao estado 15
+    key_real             deslocar, e ir ao estado 16
+    key_register         deslocar, e ir ao estado 17
+    key_return           deslocar, e ir ao estado 18
+    chaves_esquerda      deslocar, e ir ao estado 21
+    id                   deslocar, e ir ao estado 22
 
-    TIPO                                go to state 26
-    TIPO_PRIMITIVO                      go to state 27
-    TIPO_NUMERICO                       go to state 28
-    TIPO_ESTRUTURADO                    go to state 29
-    BLOCO                               go to state 30
-    INSTRUCAO                           go to state 213
-    INSTRUCAO_DECLARACAO_INICIALIZACAO  go to state 32
-    INSTRUCAO_CHAMADA_ID                go to state 33
-    INSTRUCAO_ATRIBUICAO_CASTING        go to state 34
-    INSTRUCAO_CONDICIONAL               go to state 35
-    INSTRUCAO_REPETICAO                 go to state 36
-    LACO_PARA                           go to state 37
-    LACO_PARA_CONJUNTO                  go to state 38
-    LACO_ENQUANTO                       go to state 39
-    INSTRUCAO_SAIDA                     go to state 40
-    INSTRUCAO_IO                        go to state 41
+    INSTRUCAO                           ir ao estado 213
+    INSTRUCAO_DECLARACAO_INICIALIZACAO  ir ao estado 27
+    BLOCO                               ir ao estado 28
+    TIPO                                ir ao estado 29
+    TIPO_PRIMITIVO                      ir ao estado 30
+    TIPO_ESTRUTURADO                    ir ao estado 31
+    TIPO_NUMERICO                       ir ao estado 32
+    INSTRUCAO_CHAMADA_ID                ir ao estado 33
+    INSTRUCAO_ATRIBUICAO_CASTING        ir ao estado 34
+    INSTRUCAO_CONDICIONAL               ir ao estado 35
+    INSTRUCAO_REPETICAO                 ir ao estado 36
+    INSTRUCAO_IO                        ir ao estado 37
+    INSTRUCAO_SAIDA                     ir ao estado 38
+    LACO_PARA                           ir ao estado 39
+    LACO_PARA_CONJUNTO                  ir ao estado 40
+    LACO_ENQUANTO                       ir ao estado 41
 
 
-State 213
+Estado 213
 
    59 LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO .
 
-    $default  reduce using rule 59 (LACO_PARA)
+    $padrão  reduzir usando a regra 59 (LACO_PARA)

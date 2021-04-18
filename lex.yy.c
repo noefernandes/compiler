@@ -1179,33 +1179,33 @@ YY_RULE_SETUP
 case 56:
 YY_RULE_SETUP
 #line 104 "lexer.l"
-{return booleano;}
+{yylval.sValue = strdup(yytext); return booleano;}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 105 "lexer.l"
-{return inteiro;}
+{yylval.sValue = strdup(yytext); return inteiro;}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 106 "lexer.l"
-{return real;}
+{yylval.sValue = strdup(yytext); return real;}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 107 "lexer.l"
-{return caractere;}
+{yylval.sValue = strdup(yytext); return caractere;}
 	YY_BREAK
 case 60:
 /* rule 60 can match eol */
 YY_RULE_SETUP
 #line 108 "lexer.l"
-{return palavra;}
+{yylval.sValue = strdup(yytext); return palavra;}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
 #line 109 "lexer.l"
-{return id;}
+{yylval.sValue = strdup(yytext); return id;}
 	YY_BREAK
 /* Ignora comentários e espaços em branco */
 case 62:

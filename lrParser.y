@@ -3,6 +3,7 @@
   #include "lex.yy.c"
   #include "tokens.h"
   #include <string.h>
+  #include <stdarg.h>
 
   char* concat(int arg_count, ...);
   void yyerror (char const *);

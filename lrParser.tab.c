@@ -75,10 +75,12 @@
   #include <stdarg.h>
 
   char* concat(int arg_count, ...);
+  void print_code(char subject[]);
+  void append(char subject[], const char insert[], int pos);
   char* updateFunctionName(char* functionName);
   void yyerror (char const *);
 
-#line 82 "lrParser.tab.c"
+#line 84 "lrParser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -250,12 +252,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "lrParser.y"
+#line 15 "lrParser.y"
 
     int iValue;     // integer value
     char* sValue;     // string value
 
-#line 259 "lrParser.tab.c"
+#line 261 "lrParser.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -642,17 +644,17 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    40,    40,    41,    44,    45,    46,    49,    52,    53,
-      56,    59,    60,    61,    64,    65,    68,    71,    72,    75,
-      76,    77,    80,    81,    82,    85,    86,    87,    90,    93,
-      94,    97,    98,    99,   100,   101,   102,   103,   104,   107,
-     108,   111,   112,   115,   116,   119,   122,   123,   126,   129,
-     130,   131,   134,   135,   136,   139,   140,   143,   144,   145,
-     148,   151,   154,   157,   158,   159,   162,   163,   166,   167,
-     168,   169,   170,   171,   172,   175,   176,   177,   178,   179,
-     180,   181,   182,   183,   184,   185,   186,   187,   188,   189,
-     190,   191,   192,   193,   194,   195,   196,   197,   198,   199,
-     200,   203,   204,   205,   206
+       0,    42,    42,    43,    46,    47,    48,    51,    54,    55,
+      58,    61,    62,    63,    66,    67,    70,    73,    74,    77,
+      78,    79,    82,    83,    84,    87,    88,    89,    92,    95,
+      96,    99,   100,   101,   102,   103,   104,   105,   106,   109,
+     110,   113,   114,   117,   118,   121,   124,   125,   128,   131,
+     132,   133,   136,   137,   138,   141,   142,   145,   146,   147,
+     150,   153,   156,   159,   160,   161,   164,   165,   168,   169,
+     170,   171,   172,   173,   174,   177,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,   188,   189,   190,   191,
+     192,   193,   194,   195,   196,   197,   198,   199,   200,   201,
+     202,   205,   206,   207,   208
 };
 #endif
 
@@ -1691,625 +1693,625 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 40 "lrParser.y"
-                                                 { printf("%s%s\n", (yyvsp[-1].sValue), (yyvsp[-2].sValue)); }
-#line 1697 "lrParser.tab.c"
+#line 42 "lrParser.y"
+                                                 { print_code((yyvsp[-2].sValue));}
+#line 1699 "lrParser.tab.c"
     break;
 
   case 3:
-#line 41 "lrParser.y"
+#line 43 "lrParser.y"
          { (yyval.sValue) = ""; }
-#line 1703 "lrParser.tab.c"
+#line 1705 "lrParser.tab.c"
     break;
 
   case 4:
-#line 44 "lrParser.y"
+#line 46 "lrParser.y"
                               { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1709 "lrParser.tab.c"
+#line 1711 "lrParser.tab.c"
     break;
 
   case 5:
-#line 45 "lrParser.y"
+#line 47 "lrParser.y"
                      { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1715 "lrParser.tab.c"
+#line 1717 "lrParser.tab.c"
     break;
 
   case 6:
-#line 46 "lrParser.y"
+#line 48 "lrParser.y"
             { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1721 "lrParser.tab.c"
+#line 1723 "lrParser.tab.c"
     break;
 
   case 7:
-#line 49 "lrParser.y"
+#line 51 "lrParser.y"
                                                                                                { (yyval.sValue) = concat(5, "struct ", (yyvsp[-3].sValue), "{", (yyvsp[-1].sValue), "}"); }
-#line 1727 "lrParser.tab.c"
+#line 1729 "lrParser.tab.c"
     break;
 
   case 8:
-#line 52 "lrParser.y"
+#line 54 "lrParser.y"
                                                     { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1733 "lrParser.tab.c"
+#line 1735 "lrParser.tab.c"
     break;
 
   case 9:
-#line 53 "lrParser.y"
-                                                     { (yyval.sValue) = concat(3, (yyvsp[-1].sValue), "\n", (yyvsp[0].sValue)); }
-#line 1739 "lrParser.tab.c"
+#line 55 "lrParser.y"
+                                                     { (yyval.sValue) = concat(2, (yyvsp[-1].sValue), (yyvsp[0].sValue)); }
+#line 1741 "lrParser.tab.c"
     break;
 
   case 10:
-#line 56 "lrParser.y"
+#line 58 "lrParser.y"
                                                                                                       { (yyval.sValue) = concat(6, (yyvsp[-5].sValue), updateFunctionName((yyvsp[-4].sValue)), "(", (yyvsp[-2].sValue), ")", (yyvsp[0].sValue)); }
-#line 1745 "lrParser.tab.c"
+#line 1747 "lrParser.tab.c"
     break;
 
   case 11:
-#line 59 "lrParser.y"
+#line 61 "lrParser.y"
                                           { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1751 "lrParser.tab.c"
+#line 1753 "lrParser.tab.c"
     break;
 
   case 12:
-#line 60 "lrParser.y"
+#line 62 "lrParser.y"
                                                    { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), ",", (yyvsp[0].sValue)); }
-#line 1757 "lrParser.tab.c"
+#line 1759 "lrParser.tab.c"
     break;
 
   case 13:
-#line 61 "lrParser.y"
+#line 63 "lrParser.y"
          { (yyval.sValue) = ""; }
-#line 1763 "lrParser.tab.c"
+#line 1765 "lrParser.tab.c"
     break;
 
   case 14:
-#line 64 "lrParser.y"
+#line 66 "lrParser.y"
                   { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1769 "lrParser.tab.c"
+#line 1771 "lrParser.tab.c"
     break;
 
   case 15:
-#line 65 "lrParser.y"
+#line 67 "lrParser.y"
                      { (yyval.sValue) = "void"; }
-#line 1775 "lrParser.tab.c"
+#line 1777 "lrParser.tab.c"
     break;
 
   case 16:
-#line 68 "lrParser.y"
+#line 70 "lrParser.y"
                           { (yyval.sValue) = concat(2, (yyvsp[-1].sValue), (yyvsp[0].sValue)); }
-#line 1781 "lrParser.tab.c"
+#line 1783 "lrParser.tab.c"
     break;
 
   case 17:
-#line 71 "lrParser.y"
+#line 73 "lrParser.y"
                      { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1787 "lrParser.tab.c"
+#line 1789 "lrParser.tab.c"
     break;
 
   case 18:
-#line 72 "lrParser.y"
+#line 74 "lrParser.y"
                    { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1793 "lrParser.tab.c"
+#line 1795 "lrParser.tab.c"
     break;
 
   case 19:
-#line 75 "lrParser.y"
+#line 77 "lrParser.y"
                               { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1799 "lrParser.tab.c"
+#line 1801 "lrParser.tab.c"
     break;
 
   case 20:
-#line 76 "lrParser.y"
+#line 78 "lrParser.y"
                 { (yyval.sValue) = "char"; }
-#line 1805 "lrParser.tab.c"
+#line 1807 "lrParser.tab.c"
     break;
 
   case 21:
-#line 77 "lrParser.y"
+#line 79 "lrParser.y"
              { (yyval.sValue) = "char*"; }
-#line 1811 "lrParser.tab.c"
+#line 1813 "lrParser.tab.c"
     break;
 
   case 22:
-#line 80 "lrParser.y"
+#line 82 "lrParser.y"
                        { (yyval.sValue) = "int"; }
-#line 1817 "lrParser.tab.c"
+#line 1819 "lrParser.tab.c"
     break;
 
   case 23:
-#line 81 "lrParser.y"
+#line 83 "lrParser.y"
            { (yyval.sValue) = "float"; }
-#line 1823 "lrParser.tab.c"
+#line 1825 "lrParser.tab.c"
     break;
 
   case 24:
-#line 82 "lrParser.y"
+#line 84 "lrParser.y"
            { (yyval.sValue) = "int"; }
-#line 1829 "lrParser.tab.c"
+#line 1831 "lrParser.tab.c"
     break;
 
   case 25:
-#line 85 "lrParser.y"
+#line 87 "lrParser.y"
                                { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1835 "lrParser.tab.c"
+#line 1837 "lrParser.tab.c"
     break;
 
   case 26:
-#line 86 "lrParser.y"
+#line 88 "lrParser.y"
                   { (yyval.sValue) = concat(2, "struct ", (yyvsp[0].sValue)); }
-#line 1841 "lrParser.tab.c"
+#line 1843 "lrParser.tab.c"
     break;
 
   case 27:
-#line 87 "lrParser.y"
+#line 89 "lrParser.y"
                                                       { (yyval.sValue) = concat(2, (yyvsp[-3].iValue), "[]"); }
-#line 1847 "lrParser.tab.c"
+#line 1849 "lrParser.tab.c"
     break;
 
   case 28:
-#line 90 "lrParser.y"
+#line 92 "lrParser.y"
                                                  { (yyval.sValue) = concat(3, "{", (yyvsp[-1].sValue), "}"); }
-#line 1853 "lrParser.tab.c"
+#line 1855 "lrParser.tab.c"
     break;
 
   case 29:
-#line 93 "lrParser.y"
-                      { (yyval.sValue) = concat(2, (yyvsp[0].sValue), "\n"); }
-#line 1859 "lrParser.tab.c"
+#line 95 "lrParser.y"
+                      { (yyval.sValue) = concat(1, (yyvsp[0].sValue)); }
+#line 1861 "lrParser.tab.c"
     break;
 
   case 30:
-#line 94 "lrParser.y"
+#line 96 "lrParser.y"
                        { (yyval.sValue) = concat(2, (yyvsp[-1].sValue), (yyvsp[0].sValue)); }
-#line 1865 "lrParser.tab.c"
+#line 1867 "lrParser.tab.c"
     break;
 
   case 31:
-#line 97 "lrParser.y"
+#line 99 "lrParser.y"
                                               { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1871 "lrParser.tab.c"
+#line 1873 "lrParser.tab.c"
     break;
 
   case 32:
-#line 98 "lrParser.y"
+#line 100 "lrParser.y"
                                       { (yyval.sValue) = concat(2, (yyvsp[-1].sValue), ";"); }
-#line 1877 "lrParser.tab.c"
+#line 1879 "lrParser.tab.c"
     break;
 
   case 33:
-#line 99 "lrParser.y"
+#line 101 "lrParser.y"
                                               { (yyval.sValue) = concat(2, (yyvsp[-1].sValue), ";"); }
-#line 1883 "lrParser.tab.c"
+#line 1885 "lrParser.tab.c"
     break;
 
   case 34:
-#line 100 "lrParser.y"
+#line 102 "lrParser.y"
                          { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1889 "lrParser.tab.c"
+#line 1891 "lrParser.tab.c"
     break;
 
   case 35:
-#line 101 "lrParser.y"
+#line 103 "lrParser.y"
                        { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1895 "lrParser.tab.c"
+#line 1897 "lrParser.tab.c"
     break;
 
   case 36:
-#line 102 "lrParser.y"
+#line 104 "lrParser.y"
                 { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1901 "lrParser.tab.c"
+#line 1903 "lrParser.tab.c"
     break;
 
   case 37:
-#line 103 "lrParser.y"
+#line 105 "lrParser.y"
                    { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1907 "lrParser.tab.c"
+#line 1909 "lrParser.tab.c"
     break;
 
   case 38:
-#line 104 "lrParser.y"
+#line 106 "lrParser.y"
          { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1913 "lrParser.tab.c"
+#line 1915 "lrParser.tab.c"
     break;
 
   case 39:
-#line 107 "lrParser.y"
+#line 109 "lrParser.y"
                                                                              { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), (yyvsp[-1].sValue), ";"); }
-#line 1919 "lrParser.tab.c"
+#line 1921 "lrParser.tab.c"
     break;
 
   case 40:
-#line 108 "lrParser.y"
+#line 110 "lrParser.y"
                                                                                    { (yyval.sValue) = concat(5, (yyvsp[-4].sValue), (yyvsp[-3].sValue), (yyvsp[-2].sValue), (yyvsp[-1].sValue), ";"); }
-#line 1925 "lrParser.tab.c"
+#line 1927 "lrParser.tab.c"
     break;
 
   case 41:
-#line 111 "lrParser.y"
+#line 113 "lrParser.y"
                                                        { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1931 "lrParser.tab.c"
+#line 1933 "lrParser.tab.c"
     break;
 
   case 42:
-#line 112 "lrParser.y"
+#line 114 "lrParser.y"
                                                         { (yyval.sValue) = concat(3, "[", (yyvsp[-1].sValue), "]"); }
-#line 1937 "lrParser.tab.c"
+#line 1939 "lrParser.tab.c"
     break;
 
   case 43:
-#line 115 "lrParser.y"
+#line 117 "lrParser.y"
                           { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1943 "lrParser.tab.c"
+#line 1945 "lrParser.tab.c"
     break;
 
   case 44:
-#line 116 "lrParser.y"
+#line 118 "lrParser.y"
                                    { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), ",", (yyvsp[0].sValue)); }
-#line 1949 "lrParser.tab.c"
+#line 1951 "lrParser.tab.c"
     break;
 
   case 45:
-#line 119 "lrParser.y"
+#line 121 "lrParser.y"
                                                       { (yyval.sValue) = concat(2, (yyvsp[-1].sValue), (yyvsp[0].sValue)); }
-#line 1955 "lrParser.tab.c"
+#line 1957 "lrParser.tab.c"
     break;
 
   case 46:
-#line 122 "lrParser.y"
+#line 124 "lrParser.y"
                                                                                       { (yyval.sValue) = concat(3, "(", (yyvsp[-1].sValue), ")"); }
-#line 1961 "lrParser.tab.c"
+#line 1963 "lrParser.tab.c"
     break;
 
   case 47:
-#line 123 "lrParser.y"
+#line 125 "lrParser.y"
                                    { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), (yyvsp[-1].sValue), (yyvsp[0].sValue)); }
-#line 1967 "lrParser.tab.c"
+#line 1969 "lrParser.tab.c"
     break;
 
   case 48:
-#line 126 "lrParser.y"
+#line 128 "lrParser.y"
                                                                                                                         { (yyval.sValue) = concat(7, "(", (yyvsp[-5].sValue), ")", (yyvsp[-3].sValue), (yyvsp[-2].sValue), (yyvsp[-1].sValue), (yyvsp[0].sValue)); }
-#line 1973 "lrParser.tab.c"
+#line 1975 "lrParser.tab.c"
     break;
 
   case 49:
-#line 129 "lrParser.y"
+#line 131 "lrParser.y"
                                                  { (yyval.sValue) = concat(3, "(", (yyvsp[-1].sValue), ")"); }
-#line 1979 "lrParser.tab.c"
+#line 1981 "lrParser.tab.c"
     break;
 
   case 50:
-#line 130 "lrParser.y"
+#line 132 "lrParser.y"
            { (yyval.sValue) = concat(2, (yyvsp[-1].iValue), (yyvsp[0].sValue)); }
-#line 1985 "lrParser.tab.c"
+#line 1987 "lrParser.tab.c"
     break;
 
   case 51:
-#line 131 "lrParser.y"
+#line 133 "lrParser.y"
          { (yyval.sValue) = ""; }
-#line 1991 "lrParser.tab.c"
+#line 1993 "lrParser.tab.c"
     break;
 
   case 52:
-#line 134 "lrParser.y"
+#line 136 "lrParser.y"
                       { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 1997 "lrParser.tab.c"
+#line 1999 "lrParser.tab.c"
     break;
 
   case 53:
-#line 135 "lrParser.y"
+#line 137 "lrParser.y"
                                { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), ",", (yyvsp[0].sValue)); }
-#line 2003 "lrParser.tab.c"
+#line 2005 "lrParser.tab.c"
     break;
 
   case 54:
-#line 136 "lrParser.y"
+#line 138 "lrParser.y"
          { (yyval.sValue) = ""; }
-#line 2009 "lrParser.tab.c"
+#line 2011 "lrParser.tab.c"
     break;
 
   case 55:
-#line 139 "lrParser.y"
+#line 141 "lrParser.y"
                                                                                                  { (yyval.sValue) = concat(5, "if (", (yyvsp[-3].sValue), ")", (yyvsp[-1].sValue), ";"); }
-#line 2015 "lrParser.tab.c"
+#line 2017 "lrParser.tab.c"
     break;
 
   case 56:
-#line 140 "lrParser.y"
+#line 142 "lrParser.y"
                                                                                  { (yyval.sValue) = concat(7, "if (", (yyvsp[-4].sValue), ") ", (yyvsp[-2].sValue), " else" , (yyvsp[0].sValue), ";"); }
-#line 2021 "lrParser.tab.c"
+#line 2023 "lrParser.tab.c"
     break;
 
   case 57:
-#line 143 "lrParser.y"
+#line 145 "lrParser.y"
                                { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2027 "lrParser.tab.c"
+#line 2029 "lrParser.tab.c"
     break;
 
   case 58:
-#line 144 "lrParser.y"
+#line 146 "lrParser.y"
                       { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2033 "lrParser.tab.c"
+#line 2035 "lrParser.tab.c"
     break;
 
   case 59:
-#line 145 "lrParser.y"
+#line 147 "lrParser.y"
                  { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2039 "lrParser.tab.c"
+#line 2041 "lrParser.tab.c"
     break;
 
   case 60:
-#line 148 "lrParser.y"
+#line 150 "lrParser.y"
                                                                                                                                                      { (yyval.sValue) = concat(11, "for (", (yyvsp[-9].sValue), (yyvsp[-8].sValue), (yyvsp[-7].iValue), (yyvsp[-6].sValue), ";", (yyvsp[-4].sValue), ";", (yyvsp[-2].sValue), ")", (yyvsp[0].sValue)); }
-#line 2045 "lrParser.tab.c"
+#line 2047 "lrParser.tab.c"
     break;
 
   case 61:
-#line 151 "lrParser.y"
+#line 153 "lrParser.y"
                                                                                                { (yyval.sValue) = "problema"; }
-#line 2051 "lrParser.tab.c"
+#line 2053 "lrParser.tab.c"
     break;
 
   case 62:
-#line 154 "lrParser.y"
+#line 156 "lrParser.y"
                                                                               { (yyval.sValue) = concat(4, "while (", (yyvsp[-2].sValue), ")", (yyvsp[0].sValue)); }
-#line 2057 "lrParser.tab.c"
+#line 2059 "lrParser.tab.c"
     break;
 
   case 63:
-#line 157 "lrParser.y"
+#line 159 "lrParser.y"
                                               { (yyval.sValue) = concat(3, "return ", (yyvsp[-1].sValue), ";"); }
-#line 2063 "lrParser.tab.c"
+#line 2065 "lrParser.tab.c"
     break;
 
   case 64:
-#line 158 "lrParser.y"
+#line 160 "lrParser.y"
                           { (yyval.sValue) = "break;"; }
-#line 2069 "lrParser.tab.c"
+#line 2071 "lrParser.tab.c"
     break;
 
   case 65:
-#line 159 "lrParser.y"
+#line 161 "lrParser.y"
                              { (yyval.sValue) = "continue;"; }
-#line 2075 "lrParser.tab.c"
+#line 2077 "lrParser.tab.c"
     break;
 
   case 66:
-#line 162 "lrParser.y"
+#line 164 "lrParser.y"
                                                                                { (yyval.sValue) = "problema"; }
-#line 2081 "lrParser.tab.c"
+#line 2083 "lrParser.tab.c"
     break;
 
   case 67:
-#line 163 "lrParser.y"
+#line 165 "lrParser.y"
                                                                      { (yyval.sValue) = "problema"; }
-#line 2087 "lrParser.tab.c"
+#line 2089 "lrParser.tab.c"
     break;
 
   case 68:
-#line 166 "lrParser.y"
+#line 168 "lrParser.y"
                               { (yyval.sValue) = "="; }
-#line 2093 "lrParser.tab.c"
+#line 2095 "lrParser.tab.c"
     break;
 
   case 69:
-#line 167 "lrParser.y"
+#line 169 "lrParser.y"
               { (yyval.sValue) = "+="; }
-#line 2099 "lrParser.tab.c"
+#line 2101 "lrParser.tab.c"
     break;
 
   case 70:
-#line 168 "lrParser.y"
+#line 170 "lrParser.y"
               { (yyval.sValue) = "-="; }
-#line 2105 "lrParser.tab.c"
+#line 2107 "lrParser.tab.c"
     break;
 
   case 71:
-#line 169 "lrParser.y"
+#line 171 "lrParser.y"
                { (yyval.sValue) = "*="; }
-#line 2111 "lrParser.tab.c"
+#line 2113 "lrParser.tab.c"
     break;
 
   case 72:
-#line 170 "lrParser.y"
+#line 172 "lrParser.y"
               { (yyval.sValue) = "/="; }
-#line 2117 "lrParser.tab.c"
+#line 2119 "lrParser.tab.c"
     break;
 
   case 73:
-#line 171 "lrParser.y"
+#line 173 "lrParser.y"
                     { (yyval.sValue) = "problema"; }
-#line 2123 "lrParser.tab.c"
+#line 2125 "lrParser.tab.c"
     break;
 
   case 74:
-#line 172 "lrParser.y"
+#line 174 "lrParser.y"
                            { (yyval.sValue) = "problema"; }
-#line 2129 "lrParser.tab.c"
+#line 2131 "lrParser.tab.c"
     break;
 
   case 75:
-#line 175 "lrParser.y"
+#line 177 "lrParser.y"
                                                 { (yyval.sValue) = concat(2, (yyvsp[-1].sValue), (yyvsp[0].sValue)); }
-#line 2135 "lrParser.tab.c"
+#line 2137 "lrParser.tab.c"
     break;
 
   case 76:
-#line 176 "lrParser.y"
+#line 178 "lrParser.y"
                                                           { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2141 "lrParser.tab.c"
+#line 2143 "lrParser.tab.c"
     break;
 
   case 77:
-#line 177 "lrParser.y"
+#line 179 "lrParser.y"
                                                 { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2147 "lrParser.tab.c"
+#line 2149 "lrParser.tab.c"
     break;
 
   case 78:
-#line 178 "lrParser.y"
+#line 180 "lrParser.y"
                                                 { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2153 "lrParser.tab.c"
+#line 2155 "lrParser.tab.c"
     break;
 
   case 79:
-#line 179 "lrParser.y"
+#line 181 "lrParser.y"
                                                       { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2159 "lrParser.tab.c"
+#line 2161 "lrParser.tab.c"
     break;
 
   case 80:
-#line 180 "lrParser.y"
+#line 182 "lrParser.y"
                                                 { (yyval.sValue) = (yyvsp[0].sValue); }
-#line 2165 "lrParser.tab.c"
+#line 2167 "lrParser.tab.c"
     break;
 
   case 81:
-#line 181 "lrParser.y"
+#line 183 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, "(", (yyvsp[-1].sValue), ")"); }
-#line 2171 "lrParser.tab.c"
+#line 2173 "lrParser.tab.c"
     break;
 
   case 82:
-#line 182 "lrParser.y"
+#line 184 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "||", (yyvsp[0].sValue)); }
-#line 2177 "lrParser.tab.c"
+#line 2179 "lrParser.tab.c"
     break;
 
   case 83:
-#line 183 "lrParser.y"
+#line 185 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "&&", (yyvsp[0].sValue)); }
-#line 2183 "lrParser.tab.c"
+#line 2185 "lrParser.tab.c"
     break;
 
   case 84:
-#line 184 "lrParser.y"
+#line 186 "lrParser.y"
                                                 { (yyval.sValue) = concat(2, "!", (yyvsp[0].sValue)); }
-#line 2189 "lrParser.tab.c"
+#line 2191 "lrParser.tab.c"
     break;
 
   case 85:
-#line 185 "lrParser.y"
+#line 187 "lrParser.y"
                                                 { (yyval.sValue) = concat(2, "-", (yyvsp[0].sValue)); }
-#line 2195 "lrParser.tab.c"
+#line 2197 "lrParser.tab.c"
     break;
 
   case 86:
-#line 186 "lrParser.y"
+#line 188 "lrParser.y"
                                                 { (yyval.sValue) = concat(2, "+", (yyvsp[0].sValue)); }
-#line 2201 "lrParser.tab.c"
+#line 2203 "lrParser.tab.c"
     break;
 
   case 87:
-#line 187 "lrParser.y"
+#line 189 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "-", (yyvsp[0].sValue)); }
-#line 2207 "lrParser.tab.c"
+#line 2209 "lrParser.tab.c"
     break;
 
   case 88:
-#line 188 "lrParser.y"
+#line 190 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "+", (yyvsp[0].sValue)); }
-#line 2213 "lrParser.tab.c"
+#line 2215 "lrParser.tab.c"
     break;
 
   case 89:
-#line 189 "lrParser.y"
+#line 191 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "problema", (yyvsp[0].sValue)); }
-#line 2219 "lrParser.tab.c"
+#line 2221 "lrParser.tab.c"
     break;
 
   case 90:
-#line 190 "lrParser.y"
+#line 192 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "problema", (yyvsp[0].sValue)); }
-#line 2225 "lrParser.tab.c"
+#line 2227 "lrParser.tab.c"
     break;
 
   case 91:
-#line 191 "lrParser.y"
+#line 193 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "*", (yyvsp[0].sValue)); }
-#line 2231 "lrParser.tab.c"
+#line 2233 "lrParser.tab.c"
     break;
 
   case 92:
-#line 192 "lrParser.y"
+#line 194 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "/", (yyvsp[0].sValue)); }
-#line 2237 "lrParser.tab.c"
+#line 2239 "lrParser.tab.c"
     break;
 
   case 93:
-#line 193 "lrParser.y"
+#line 195 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "%", (yyvsp[0].sValue)); }
-#line 2243 "lrParser.tab.c"
+#line 2245 "lrParser.tab.c"
     break;
 
   case 94:
-#line 194 "lrParser.y"
+#line 196 "lrParser.y"
                                                 { (yyval.sValue) = concat(5, "pow(", (yyvsp[-2].sValue), ",", (yyvsp[0].sValue), ")"); }
-#line 2249 "lrParser.tab.c"
+#line 2251 "lrParser.tab.c"
     break;
 
   case 95:
-#line 195 "lrParser.y"
+#line 197 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "!=", (yyvsp[0].sValue)); }
-#line 2255 "lrParser.tab.c"
+#line 2257 "lrParser.tab.c"
     break;
 
   case 96:
-#line 196 "lrParser.y"
+#line 198 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "==", (yyvsp[0].sValue)); }
-#line 2261 "lrParser.tab.c"
+#line 2263 "lrParser.tab.c"
     break;
 
   case 97:
-#line 197 "lrParser.y"
+#line 199 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), ">=", (yyvsp[0].sValue)); }
-#line 2267 "lrParser.tab.c"
+#line 2269 "lrParser.tab.c"
     break;
 
   case 98:
-#line 198 "lrParser.y"
+#line 200 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "<=", (yyvsp[0].sValue)); }
-#line 2273 "lrParser.tab.c"
+#line 2275 "lrParser.tab.c"
     break;
 
   case 99:
-#line 199 "lrParser.y"
+#line 201 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), ">", (yyvsp[0].sValue)); }
-#line 2279 "lrParser.tab.c"
+#line 2281 "lrParser.tab.c"
     break;
 
   case 100:
-#line 200 "lrParser.y"
+#line 202 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, (yyvsp[-2].sValue), "<", (yyvsp[0].sValue)); }
-#line 2285 "lrParser.tab.c"
+#line 2287 "lrParser.tab.c"
     break;
 
   case 101:
-#line 203 "lrParser.y"
+#line 205 "lrParser.y"
                                                 { (yyval.sValue) = ""; }
-#line 2291 "lrParser.tab.c"
+#line 2293 "lrParser.tab.c"
     break;
 
   case 102:
-#line 204 "lrParser.y"
+#line 206 "lrParser.y"
                                                 { (yyval.sValue) = concat(2, ".", (yyvsp[0].sValue)); }
-#line 2297 "lrParser.tab.c"
+#line 2299 "lrParser.tab.c"
     break;
 
   case 103:
-#line 205 "lrParser.y"
+#line 207 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, "[", (yyvsp[-1].sValue), "]"); }
-#line 2303 "lrParser.tab.c"
+#line 2305 "lrParser.tab.c"
     break;
 
   case 104:
-#line 206 "lrParser.y"
+#line 208 "lrParser.y"
                                                 { (yyval.sValue) = concat(3, "(", (yyvsp[-1].sValue), ")"); }
-#line 2309 "lrParser.tab.c"
+#line 2311 "lrParser.tab.c"
     break;
 
 
-#line 2313 "lrParser.tab.c"
+#line 2315 "lrParser.tab.c"
 
       default: break;
     }
@@ -2541,7 +2543,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 208 "lrParser.y"
+#line 210 "lrParser.y"
 
 
 char* updateFunctionName(char* functionName){
@@ -2550,6 +2552,35 @@ char* updateFunctionName(char* functionName){
   }
 
   return functionName;
+}
+
+void append(char subject[], const char insert[], int pos) {
+    char buf[500] = {}; 
+    strncpy(buf, subject, pos); 
+    int len = strlen(buf);
+    strcpy(buf+len, insert); 
+    len += strlen(insert);  
+    strcpy(buf+len, subject+pos); 
+    strcpy(subject, buf);  
+}
+
+void print_code(char code[]) {
+    char * pch;
+    pch=strchr(code,'{');
+    while (pch!=NULL)
+    {
+      append(code, "\n", pch-code+1);
+      pch=strchr(pch+1,'{');
+    }
+
+    char * pchx;
+    pchx=strchr(code,';');
+    while (pchx!=NULL)
+    {
+      append(code, "\n", pchx-code+1);
+      pchx=strchr(pchx+1,';');
+    }
+   printf("%s\n", code);
 }
 
 char* concat(int arg_count, ...){
@@ -2561,14 +2592,16 @@ char* concat(int arg_count, ...){
     start = va_arg(ap_count, char*);
     int size = strlen(start);
     for (int i = 2; i <= arg_count; i++) {
-        char* tmp;
-        tmp = va_arg(ap_count, char*);
-        size += strlen(tmp);
+      char* tmp;
+      tmp = va_arg(ap_count, char*);
+      size += strlen(tmp);
     }
     va_end(ap_count);
     
+    int real_size = sizeof(char)*size*2;
+    
     char* result;
-    result = (char*) malloc(sizeof(char)*size*2);
+    result = (char*) malloc(real_size);
     result[0]='\0';
     char* begin;
     begin = va_arg(ap, char*);
@@ -2576,8 +2609,9 @@ char* concat(int arg_count, ...){
     strcat(result, begin);
 
     for (int i = 2; i <= arg_count; i++) {
-        char* tmp;
-        tmp = va_arg(ap, char*);
+        char tmp [real_size];
+        strcpy(tmp, va_arg(ap, char*));
+
         strcat(result, " ");
         strcat(result, tmp);
     }

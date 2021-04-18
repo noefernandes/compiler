@@ -4,3 +4,10 @@ def inteiro programa(){
 
   retorne 0;
 }
+
+def inteiro top(){
+
+  inteiro x;
+
+  retorne 0;
+}

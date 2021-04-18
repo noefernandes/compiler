@@ -6,6 +6,8 @@
   #include <stdarg.h>
 
   char* concat(int arg_count, ...);
+  void print_code(char subject[]);
+  void append(char subject[], const char insert[], int pos);
   char* updateFunctionName(char* functionName);
   void yyerror (char const *);
 %}
@@ -37,7 +39,7 @@
 
 %%
 
-PROGRAM: DEF PROGRAM eof                         { printf("%s%s\n", $2, $1); }
+PROGRAM: DEF PROGRAM eof                         { print_code($1);}//printf(">%s %s", $2, $1); }
 | %empty { $$ = ""; }
 ;
 
@@ -50,7 +52,7 @@ DEFINICAO_REGISTRO: key_deftipo key_register id chaves_esquerda LISTA_ATRIBUTOS 
 ;
 
 LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO_INICIALIZACAO { $$ = $1; }
-| INSTRUCAO_DECLARACAO_INICIALIZACAO LISTA_ATRIBUTOS { $$ = concat(3, $1, "\n", $2); }
+| INSTRUCAO_DECLARACAO_INICIALIZACAO LISTA_ATRIBUTOS { $$ = concat(2, $1, $2); }
 ;
 
 DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO { $$ = concat(6, $1, updateFunctionName($2), "(", $4, ")", $6); }
@@ -82,15 +84,15 @@ TIPO_NUMERICO: key_int { $$ = "int"; }
 | key_bool { $$ = "int"; }
 ;
 
-TIPO_ESTRUTURADO: key_set TIPO { $$ = concat(2, $2, "[]"); }
+TIPO_ESTRUTURADO: key_set TIPO { $$ = $2; }
 | key_register id { $$ = concat(2, "struct ", $2); }
-| key_vetor TIPO colchetes_esquerda colchetes_direita { $$ = concat(2, $2, "[]"); }
+| key_vetor TIPO colchetes_esquerda colchetes_direita { $$ = concat(2, $1, "[]"); }
 ;
 
 BLOCO: chaves_esquerda INSTRUCOES chaves_direita { $$ = concat(3, "{", $2, "}"); }
 ;
 
-INSTRUCOES: INSTRUCAO { $$ = concat(2, $1, "\n"); }
+INSTRUCOES: INSTRUCAO { $$ = concat(1, $1); }
 | INSTRUCAO INSTRUCOES { $$ = concat(2, $1, $2); }
 ;
 
@@ -109,7 +111,7 @@ INSTRUCAO_DECLARACAO_INICIALIZACAO: TIPO LISTA_IDENTIFICADORES ponto_virgula { $
 ;
 
 INSTRUCAO_DECLARACAO_INICIALIZACAO_2: LISTA_EXPRESSOES { $$ = $1; }
-| colchetes_esquerda LISTA_EXPRESSOES colchetes_direita { $$ = concat(3, "{", $2, "}"); }
+| colchetes_esquerda LISTA_EXPRESSOES colchetes_direita { $$ = concat(3, "[", $2, "]"); }
 ;
 
 LISTA_IDENTIFICADORES: id { $$ = $1; }
@@ -215,6 +217,35 @@ char* updateFunctionName(char* functionName){
   return functionName;
 }
 
+void append(char subject[], const char insert[], int pos) {
+    char buf[500] = {}; 
+    strncpy(buf, subject, pos); 
+    int len = strlen(buf);
+    strcpy(buf+len, insert); 
+    len += strlen(insert);  
+    strcpy(buf+len, subject+pos); 
+    strcpy(subject, buf);  
+}
+
+void print_code(char code[]) {
+    char * pch;
+    pch=strchr(code,'{');
+    while (pch!=NULL)
+    {
+      append(code, "\n", pch-code+1);
+      pch=strchr(pch+1,'{');
+    }
+
+    char * pchx;
+    pchx=strchr(code,';');
+    while (pchx!=NULL)
+    {
+      append(code, "\n", pchx-code+1);
+      pchx=strchr(pchx+1,';');
+    }
+   printf("%s\n", code);
+}
+
 char* concat(int arg_count, ...){
 	  va_list ap, ap_count;
     va_start(ap, arg_count);
@@ -224,14 +255,16 @@ char* concat(int arg_count, ...){
     start = va_arg(ap_count, char*);
     int size = strlen(start);
     for (int i = 2; i <= arg_count; i++) {
-        char* tmp;
-        tmp = va_arg(ap_count, char*);
-        size += strlen(tmp);
+      char* tmp;
+      tmp = va_arg(ap_count, char*);
+      size += strlen(tmp);
     }
     va_end(ap_count);
     
+    int real_size = sizeof(char)*size*2;
+    
     char* result;
-    result = (char*) malloc(sizeof(char)*size*2);
+    result = (char*) malloc(real_size);
     result[0]='\0';
     char* begin;
     begin = va_arg(ap, char*);
@@ -239,8 +272,9 @@ char* concat(int arg_count, ...){
     strcat(result, begin);
 
     for (int i = 2; i <= arg_count; i++) {
-        char* tmp;
-        tmp = va_arg(ap, char*);
+        char tmp [real_size];
+        strcpy(tmp, va_arg(ap, char*));
+
         strcat(result, " ");
         strcat(result, tmp);
     }
@@ -250,5 +284,5 @@ char* concat(int arg_count, ...){
 }
 
 void yyerror(char const *s) {
-  fprintf(stderr, "%s\n", s);
+  fprintf(stderr, "%s", s);
 }

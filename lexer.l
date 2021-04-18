@@ -24,8 +24,6 @@ INT         [0]|[1-9][0-9]*
 REAL        [0-9]+"."[0-9]*
 CARACTERE   '[ -~]'
 STRING      \"(?:[^"\\]|\\.)*\"
-OP          [-+*/^%=]
-BOOL 	    verdadeiro|falso
  
 %%
    /* Any indented text before the first rule goes at the top of the lexer.  */
@@ -100,7 +98,8 @@ deftipo			{return key_deftipo;}
 vetor       		{return key_vetor;}
 paraconj   		{return key_for_set;}
 
-{BOOL}      {yylval.sValue = strdup(yytext); return booleano;}
+verdadeiro  {yylval.sValue = "1"; return booleano;}
+falso       {yylval.sValue = "0"; return booleano;}
 {INT}       {yylval.sValue = strdup(yytext); return inteiro;}
 {REAL}      {yylval.sValue = strdup(yytext); return real;}
 {CARACTERE} {yylval.sValue = strdup(yytext); return caractere;}

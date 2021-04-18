@@ -37,7 +37,7 @@
 
 %%
 
-PROGRAM: DEF PROGRAM eof                         { printf("%s%s", $2, $1); }
+PROGRAM: DEF PROGRAM eof                         { printf("%s%s\n", $2, $1); }
 | %empty { $$ = ""; }
 ;
 
@@ -231,15 +231,17 @@ char* concat(int arg_count, ...){
     va_end(ap_count);
     
     char* result;
-    result = (char*) malloc(sizeof(char)*size+1);
+    result = (char*) malloc(sizeof(char)*size*2);
     result[0]='\0';
     char* begin;
     begin = va_arg(ap, char*);
+    strcat(result, " ");
     strcat(result, begin);
-    
+
     for (int i = 2; i <= arg_count; i++) {
         char* tmp;
         tmp = va_arg(ap, char*);
+        strcat(result, " ");
         strcat(result, tmp);
     }
 

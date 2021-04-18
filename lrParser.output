@@ -55,7 +55,6 @@ Terminais sem uso na gramática
     TDefinicaoRegistro
     TListaAtributos
     TListaAtributos2
-    real
 
 
 Gramática
@@ -168,7 +167,7 @@ Gramática
 
    74 EXP: id EXP_ID
    75    | inteiro
-   76    | key_real
+   76    | real
    77    | caractere
    78    | palavra
    79    | booleano
@@ -246,7 +245,7 @@ Terminais, com as regras onde eles aparecem
     key_string <iValue> (298) 20
     key_if <iValue> (299) 54 55
     key_else <iValue> (300) 55
-    key_real <iValue> (301) 22 76
+    key_real <iValue> (301) 22
     key_register <iValue> (302) 6 25
     key_return <iValue> (303) 62
     key_return_nothing <iValue> (304) 14
@@ -315,7 +314,7 @@ Terminais, com as regras onde eles aparecem
     TListaAtributos2 <iValue> (367)
     booleano <sValue> (368) 79
     inteiro <sValue> (369) 75
-    real <sValue> (370)
+    real <sValue> (370) 76
     caractere <sValue> (371) 77
     palavra <sValue> (372) 78
     id <sValue> (373) 6 9 15 25 39 42 43 44 47 49 59 60 65 74 101
@@ -635,9 +634,9 @@ Estado 18
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -947,9 +946,9 @@ Estado 46
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -965,9 +964,9 @@ Estado 47
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1016,9 +1015,9 @@ Estado 52
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1041,9 +1040,9 @@ Estado 54
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1059,9 +1058,9 @@ Estado 55
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1077,9 +1076,9 @@ Estado 56
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1095,9 +1094,9 @@ Estado 57
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1107,23 +1106,23 @@ Estado 57
 
 Estado 58
 
-   76 EXP: key_real .
-
-    $padrão  reduzir usando a regra 76 (EXP)
-
-
-Estado 59
-
    79 EXP: booleano .
 
     $padrão  reduzir usando a regra 79 (EXP)
 
 
-Estado 60
+Estado 59
 
    75 EXP: inteiro .
 
     $padrão  reduzir usando a regra 75 (EXP)
+
+
+Estado 60
+
+   76 EXP: real .
+
+    $padrão  reduzir usando a regra 76 (EXP)
 
 
 Estado 61
@@ -1289,9 +1288,9 @@ Estado 72
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1317,9 +1316,9 @@ Estado 74
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1698,9 +1697,9 @@ Estado 95
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1723,9 +1722,9 @@ Estado 97
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1748,9 +1747,9 @@ Estado 99
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1766,9 +1765,9 @@ Estado 100
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1784,9 +1783,9 @@ Estado 101
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1802,9 +1801,9 @@ Estado 102
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1820,9 +1819,9 @@ Estado 103
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1838,9 +1837,9 @@ Estado 104
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1856,9 +1855,9 @@ Estado 105
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1874,9 +1873,9 @@ Estado 106
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1892,9 +1891,9 @@ Estado 107
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1910,9 +1909,9 @@ Estado 108
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1928,9 +1927,9 @@ Estado 109
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1946,9 +1945,9 @@ Estado 110
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1964,9 +1963,9 @@ Estado 111
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -1982,9 +1981,9 @@ Estado 112
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -2000,9 +1999,9 @@ Estado 113
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -2018,9 +2017,9 @@ Estado 114
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -2215,9 +2214,9 @@ Estado 131
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -2249,10 +2248,10 @@ Estado 134
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
     colchetes_esquerda   deslocar, e ir ao estado 172
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -2362,9 +2361,9 @@ Estado 142
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -3090,9 +3089,9 @@ Estado 167
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -3175,9 +3174,9 @@ Estado 172
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -3246,9 +3245,9 @@ Estado 179
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -3402,9 +3401,9 @@ Estado 192
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63
@@ -3652,9 +3651,9 @@ Estado 204
     parenteses_esquerda  deslocar, e ir ao estado 55
     op_sum               deslocar, e ir ao estado 56
     op_sub               deslocar, e ir ao estado 57
-    key_real             deslocar, e ir ao estado 58
-    booleano             deslocar, e ir ao estado 59
-    inteiro              deslocar, e ir ao estado 60
+    booleano             deslocar, e ir ao estado 58
+    inteiro              deslocar, e ir ao estado 59
+    real                 deslocar, e ir ao estado 60
     caractere            deslocar, e ir ao estado 61
     palavra              deslocar, e ir ao estado 62
     id                   deslocar, e ir ao estado 63

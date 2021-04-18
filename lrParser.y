@@ -6,6 +6,7 @@
   #include <stdarg.h>
 
   char* concat(int arg_count, ...);
+  char* updateFunctionName(char* functionName);
   void yyerror (char const *);
 %}
 
@@ -52,7 +53,7 @@ LISTA_ATRIBUTOS: INSTRUCAO_DECLARACAO_INICIALIZACAO { $$ = $1; }
 | INSTRUCAO_DECLARACAO_INICIALIZACAO LISTA_ATRIBUTOS { $$ = concat(3, $1, "\n", $2); }
 ;
 
-DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO { $$ = concat(6, $1, $2, "(", $4, ")", $6); }
+DEFINICAO_FUNCAO: TIPO_FUNCAO id parenteses_esquerda LISTA_PARAMETROS_FUNCAO parenteses_direita BLOCO { $$ = concat(6, $1, updateFunctionName($2), "(", $4, ")", $6); }
 ;
 
 LISTA_PARAMETROS_FUNCAO: PARAMETRO_FUNCAO { $$ = $1; }
@@ -172,10 +173,10 @@ OPERADORES_ATRIBUICAO: assign { $$ = "="; }
 ;
 
 EXP: id EXP_ID                                  { $$ = concat(2, $1, $2); }
-| inteiro                                  		{ $$ = $1; }
-| real                                      { $$ = $1; }
+| inteiro                                  		  { $$ = $1; }
+| real                                          { $$ = $1; }
 | caractere                                     { $$ = $1; }
-| palavra	                                    { $$ = $1; }
+| palavra	                                      { $$ = $1; }
 | booleano                                      { $$ = $1; }
 | parenteses_esquerda EXP parenteses_direita    { $$ = concat(3, "(", $2, ")"); }
 | EXP op_or EXP                                 { $$ = concat(3, $1, "||", $3); }
@@ -205,6 +206,14 @@ EXP_ID: %empty                                  { $$ = ""; }
 | parenteses_esquerda EXP parenteses_direita    { $$ = concat(3, "(", $2, ")"); }
 
 %%
+
+char* updateFunctionName(char* functionName){
+  if(strcmp(functionName,"programa") == 0){
+    return "main";
+  }
+
+  return functionName;
+}
 
 char* concat(int arg_count, ...){
 	  va_list ap, ap_count;

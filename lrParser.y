@@ -36,8 +36,8 @@
 
 %%
 
-PROGRAM: DEF PROGRAM eof                         { $$ = concat($1, $2); printf("%s", $$); }
-| %empty
+PROGRAM: DEF PROGRAM eof                         { printf("%s%s", $2, $1); }
+| %empty { $$ = ""; }
 ;
 
 DEF: key_def DEFINICAO_FUNCAO
@@ -173,11 +173,11 @@ OPERADORES_ATRIBUICAO: assign
 
 EXP: id EXP_ID                                  { $$ = concat(2, $1, $2); }
 | inteiro                                  		{ $$ = $1; }
-| key_real                                      { $$ = $1; }
+| real                                      { $$ = $1; }
 | caractere                                     { $$ = $1; }
 | palavra	                                    { $$ = $1; }
 | booleano                                      { $$ = $1; }
-| parenteses_esquerda EXP parenteses_direita    { $$ = concat(3, "{", $2, "}"); }
+| parenteses_esquerda EXP parenteses_direita    { $$ = concat(3, "(", $2, ")"); }
 | EXP op_or EXP                                 { $$ = concat(3, $1, "||", $3); }
 | EXP op_and EXP                                { $$ = concat(3, $1, "&&", $3); }
 | op_not EXP                                    { $$ = concat(2, "!", $2); }
@@ -190,7 +190,7 @@ EXP: id EXP_ID                                  { $$ = concat(2, $1, $2); }
 | EXP op_mult EXP                               { $$ = concat(3, $1, "*", $3); }
 | EXP op_div EXP                                { $$ = concat(3, $1, "/", $3); }
 | EXP op_mod EXP                                { $$ = concat(3, $1, "%", $3); }
-| EXP circunflexo EXP                           { $$ = concat(3, "pow(", $1, ",", $3, ")"); }
+| EXP circunflexo EXP                           { $$ = concat(5, "pow(", $1, ",", $3, ")"); }
 | EXP op_diff EXP                               { $$ = concat(3, $1, "!=", $3); }
 | EXP op_equal EXP                              { $$ = concat(3, $1, "==", $3); }
 | EXP op_gte EXP                                { $$ = concat(3, $1, ">=", $3); }
@@ -207,19 +207,35 @@ EXP_ID: %empty                                  { $$ = ""; }
 %%
 
 char* concat(int arg_count, ...){
-	  va_list ap;
+	  va_list ap, ap_count;
     va_start(ap, arg_count);
+    va_copy(ap_count, ap);
+
+    char* start;
+    start = va_arg(ap_count, char*);
+    int size = strlen(start);
+    for (int i = 2; i <= arg_count; i++) {
+        char* tmp;
+        tmp = va_arg(ap_count, char*);
+        size += strlen(tmp);
+    }
+    va_end(ap_count);
     
-    char* begin = va_arg(ap, char*);
+    char* result;
+    result = (char*) malloc(sizeof(char)*size+1);
+    result[0]='\0';
+    char* begin;
+    begin = va_arg(ap, char*);
+    strcat(result, begin);
     
     for (int i = 2; i <= arg_count; i++) {
         char* tmp;
         tmp = va_arg(ap, char*);
-        strcat(begin, tmp);
+        strcat(result, tmp);
     }
-    
+
     va_end(ap);
-    return begin;
+    return result;
 }
 
 void yyerror(char const *s) {

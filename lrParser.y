@@ -156,7 +156,7 @@ LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula
 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO { $$ = "problema"; }
 ;
 
-LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO {char* label1 = generateLabel(); char* label2 = generateLabel(); $$ = concat(13, "int i = 0;", label1, ":", "if(", $3, "== 0) goto ", label2, ";", $5, "i++;", " goto one;", label2, ":"); }
+LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO {char* label1 = generateLabel(); char* label2 = generateLabel(); $$ = concat(15, "int i = 0;", label1, ":", "if(", $3, "== 0) goto", label2, ";", $5, "i++;", "goto", label1, ";", label2, ":"); }
 ;
 
 INSTRUCAO_SAIDA: key_return EXP ponto_virgula { $$ = concat(3, "return ", $2, ";"); }
@@ -287,19 +287,12 @@ char* concat(int arg_count, ...){
 char* generateLabel(){
   extern int labelCounter;
   labelCounter++;
-  
   char str[10];
-
   sprintf(str, "%d", labelCounter);
-
   char str2[20] = "label";
   strcat(str2, str);
-
   char* response = malloc(sizeof(char)*20);
-
   strcpy(response, str2); 
-
-  printf("%s", response);
   
   return response;
 }

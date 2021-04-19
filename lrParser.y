@@ -18,10 +18,13 @@
   void append(char subject[], const char insert[], int pos);
   char* updateFunctionName(char* functionName);
   void yyerror (char const *);
+
   int intersect_counter = 0;
   bool has_intersect_func = F;
   int union_counter = 0;
   bool has_union_func = F;
+  char* generateLabel();
+  int labelCounter = 0;
 %}
 
 %union{
@@ -159,13 +162,13 @@ INSTRUCAO_REPETICAO: LACO_PARA { $$ = $1; }
 |  LACO_ENQUANTO { $$ = $1; }
 ;
 
-LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO { $$ = concat(11, "for (", $3, $4, "=", $6, ";", $8, ";", $10, ")", $12); }
+LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO { char* label1 = generateLabel(); char* label2 = generateLabel(); $$ = concat(22, $3, $4, "=", $6, ";", label1, ":", "if(", "(", $8, ")", "== 0) goto", label2, ";", $12, $10, ";", "goto", label1, ";", label2, ":"); }
 ;
 
 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO { $$ = "problema"; }
 ;
 
-LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO { $$ = concat(4, "while (", $3, ")", $5); }
+LACO_ENQUANTO: key_while parenteses_esquerda EXP parenteses_direita INSTRUCAO {char* label1 = generateLabel(); char* label2 = generateLabel(); $$ = concat(17, "int i = 0;", label1, ":", "if(", "(", $3, ")", "== 0) goto", label2, ";", $5, "i++;", "goto", label1, ";", label2, ":"); }
 ;
 
 INSTRUCAO_SAIDA: key_return EXP ponto_virgula { $$ = concat(3, "return ", $2, ";"); }
@@ -230,7 +233,7 @@ char* updateFunctionName(char* functionName){
 }
 
 void append(char subject[], const char insert[], int pos) {
-    char buf[1000] = {}; 
+    char buf[4000] = {}; 
     strncpy(buf, subject, pos); 
     int len = strlen(buf);
     strcpy(buf+len, insert); 
@@ -330,6 +333,20 @@ char* concat(int arg_count, ...){
     va_end(ap);
     return result;
 }
+
+char* generateLabel(){
+  extern int labelCounter;
+  labelCounter++;
+  char str[10];
+  sprintf(str, "%d", labelCounter);
+  char str2[20] = "label";
+  strcat(str2, str);
+  char* response = malloc(sizeof(char)*30);
+  strcpy(response, str2); 
+  
+  return response;
+}
+
 
 void yyerror(char const *s) {
   fprintf(stderr, "%s\n", s);

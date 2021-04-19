@@ -150,7 +150,7 @@ INSTRUCAO_REPETICAO: LACO_PARA { $$ = $1; }
 |  LACO_ENQUANTO { $$ = $1; }
 ;
 
-LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO { char* label1 = generateLabel(); char* label2 = generateLabel(); $$ = concat(21, $3, $4, "=", $6, ";", label1, ":", "if(", "(", $8, ")", "== 0) goto", label2, ";", $10, ";", "goto", label1, ";", label2, ":"); }
+LACO_PARA: key_for parenteses_esquerda TIPO_NUMERICO id assign EXP ponto_virgula EXP ponto_virgula INSTRUCAO_CHAMADA_ID parenteses_direita INSTRUCAO { char* label1 = generateLabel(); char* label2 = generateLabel(); $$ = concat(22, $3, $4, "=", $6, ";", label1, ":", "if(", "(", $8, ")", "== 0) goto", label2, ";", $12, $10, ";", "goto", label1, ";", label2, ":"); }
 ;
 
 LACO_PARA_CONJUNTO: key_for_set parenteses_esquerda id key_in EXP parenteses_direita INSTRUCAO { $$ = "problema"; }
@@ -221,7 +221,7 @@ char* updateFunctionName(char* functionName){
 }
 
 void append(char subject[], const char insert[], int pos) {
-    char buf[1000] = {}; 
+    char buf[4000] = {}; 
     strncpy(buf, subject, pos); 
     int len = strlen(buf);
     strcpy(buf+len, insert); 
@@ -291,7 +291,7 @@ char* generateLabel(){
   sprintf(str, "%d", labelCounter);
   char str2[20] = "label";
   strcat(str2, str);
-  char* response = malloc(sizeof(char)*20);
+  char* response = malloc(sizeof(char)*30);
   strcpy(response, str2); 
   
   return response;

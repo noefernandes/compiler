@@ -5,11 +5,23 @@
   #include <string.h>
   #include <stdarg.h>
 
+  typedef enum {
+    F, T
+  }
+  bool;
+  char* paramSetUnionIntersect(char $1[], char $3[], char type[]);
+  char* func_intersection();
+  char* func_union();
+  void break_line(char code[]);
   char* concat(int arg_count, ...);
   void print_code(char subject[]);
   void append(char subject[], const char insert[], int pos);
   char* updateFunctionName(char* functionName);
   void yyerror (char const *);
+  int intersect_counter = 0;
+  bool has_intersect_func = F;
+  int union_counter = 0;
+  bool has_union_func = F;
 %}
 
 %union{
@@ -171,7 +183,7 @@ OPERADORES_ATRIBUICAO: assign { $$ = "="; }
 |  assign_mult { $$ = "*="; }
 |  assign_div { $$ = "/="; }
 |  assign_set_union { $$ = "problema"; }
-|  assign_set_intersection { $$ = "problema"; }
+|  assign_set_intersection { $$ = "problem"; }
 ;
 
 EXP: id EXP_ID                                  { $$ = concat(2, $1, $2); }
@@ -188,8 +200,8 @@ EXP: id EXP_ID                                  { $$ = concat(2, $1, $2); }
 | op_sum EXP                                    { $$ = concat(2, "+", $2); }
 | EXP op_sub EXP                                { $$ = concat(3, $1, "-", $3); }
 | EXP op_sum EXP                                { $$ = concat(3, $1, "+", $3); }
-| EXP set_intersection EXP                      { $$ = concat(3, $1, "problema", $3); }
-| EXP set_union EXP                             { $$ = concat(3, $1, "problema", $3); }
+| EXP set_intersection EXP                      { $$ = concat(1, paramSetUnionIntersect($1, $3, "Intersect")); extern int intersect_counter; intersect_counter +=1;}
+| EXP set_union EXP                             { $$ = concat(1, paramSetUnionIntersect($1, $3, "Union")); extern int union_counter; union_counter +=1;}
 | EXP op_mult EXP                               { $$ = concat(3, $1, "*", $3); }
 | EXP op_div EXP                                { $$ = concat(3, $1, "/", $3); }
 | EXP op_mod EXP                                { $$ = concat(3, $1, "%", $3); }
@@ -227,23 +239,61 @@ void append(char subject[], const char insert[], int pos) {
     strcpy(subject, buf);  
 }
 
-void print_code(char code[]) {
-    char * pch;
-    pch=strchr(code,'{');
-    while (pch!=NULL)
-    {
-      append(code, "\n", pch-code+1);
-      pch=strchr(pch+1,'{');
-    }
+void break_line(char code[]){
+ char * pch;
+  pch=strchr(code,'{');
+  while (pch!=NULL)
+  {
+    append(code, "\n", pch-code+1);
+    pch=strchr(pch+1,'{');
+  }
 
-    char * pchx;
-    pchx=strchr(code,';');
-    while (pchx!=NULL)
-    {
-      append(code, "\n", pchx-code+1);
-      pchx=strchr(pchx+1,';');
+  pch=strchr(code,'}');
+  while (pch!=NULL)
+  {
+    append(code, "\n", pch-code+1);
+    pch=strchr(pch+1,'}');
+  }
+
+  pch=strchr(code,';');
+  while (pch!=NULL)
+  {
+    append(code, "\n", pch-code+1);
+    pch=strchr(pch+1,';');
+  }
+}
+
+void print_code(char code[]) {
+    break_line(code);
+    char* concat_code;
+    concat_code = code;
+    if((!has_intersect_func && intersect_counter > 0) || (!has_union_func && union_counter > 0)){
+      char* funci = func_intersection();
+      char* funcu = func_union();
+      concat_code = (char*) malloc(sizeof(char)*strlen(funci) + sizeof(char)*strlen(funcu) + sizeof(char)*strlen(code));
+      if(!has_intersect_func && intersect_counter > 0){
+        extern bool has_intersect_func; 
+        has_intersect_func = T;
+        
+        strcat(concat_code, funci);
+      }
+      if(!has_union_func && union_counter > 0){
+        extern bool has_union_func; 
+        has_union_func = T;
+        
+        //concat_code = (char*) malloc(sizeof(char)*strlen(func) + sizeof(char)*strlen(code));
+        strcat(concat_code, funcu);
+      }
+      strcat(concat_code, code);
     }
-   printf("%s\n", code);
+    
+   printf("%s\n", concat_code);
+}
+
+char* paramSetUnionIntersect(char $1[], char $3[], char type[]){
+  char* str = malloc(500);
+  strcat(str, "get");strcat(str,type);strcat(str,"(");strcat(str, $1);strcat(str, ",");strcat(str, $3);strcat(str, ",");strcat(str, "sizeof(");strcat(str, $1);strcat(str, ")/sizeof(");strcat(str, $1);strcat(str, "[0]),");strcat(str, "sizeof(");strcat(str, $3);strcat(str, ")/sizeof(");strcat(str, $3);strcat(str, "[0]))");
+  return str;
 }
 
 char* concat(int arg_count, ...){
@@ -283,4 +333,16 @@ char* concat(int arg_count, ...){
 
 void yyerror(char const *s) {
   fprintf(stderr, "%s\n", s);
+}
+
+char* func_intersection()
+{
+    char * func = "int* getIntersection(int arr1[], int arr2[], int m, int n) { int bigger = m > n ? m: n; int *result = malloc(bigger); int i = 0, j = 0, k = 0; while (i < m && j < n) { if (arr1[i] < arr2[j]) i++; else if (arr2[j] < arr1[i]) j++; else { result[k] = arr2[j++]; k++; i++; } } return (result); }\n"; 
+    return func;
+}
+
+char* func_union()
+{
+    char * func = "int* getUnion(int arr1[], int arr2[], int m, int n){ int i = 0, j = 0, k = 0; char* result = malloc(m * n); while (i < m && j < n) { if (arr1[i] < arr2[j]){ result[k] = arr1[i++]; k++; }else if (arr2[j] < arr1[i]){ result[k] = arr2[j++]; k++; }else { result[k] = arr2[j++]; k++; i++; } } while (i < m){ result[k] = arr1[i++]; k++; } while (j < n){ result[k] = arr2[j++]; k++; } return (result);}\n"; 
+    return func;
 }
